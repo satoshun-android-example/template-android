@@ -37,7 +37,6 @@ android {
 
 dependencies {
   implementation(projects.share)
-  implementation(projects.shareUi)
 
   implementation(libs.bundles.android.ui)
   implementation(libs.bundles.kotlin.android)
