@@ -1,5 +1,6 @@
 package io.github.satoshun.example.next
 
+import android.os.Bundle
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideIn
 import androidx.compose.animation.slideOut
@@ -13,40 +14,60 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.IntOffset
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
-import androidx.navigation.navigation
+import androidx.navigation.navArgument
+import io.github.satoshun.example.home.HomeScreen
+import io.github.satoshun.example.home.Screen
 
-fun NavGraphBuilder.addNext(navController: NavHostController) {
-  navigation(route = "next", startDestination = "next1") {
-    composable(
-      "next1",
-      enterTransition = {
-        slideIn(
-          initialOffset = { IntOffset(0, it.height) },
-          animationSpec = tween(2000)
-        )
-      },
-      exitTransition = {
-        slideOut(
-          targetOffset = { IntOffset(0, it.height) },
-          animationSpec = tween(3000)
-        )
-      },
-    ) {
-      Next1()
-    }
+data object NextScreen : Screen<NextScreen.Arguments>(
+  route = "next",
+  navArguments = listOf(navArgument("count") {
+    type = NavType.IntType
+  })
+) {
+  data class Arguments(
+    val count: Int,
+  )
+
+  override fun getArguments(bundle: Bundle?): Arguments =
+    Arguments(count = bundle?.getInt(navArguments[0].name) ?: 0)
+
+  fun createRoute(count: Int) =
+    name.replace("{${HomeScreen.navArguments[0].name}}", count.toString())
+}
+
+fun NavGraphBuilder.addNext() {
+  composable(
+    route = NextScreen.name,
+    arguments = NextScreen.navArguments,
+    enterTransition = {
+      slideIn(
+        initialOffset = { IntOffset(0, it.height) },
+        animationSpec = tween(2000)
+      )
+    },
+    exitTransition = {
+      slideOut(
+        targetOffset = { IntOffset(0, it.height) },
+        animationSpec = tween(3000)
+      )
+    },
+  ) {
+    val arguments = NextScreen.getArguments(it.arguments)
+    Next(arguments)
   }
 }
 
 @Composable
-fun Next1() {
+private fun Next(arguments: NextScreen.Arguments) {
   Scaffold { paddingValues ->
     Column(
       Modifier
         .fillMaxSize()
         .padding(paddingValues)
     ) {
-      Text(text = "Next")
+      Text(text = "Next ${arguments.count}")
     }
   }
 }
