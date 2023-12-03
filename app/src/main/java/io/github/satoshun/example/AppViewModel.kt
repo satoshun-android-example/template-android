@@ -2,13 +2,18 @@ package io.github.satoshun.example
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.satoshun.example.share.network.ExampleService
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class AppViewModel @Inject constructor() : ViewModel() {
+@HiltViewModel(assistedFactory = AppViewModelFactory::class)
+class AppViewModel @AssistedInject constructor(
+  @Assisted val movieId: Int,
+) : ViewModel() {
+
   private val service = ExampleService()
 
   init {
@@ -18,4 +23,9 @@ class AppViewModel @Inject constructor() : ViewModel() {
         .onFailure { println("githubgithub: $it") }
     }
   }
+}
+
+@AssistedFactory
+interface AppViewModelFactory {
+  fun create(movieId: Int): AppViewModel
 }
