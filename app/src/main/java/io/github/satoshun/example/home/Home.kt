@@ -1,46 +1,21 @@
 package io.github.satoshun.example.home
 
-import android.os.Bundle
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavType
-import androidx.navigation.navArgument
-
-data object HomeScreen : Screen<HomeScreen.Arguments>(
-  route = "home",
-  navArguments = listOf(navArgument("count") {
-    type = NavType.IntType
-  })
-) {
-  data class Arguments(
-    val count: Int,
-  )
-
-  override fun getArguments(bundle: Bundle?) =
-    Arguments(count = bundle?.getInt(navArguments[0].name) ?: 0)
-
-  fun createRoute(count: Int) =
-    name.replace("{${navArguments[0].name}}", count.toString())
-}
-
-fun NavGraphBuilder.addHome(
-  onNavigate: () -> Unit,
-) {
-  addScreen(HomeScreen) { arguments ->
-    Home(arguments = arguments, onNavigate = onNavigate)
-  }
-}
+import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 
 @Composable
-private fun Home(
+internal fun Home(
   arguments: HomeScreen.Arguments,
   onNavigate: () -> Unit
 ) {
@@ -51,7 +26,8 @@ private fun Home(
       })
     },
   ) { paddingValues ->
-    LazyColumn(
+    LazyVerticalGrid(
+      columns = GridCells.Adaptive(120.dp),
       modifier = Modifier.fillMaxSize(),
       contentPadding = paddingValues
     ) {
@@ -60,8 +36,11 @@ private fun Home(
           Text(text = "Next")
         }
       }
-      items((1..100).map { it }) {
-        Text(text = "Hello World $it")
+      items((1..500).map { it }) {
+        AsyncImage(
+          model = "https://p-hold.com/400/300?id=$it",
+          contentDescription = null,
+        )
       }
     }
   }
