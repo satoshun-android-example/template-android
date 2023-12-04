@@ -10,7 +10,7 @@ accompanist = "0.32.0"
 agp = "8.2.0"
 ktor = "2.3.6"
 
-dependencyAnalysisPlugin = "1.26.0"
+dependencyAnalysisPlugin = "1.27.0"
 sortDependencies = "0.5"
 
 paparazzi = "1.3.1"
