@@ -8,7 +8,7 @@ composeCompiler = "1.5.4"
 
 accompanist = "0.32.0"
 agp = "8.2.0"
-ktor = "2.3.6"
+ktor = "2.3.7"
 
 dependencyAnalysisPlugin = "1.27.0"
 sortDependencies = "0.5"
