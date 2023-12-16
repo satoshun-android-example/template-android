@@ -13,7 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.IntOffset
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
@@ -22,16 +21,22 @@ import io.github.satoshun.example.home.Screen
 
 data object NextScreen : Screen<NextScreen.Arguments>(
   route = "next",
-  navArguments = listOf(navArgument("count") {
-    type = NavType.IntType
-  })
+  navArguments = listOf(
+    navArgument("count") {
+      type = NavType.IntType
+    },
+    navArgument("user") {
+    },
+  )
 ) {
   data class Arguments(
     val count: Int,
   )
 
   override fun getArguments(bundle: Bundle?): Arguments =
-    Arguments(count = bundle?.getInt(navArguments[0].name) ?: 0)
+    Arguments(
+      count = bundle?.getInt(navArguments[0].name) ?: 0,
+    )
 
   fun createRoute(count: Int) =
     name.replace("{${HomeScreen.navArguments[0].name}}", count.toString())

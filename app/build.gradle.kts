@@ -41,6 +41,8 @@ dependencies {
   implementation(libs.bundles.android.ui)
   implementation(libs.bundles.kotlin.android)
 
+  implementation(libs.kotlinx.serialization)
+
   debugImplementation(libs.bundles.android.debug.test)
   debugImplementation(libs.leakcanary)
 
