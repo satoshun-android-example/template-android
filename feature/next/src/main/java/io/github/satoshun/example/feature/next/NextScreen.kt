@@ -25,20 +25,27 @@ data object NextScreen : Screen<NextScreen.Arguments>(
       type = NavType.IntType
     },
     navArgument("user") {
+      type = NextUserType
     },
   )
 ) {
   data class Arguments(
     val count: Int,
+    val user: NextUser?,
   )
 
   override fun getArguments(bundle: Bundle?): Arguments =
     Arguments(
       count = bundle?.getInt(navArguments[0].name) ?: 0,
+      user = bundle?.getParcelable(navArguments[1].name),
     )
 
-  fun createRoute(count: Int) =
+  fun createRoute(
+    count: Int,
+    user: NextUser,
+  ) =
     name.replace("{${NextScreen.navArguments[0].name}}", count.toString())
+      .replace("{${NextScreen.navArguments[1].name}}", NextUserType.encodeToString(user))
 }
 
 fun NavGraphBuilder.addNext() {
@@ -71,7 +78,8 @@ private fun Next(arguments: NextScreen.Arguments) {
         .fillMaxSize()
         .padding(paddingValues)
     ) {
-      Text(text = "Next ${arguments.count}")
+      Text(text = "Next count ${arguments.count}")
+      Text(text = "Next user ${arguments.user}")
     }
   }
 }

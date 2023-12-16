@@ -8,6 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import io.github.satoshun.example.feature.home.HomeScreen
 import io.github.satoshun.example.feature.home.addHome
 import io.github.satoshun.example.feature.next.NextScreen
+import io.github.satoshun.example.feature.next.NextUser
 import io.github.satoshun.example.feature.next.addNext
 import io.github.satoshun.example.theme.AppTheme
 
@@ -20,7 +21,15 @@ fun AppContent() {
     startDestination = HomeScreen.createRoute(10),
   ) {
     addHome {
-      navController.navigate(NextScreen.createRoute(100))
+      navController.navigate(
+        NextScreen.createRoute(
+          count = 100,
+          user = NextUser(
+            id = 10,
+            name = "satoshun",
+          )
+        )
+      )
     }
     addNext()
   }

@@ -1,4 +1,4 @@
-package io.github.satoshun.example.next
+package io.github.satoshun.example.feature.next
 
 import android.net.Uri
 import android.os.Bundle
