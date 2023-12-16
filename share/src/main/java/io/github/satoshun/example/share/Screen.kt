@@ -1,4 +1,4 @@
-package io.github.satoshun.example.home
+package io.github.satoshun.example.share
 
 import android.os.Bundle
 import androidx.compose.animation.AnimatedContentScope

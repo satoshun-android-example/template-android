@@ -1,4 +1,4 @@
-package io.github.satoshun.example.next
+package io.github.satoshun.example.feature.next
 
 import android.os.Bundle
 import androidx.compose.animation.core.tween
@@ -16,8 +16,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import io.github.satoshun.example.home.HomeScreen
-import io.github.satoshun.example.home.Screen
+import io.github.satoshun.example.share.Screen
 
 data object NextScreen : Screen<NextScreen.Arguments>(
   route = "next",
@@ -39,7 +38,7 @@ data object NextScreen : Screen<NextScreen.Arguments>(
     )
 
   fun createRoute(count: Int) =
-    name.replace("{${HomeScreen.navArguments[0].name}}", count.toString())
+    name.replace("{${NextScreen.navArguments[0].name}}", count.toString())
 }
 
 fun NavGraphBuilder.addNext() {

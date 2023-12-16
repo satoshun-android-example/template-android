@@ -30,6 +30,7 @@ dependencyResolutionManagement {
 rootProject.name = "template-android"
 
 include ':share'
+include ':feature:next'
 include ':preview-screenshots'
 include ':app'
 

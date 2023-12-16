@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
+import io.github.satoshun.example.share.Screen
+import io.github.satoshun.example.share.addScreen
 
 data object HomeScreen : Screen<HomeScreen.Arguments>(
   route = "home",
