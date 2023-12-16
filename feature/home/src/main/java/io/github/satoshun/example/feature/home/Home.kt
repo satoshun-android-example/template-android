@@ -1,4 +1,4 @@
-package io.github.satoshun.example.home
+package io.github.satoshun.example.feature.home
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -38,6 +38,7 @@ internal fun Home(
       }
       items((1..500).map { it }) {
         AsyncImage(
+          modifier = Modifier.height(120.dp),
           model = "https://p-hold.com/400/300?id=$it",
           contentDescription = null,
         )
