@@ -16,6 +16,8 @@ abstract class Screen<Arguments>(
   val navArguments: List<NamedNavArgument> = emptyList(),
   val enterTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition?)? = null,
   val exitTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition?)? = null,
+  val popEnterTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition?)? = enterTransition,
+  val popExitTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition?)? = exitTransition,
 ) {
   val name: String = route.appendArguments(navArguments)
 
@@ -43,6 +45,8 @@ fun <T> NavGraphBuilder.addScreen(
     arguments = screen.navArguments,
     enterTransition = screen.enterTransition,
     exitTransition = screen.exitTransition,
+    popEnterTransition = screen.popEnterTransition,
+    popExitTransition = screen.popExitTransition,
   ) {
     content(it, screen.getArguments(it.arguments))
   }
