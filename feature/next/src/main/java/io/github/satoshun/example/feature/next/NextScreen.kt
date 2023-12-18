@@ -8,21 +8,11 @@ import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideIn
-import androidx.compose.animation.slideOut
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.IntOffset
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
-import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import io.github.satoshun.example.share.Screen
+import io.github.satoshun.example.share.addScreen
 
 data object NextScreen : Screen<NextScreen.Arguments>(
   route = "next",
@@ -33,7 +23,29 @@ data object NextScreen : Screen<NextScreen.Arguments>(
     navArgument("user") {
       type = NextUserType
     },
-  )
+  ),
+  enterTransition = {
+    fadeIn(
+      animationSpec = tween(
+        durationMillis = 500,
+        easing = LinearEasing
+      )
+    ) + slideIntoContainer(
+      animationSpec = tween(500, easing = EaseIn),
+      towards = AnimatedContentTransitionScope.SlideDirection.Start
+    )
+  },
+  exitTransition = {
+    fadeOut(
+      animationSpec = tween(
+        durationMillis = 500,
+        easing = LinearEasing
+      )
+    ) + slideOutOfContainer(
+      animationSpec = tween(500, easing = EaseOut),
+      towards = AnimatedContentTransitionScope.SlideDirection.End
+    )
+  },
 ) {
   data class Arguments(
     val count: Int,
@@ -55,47 +67,7 @@ data object NextScreen : Screen<NextScreen.Arguments>(
 }
 
 fun NavGraphBuilder.addNext() {
-  composable(
-    route = NextScreen.name,
-    arguments = NextScreen.navArguments,
-    enterTransition = {
-      fadeIn(
-        animationSpec = tween(
-          durationMillis = 500,
-          easing = LinearEasing
-        )
-      ) + slideIntoContainer(
-        animationSpec = tween(500, easing = EaseIn),
-        towards = AnimatedContentTransitionScope.SlideDirection.Start
-      )
-    },
-    exitTransition = {
-      fadeOut(
-        animationSpec = tween(
-          durationMillis = 500,
-          easing = LinearEasing
-        )
-      ) + slideOutOfContainer(
-        animationSpec = tween(500, easing = EaseOut),
-        towards = AnimatedContentTransitionScope.SlideDirection.End
-      )
-    },
-  ) {
-    val arguments = NextScreen.getArguments(it.arguments)
+  addScreen(NextScreen) { _, arguments ->
     Next(arguments)
-  }
-}
-
-@Composable
-private fun Next(arguments: NextScreen.Arguments) {
-  Scaffold { paddingValues ->
-    Column(
-      Modifier
-        .fillMaxSize()
-        .padding(paddingValues)
-    ) {
-      Text(text = "Next count ${arguments.count}")
-      Text(text = "Next user ${arguments.user}")
-    }
   }
 }

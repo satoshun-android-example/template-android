@@ -36,14 +36,14 @@ private fun String.appendArguments(navArguments: List<NamedNavArgument>): String
 
 fun <T> NavGraphBuilder.addScreen(
   screen: Screen<T>,
-  content: @Composable AnimatedContentScope.(T) -> Unit,
+  content: @Composable AnimatedContentScope.(NavBackStackEntry, T) -> Unit,
 ) {
   composable(
     route = screen.name,
     arguments = screen.navArguments,
-    enterTransition= screen.enterTransition,
+    enterTransition = screen.enterTransition,
     exitTransition = screen.exitTransition,
   ) {
-    content(screen.getArguments(it.arguments))
+    content(it, screen.getArguments(it.arguments))
   }
 }

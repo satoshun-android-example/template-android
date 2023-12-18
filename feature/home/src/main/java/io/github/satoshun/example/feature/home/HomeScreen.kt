@@ -51,7 +51,7 @@ data object HomeScreen : Screen<HomeScreen.Arguments>(
 fun NavGraphBuilder.addHome(
   onNavigate: () -> Unit,
 ) {
-  addScreen(HomeScreen) { arguments ->
+  addScreen(HomeScreen) { _, arguments ->
     Home(arguments = arguments, onNavigate = onNavigate)
   }
 }
