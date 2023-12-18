@@ -1,7 +1,11 @@
 package io.github.satoshun.example
 
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
@@ -16,22 +20,26 @@ import io.github.satoshun.example.theme.AppTheme
 fun AppContent() {
   val navController = rememberNavController()
 
-  NavHost(
-    navController = navController,
-    startDestination = HomeScreen.createRoute(10),
-  ) {
-    addHome {
-      navController.navigate(
-        NextScreen.createRoute(
-          count = 100,
-          user = NextUser(
-            id = 10,
-            name = "satoshun",
+  Surface(modifier = Modifier.fillMaxSize()) {
+    NavHost(
+      navController = navController,
+      startDestination = HomeScreen.createRoute(10),
+      enterTransition = { EnterTransition.None },
+      exitTransition = { ExitTransition.None },
+    ) {
+      addHome {
+        navController.navigate(
+          NextScreen.createRoute(
+            count = 100,
+            user = NextUser(
+              id = 10,
+              name = "satoshun",
+            )
           )
         )
-      )
+      }
+      addNext()
     }
-    addNext()
   }
 }
 

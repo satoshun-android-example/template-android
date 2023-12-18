@@ -1,7 +1,13 @@
 package io.github.satoshun.example.feature.next
 
 import android.os.Bundle
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.core.EaseIn
+import androidx.compose.animation.core.EaseOut
+import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideIn
 import androidx.compose.animation.slideOut
 import androidx.compose.foundation.layout.Column
@@ -53,15 +59,25 @@ fun NavGraphBuilder.addNext() {
     route = NextScreen.name,
     arguments = NextScreen.navArguments,
     enterTransition = {
-      slideIn(
-        initialOffset = { IntOffset(0, it.height) },
-        animationSpec = tween(2000)
+      fadeIn(
+        animationSpec = tween(
+          durationMillis = 500,
+          easing = LinearEasing
+        )
+      ) + slideIntoContainer(
+        animationSpec = tween(500, easing = EaseIn),
+        towards = AnimatedContentTransitionScope.SlideDirection.Start
       )
     },
     exitTransition = {
-      slideOut(
-        targetOffset = { IntOffset(0, it.height) },
-        animationSpec = tween(3000)
+      fadeOut(
+        animationSpec = tween(
+          durationMillis = 500,
+          easing = LinearEasing
+        )
+      ) + slideOutOfContainer(
+        animationSpec = tween(500, easing = EaseOut),
+        towards = AnimatedContentTransitionScope.SlideDirection.End
       )
     },
   ) {
