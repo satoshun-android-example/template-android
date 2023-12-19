@@ -2,7 +2,7 @@
 kotlin = "1.9.21"
 kotlincoroutines = "1.7.3"
 
-dagger = "2.49"
+dagger = "2.50"
 
 composeCompiler = "1.5.6"
 
