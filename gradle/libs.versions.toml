@@ -65,7 +65,7 @@ android-fragment-core = "androidx.fragment:fragment-ktx:1.6.2"
 android-fragment-testing = "androidx.fragment:fragment-testing:1.6.2"
 
 android-lifecycle-runtime = "androidx.lifecycle:lifecycle-runtime-ktx:2.6.2"
-android-lifecycle-compose = "androidx.lifecycle:lifecycle-compose-ktx:2.6.2"
+android-lifecycle-compose = "androidx.lifecycle:lifecycle-runtime-compose:2.6.2"
 android-lifecycle-livedata = "androidx.lifecycle:lifecycle-livedata-ktx:2.6.2"
 android-lifecycle-viewmodel-core = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2"
 android-lifecycle-viewmodel-compose = "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2"
