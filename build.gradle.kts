@@ -16,8 +16,6 @@ plugins {
   alias(libs.plugins.ksp) apply false
   alias(libs.plugins.dagger.hilt) apply false
   alias(libs.plugins.paparazzi) apply false
-  alias(libs.plugins.dependencyAnalysis)
-  alias(libs.plugins.sortDependencies)
 }
 
 allprojects {

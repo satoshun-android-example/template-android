@@ -15,7 +15,6 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
         apply("com.google.devtools.ksp")
         apply("kotlin-parcelize")
         apply("kotlinx-serialization")
-        apply("com.squareup.sort-dependencies")
       }
 
       extensions.configure<LibraryExtension> {

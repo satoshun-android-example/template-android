@@ -10,9 +10,6 @@ accompanist = "0.34.0"
 agp = "8.2.2"
 ktor = "2.3.8"
 
-dependencyAnalysisPlugin = "1.29.0"
-sortDependencies = "0.6"
-
 paparazzi = "1.3.2"
 showkase = "1.0.2"
 testParameterInjector = "1.15"
@@ -26,8 +23,6 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
-dependencyAnalysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependencyAnalysisPlugin" }
-sortDependencies = { id = "com.squareup.sort-dependencies", version.ref = "sortDependencies" }
 paparazzi = { id = "app.cash.paparazzi", version.ref = "paparazzi" }
 
 [libraries]
@@ -103,7 +98,6 @@ testParameterInjector = { group = "com.google.testparameterinjector", name = "te
 # Dependencies of the included build-logic
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
-sortDependencies-gradlePlugin = { module = "com.squareup:sort-dependencies-gradle-plugin", version.ref = "sortDependencies" }
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 
 [bundles]

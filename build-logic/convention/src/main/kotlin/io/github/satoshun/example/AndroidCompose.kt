@@ -55,6 +55,7 @@ private fun Project.buildComposeMetricsParameters(): List<String> {
   val enableMetricsProvider = project.providers.gradleProperty("enableComposeCompilerMetrics")
   val relativePath = projectDir.relativeTo(rootDir)
   val buildDir = layout.buildDirectory.get().asFile
+
   val enableMetrics = (enableMetricsProvider.orNull == "true")
   if (enableMetrics) {
     val metricsFolder = buildDir.resolve("compose-metrics").resolve(relativePath)

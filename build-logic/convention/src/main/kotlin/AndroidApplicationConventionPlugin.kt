@@ -30,7 +30,6 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
         apply("org.jetbrains.kotlin.android")
         apply("org.jetbrains.kotlin.plugin.serialization")
         apply("com.google.devtools.ksp")
-        apply("com.squareup.sort-dependencies")
       }
 
       extensions.configure<ApplicationExtension> {
