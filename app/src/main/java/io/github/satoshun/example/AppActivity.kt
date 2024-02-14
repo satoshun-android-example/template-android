@@ -11,7 +11,6 @@ import com.slack.circuit.backstack.rememberSaveableBackStack
 import com.slack.circuit.foundation.Circuit
 import com.slack.circuit.foundation.CircuitCompositionLocals
 import com.slack.circuit.foundation.NavigableCircuitContent
-import com.slack.circuit.foundation.NavigatorDefaults
 import com.slack.circuit.foundation.rememberCircuitNavigator
 import com.slack.circuit.runtime.presenter.Presenter
 import com.slack.circuit.runtime.ui.Ui
@@ -41,7 +40,6 @@ class AppActivity : ComponentActivity() {
           val backStack = rememberSaveableBackStack(root = HomeScreen)
           val navigator = rememberCircuitNavigator(backStack)
           Surface(Modifier.fillMaxSize()) {
-            NavigatorDefaults.DefaultDecoration
             NavigableCircuitContent(
               navigator = navigator,
               backStack = backStack,
