@@ -4,32 +4,50 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Surface
+import androidx.compose.ui.Modifier
+import com.slack.circuit.backstack.rememberSaveableBackStack
+import com.slack.circuit.foundation.Circuit
+import com.slack.circuit.foundation.CircuitCompositionLocals
+import com.slack.circuit.foundation.NavigableCircuitContent
+import com.slack.circuit.foundation.NavigatorDefaults
+import com.slack.circuit.foundation.rememberCircuitNavigator
+import com.slack.circuit.runtime.presenter.Presenter
+import com.slack.circuit.runtime.ui.Ui
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.lifecycle.withCreationCallback
-import io.github.satoshun.example.share.Share
+import io.github.satoshun.example.feature.home.HomeScreen
+import io.github.satoshun.example.share.di.DaggerSet
 import io.github.satoshun.example.theme.AppTheme
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class AppActivity : ComponentActivity() {
-  private val viewModel: AppViewModel by viewModels(
-    extrasProducer = {
-      defaultViewModelCreationExtras.withCreationCallback<AppViewModelFactory> { factory ->
-        factory.create(10)
-      }
-    }
-  )
+  @Inject lateinit var presenterFactories: DaggerSet<Presenter.Factory>
+  @Inject lateinit var uiFactories: DaggerSet<Ui.Factory>
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    println(Share)
-    println(viewModel)
-
     enableEdgeToEdge()
+
+    val circuit = Circuit.Builder()
+      .addPresenterFactories(presenterFactories)
+      .addUiFactories(uiFactories)
+      .build()
 
     setContent {
       AppTheme {
-        AppContent()
+        CircuitCompositionLocals(circuit) {
+          val backStack = rememberSaveableBackStack(root = HomeScreen)
+          val navigator = rememberCircuitNavigator(backStack)
+          Surface(Modifier.fillMaxSize()) {
+            NavigatorDefaults.DefaultDecoration
+            NavigableCircuitContent(
+              navigator = navigator,
+              backStack = backStack,
+            )
+          }
+        }
       }
     }
   }

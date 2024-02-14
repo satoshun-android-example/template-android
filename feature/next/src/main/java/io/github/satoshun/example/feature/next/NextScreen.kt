@@ -1,73 +1,70 @@
 package io.github.satoshun.example.feature.next
 
-import android.os.Bundle
-import androidx.compose.animation.AnimatedContentTransitionScope
-import androidx.compose.animation.core.EaseIn
-import androidx.compose.animation.core.EaseOut
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavType
-import androidx.navigation.navArgument
-import io.github.satoshun.example.share.Screen
-import io.github.satoshun.example.share.addScreen
+import android.annotation.SuppressLint
+import androidx.compose.runtime.Composable
+import com.slack.circuit.runtime.CircuitContext
+import com.slack.circuit.runtime.CircuitUiState
+import com.slack.circuit.runtime.Navigator
+import com.slack.circuit.runtime.presenter.Presenter
+import com.slack.circuit.runtime.presenter.presenterOf
+import com.slack.circuit.runtime.screen.Screen
+import com.slack.circuit.runtime.ui.Ui
+import com.slack.circuit.runtime.ui.ui
+import kotlinx.parcelize.Parcelize
+import javax.inject.Inject
 
-data object NextScreen : Screen<NextScreen.Arguments>(
-  route = "next",
-  navArguments = listOf(
-    navArgument("count") {
-      type = NavType.IntType
-    },
-    navArgument("user") {
-      type = NextUserType
-    },
-  ),
-  enterTransition = {
-    fadeIn(
-      animationSpec = tween(
-        durationMillis = 500,
-        easing = LinearEasing
-      )
-    ) + slideIntoContainer(
-      animationSpec = tween(500, easing = EaseIn),
-      towards = AnimatedContentTransitionScope.SlideDirection.Start
-    )
-  },
-  exitTransition = {
-    fadeOut(
-      animationSpec = tween(
-        durationMillis = 500,
-        easing = LinearEasing
-      )
-    ) + slideOutOfContainer(
-      animationSpec = tween(500, easing = EaseOut),
-      towards = AnimatedContentTransitionScope.SlideDirection.End
-    )
-  },
-) {
-  data class Arguments(
+@Parcelize
+data class NextScreen(
+  val count: Int,
+) : Screen {
+  internal data class State(
     val count: Int,
     val user: NextUser?,
-  )
+  ) : CircuitUiState
 
-  override fun getArguments(bundle: Bundle?): Arguments =
-    Arguments(
-      count = bundle?.getInt(navArguments[0].name) ?: 0,
-      user = bundle?.getParcelable(navArguments[1].name),
-    )
-
-  fun createRoute(
-    count: Int,
-    user: NextUser,
-  ) =
-    name.replace("{${NextScreen.navArguments[0].name}}", count.toString())
-      .replace("{${NextScreen.navArguments[1].name}}", NextUserType.encodeToString(user))
+  internal sealed interface Event
 }
 
-fun NavGraphBuilder.addNext() {
-  addScreen(NextScreen) { _, arguments ->
-    Next(arguments)
+@SuppressLint("ComposableNaming")
+@Composable
+internal fun NextPresenter(
+  initialCount: Int,
+  navigator: Navigator,
+): NextScreen.State {
+  return NextScreen.State(
+    count = initialCount,
+    user = null,
+  )
+}
+
+internal class NextPresenterFactory @Inject constructor(
+) : Presenter.Factory {
+  override fun create(
+    screen: Screen,
+    navigator: Navigator,
+    context: CircuitContext,
+  ): Presenter<*>? {
+    return when (screen) {
+      is NextScreen -> presenterOf {
+        NextPresenter(
+          initialCount = screen.count,
+          navigator = navigator,
+        )
+      }
+
+      else -> null
+    }
+  }
+}
+
+internal class NextUiFactory @Inject constructor() : Ui.Factory {
+  override fun create(screen: Screen, context: CircuitContext): Ui<*>? {
+    return when (screen) {
+      is NextScreen -> ui<NextScreen.State> { state, modifier ->
+        NextContent(state, modifier)
+      }
+
+      else -> null
+    }
   }
 }

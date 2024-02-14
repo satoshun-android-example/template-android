@@ -9,11 +9,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import io.github.satoshun.example.feature.home.HomeScreen
-import io.github.satoshun.example.feature.home.addHome
-import io.github.satoshun.example.feature.next.NextScreen
-import io.github.satoshun.example.feature.next.NextUser
-import io.github.satoshun.example.feature.next.addNext
 import io.github.satoshun.example.theme.AppTheme
 
 @Composable
@@ -23,22 +18,10 @@ fun AppContent() {
   Surface(modifier = Modifier.fillMaxSize()) {
     NavHost(
       navController = navController,
-      startDestination = HomeScreen.createRoute(10),
+      startDestination = TODO(),
       enterTransition = { EnterTransition.None },
       exitTransition = { ExitTransition.None },
     ) {
-      addHome {
-        navController.navigate(
-          NextScreen.createRoute(
-            count = 100,
-            user = NextUser(
-              id = 10,
-              name = "satoshun",
-            )
-          )
-        )
-      }
-      addNext()
     }
   }
 }

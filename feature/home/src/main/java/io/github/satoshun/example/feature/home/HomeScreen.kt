@@ -1,57 +1,77 @@
 package io.github.satoshun.example.feature.home
 
-import android.os.Bundle
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavType
-import androidx.navigation.navArgument
-import io.github.satoshun.example.share.Screen
-import io.github.satoshun.example.share.addScreen
+import android.annotation.SuppressLint
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import com.slack.circuit.runtime.CircuitContext
+import com.slack.circuit.runtime.CircuitUiState
+import com.slack.circuit.runtime.Navigator
+import com.slack.circuit.runtime.presenter.Presenter
+import com.slack.circuit.runtime.presenter.presenterOf
+import com.slack.circuit.runtime.screen.Screen
+import com.slack.circuit.runtime.ui.Ui
+import com.slack.circuit.runtime.ui.ui
+import kotlinx.parcelize.Parcelize
+import javax.inject.Inject
 
-data object HomeScreen : Screen<HomeScreen.Arguments>(
-  route = "home",
-  navArguments = listOf(
-    navArgument("count") {
-      type = NavType.IntType
-    },
-  ),
-  enterTransition = {
-    fadeIn(
-      animationSpec = tween(
-        durationMillis = 500,
-        easing = LinearEasing
-      )
-    )
-  },
-  exitTransition = {
-    fadeOut(
-      animationSpec = tween(
-        durationMillis = 500,
-        easing = LinearEasing
-      )
-    )
-  },
-) {
-  data class Arguments(
+@Parcelize
+data object HomeScreen : Screen {
+  internal data class State(
     val count: Int,
-  )
+    val eventSink: (Event) -> Unit,
+  ) : CircuitUiState
 
-  override fun getArguments(bundle: Bundle?) =
-    Arguments(count = bundle?.getInt(navArguments[0].name) ?: 0)
-
-  fun createRoute(
-    count: Int,
-  ) =
-    name.replace("{${navArguments[0].name}}", count.toString())
+  internal sealed interface Event {
+    data object Next : Event
+  }
 }
 
-fun NavGraphBuilder.addHome(
-  onNavigate: () -> Unit,
-) {
-  addScreen(HomeScreen) { _, arguments ->
-    Home(arguments = arguments, onNavigate = onNavigate)
+interface HomeNavigator {
+  fun goToNext(navigator: Navigator, count: Int)
+}
+
+internal class HomePresenterFactory @Inject constructor(
+  private val homeNavigator: HomeNavigator,
+) : Presenter.Factory {
+  override fun create(
+    screen: Screen,
+    navigator: Navigator,
+    context: CircuitContext,
+  ): Presenter<*>? {
+    return when (screen) {
+      is HomeScreen -> presenterOf { HomePresenter(navigator, homeNavigator) }
+      else -> null
+    }
+  }
+}
+
+@SuppressLint("ComposableNaming")
+@Composable
+internal fun HomePresenter(
+  navigator: Navigator,
+  homeNavigator: HomeNavigator,
+): HomeScreen.State {
+  var count by rememberSaveable { mutableIntStateOf(0) }
+  return HomeScreen.State(count = count) { event ->
+    when (event) {
+      is HomeScreen.Event.Next -> {
+        homeNavigator.goToNext(navigator, count)
+      }
+    }
+  }
+}
+
+internal class HomeUiFactory @Inject constructor() : Ui.Factory {
+  override fun create(screen: Screen, context: CircuitContext): Ui<*>? {
+    return when (screen) {
+      is HomeScreen -> ui<HomeScreen.State> { state, modifier ->
+        HomeContent(state, modifier)
+      }
+
+      else -> null
+    }
   }
 }

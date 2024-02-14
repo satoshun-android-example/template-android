@@ -9,15 +9,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-internal fun Next(arguments: NextScreen.Arguments) {
-  Scaffold { paddingValues ->
+internal fun NextContent(
+  state: NextScreen.State,
+  modifier: Modifier = Modifier,
+) {
+  Scaffold(modifier) { paddingValues ->
     Column(
       Modifier
         .fillMaxSize()
         .padding(paddingValues)
     ) {
-      Text(text = "Next count ${arguments.count}")
-      Text(text = "Next user ${arguments.user}")
+      Text(text = "Next count ${state.count}")
+      Text(text = "Next user ${state.user}")
     }
   }
 }

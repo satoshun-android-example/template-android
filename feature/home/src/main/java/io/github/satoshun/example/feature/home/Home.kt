@@ -15,14 +15,15 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 
 @Composable
-internal fun Home(
-  arguments: HomeScreen.Arguments,
-  onNavigate: () -> Unit
+internal fun HomeContent(
+  state: HomeScreen.State,
+  modifier: Modifier = Modifier,
 ) {
   Scaffold(
+    modifier = modifier,
     topBar = {
       TopAppBar(title = {
-        Text(text = "Sample ${arguments.count}")
+        Text(text = "Sample ${state.count}")
       })
     },
   ) { paddingValues ->
@@ -32,7 +33,9 @@ internal fun Home(
       contentPadding = paddingValues
     ) {
       item {
-        Button(onClick = onNavigate) {
+        Button(onClick = {
+          state.eventSink(HomeScreen.Event.Next)
+        }) {
           Text(text = "Next")
         }
       }
