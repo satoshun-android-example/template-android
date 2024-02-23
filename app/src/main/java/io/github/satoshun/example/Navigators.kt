@@ -14,7 +14,6 @@ import io.github.satoshun.example.share.di.DaggerSet
 import javax.inject.Inject
 
 class HomeNavigatorImpl @Inject constructor() : HomeNavigator {
-
   override fun goToNext(
     navigator: Navigator,
     count: Int,

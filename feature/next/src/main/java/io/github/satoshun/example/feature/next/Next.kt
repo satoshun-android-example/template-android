@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 
 @Composable
 internal fun NextContent(
-  state: NextScreen.State,
+  state: NextState,
   modifier: Modifier = Modifier,
 ) {
   Scaffold(modifier) { paddingValues ->

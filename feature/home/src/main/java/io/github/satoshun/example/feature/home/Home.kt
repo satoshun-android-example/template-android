@@ -16,7 +16,7 @@ import coil.compose.AsyncImage
 
 @Composable
 internal fun HomeContent(
-  state: HomeScreen.State,
+  state: HomeState,
   modifier: Modifier = Modifier,
 ) {
   Scaffold(
@@ -34,7 +34,7 @@ internal fun HomeContent(
     ) {
       item {
         Button(onClick = {
-          state.eventSink(HomeScreen.Event.Next)
+          state.eventSink(HomeEvent.Next)
         }) {
           Text(text = "Next")
         }

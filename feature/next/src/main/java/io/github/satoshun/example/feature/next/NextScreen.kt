@@ -16,22 +16,22 @@ import javax.inject.Inject
 @Parcelize
 data class NextScreen(
   val count: Int,
-) : Screen {
-  internal data class State(
-    val count: Int,
-    val user: NextUser?,
-  ) : CircuitUiState
+) : Screen
 
-  internal sealed interface Event
-}
+internal data class NextState(
+  val count: Int,
+  val user: NextUser?,
+) : CircuitUiState
+
+internal sealed interface NextEvent
 
 @SuppressLint("ComposableNaming")
 @Composable
 internal fun NextPresenter(
   initialCount: Int,
   navigator: Navigator,
-): NextScreen.State {
-  return NextScreen.State(
+): NextState {
+  return NextState(
     count = initialCount,
     user = null,
   )
@@ -60,7 +60,7 @@ internal class NextPresenterFactory @Inject constructor(
 internal class NextUiFactory @Inject constructor() : Ui.Factory {
   override fun create(screen: Screen, context: CircuitContext): Ui<*>? {
     return when (screen) {
-      is NextScreen -> ui<NextScreen.State> { state, modifier ->
+      is NextScreen -> ui<NextState> { state, modifier ->
         NextContent(state, modifier)
       }
 

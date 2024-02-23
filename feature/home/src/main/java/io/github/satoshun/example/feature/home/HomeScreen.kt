@@ -18,16 +18,17 @@ import kotlinx.parcelize.Parcelize
 import javax.inject.Inject
 
 @Parcelize
-data object HomeScreen : Screen {
-  internal data class State(
-    val count: Int,
-    val eventSink: (Event) -> Unit,
-  ) : CircuitUiState
+data object HomeScreen : Screen
 
-  internal sealed interface Event {
-    data object Next : Event
-  }
+internal data class HomeState(
+  val count: Int,
+  val eventSink: (HomeEvent) -> Unit,
+) : CircuitUiState
+
+internal sealed interface HomeEvent {
+  data object Next : HomeEvent
 }
+
 
 interface HomeNavigator {
   fun goToNext(navigator: Navigator, count: Int)
@@ -53,11 +54,11 @@ internal class HomePresenterFactory @Inject constructor(
 internal fun HomePresenter(
   navigator: Navigator,
   homeNavigator: HomeNavigator,
-): HomeScreen.State {
+): HomeState {
   var count by rememberSaveable { mutableIntStateOf(0) }
-  return HomeScreen.State(count = count) { event ->
+  return HomeState(count = count) { event ->
     when (event) {
-      is HomeScreen.Event.Next -> {
+      is HomeEvent.Next -> {
         homeNavigator.goToNext(navigator, count)
       }
     }
@@ -67,7 +68,7 @@ internal fun HomePresenter(
 internal class HomeUiFactory @Inject constructor() : Ui.Factory {
   override fun create(screen: Screen, context: CircuitContext): Ui<*>? {
     return when (screen) {
-      is HomeScreen -> ui<HomeScreen.State> { state, modifier ->
+      is HomeScreen -> ui<HomeState> { state, modifier ->
         HomeContent(state, modifier)
       }
 
