@@ -13,7 +13,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.slack.circuit.codegen.annotations.CircuitInject
+import dagger.hilt.components.SingletonComponent
 
+@CircuitInject(HomeScreen::class, SingletonComponent::class)
 @Composable
 internal fun HomeContent(
   state: HomeState,

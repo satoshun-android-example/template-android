@@ -5,52 +5,43 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import com.slack.circuit.runtime.CircuitContext
+import com.slack.circuit.codegen.annotations.CircuitInject
 import com.slack.circuit.runtime.CircuitUiState
 import com.slack.circuit.runtime.Navigator
 import com.slack.circuit.runtime.presenter.Presenter
 import com.slack.circuit.runtime.screen.Screen
-import com.slack.circuit.runtime.ui.Ui
-import com.slack.circuit.runtime.ui.ui
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
+import dagger.hilt.components.SingletonComponent
 import kotlinx.parcelize.Parcelize
-import javax.inject.Inject
 
 @Parcelize
 data object HomeScreen : Screen
 
-internal data class HomeState(
+data class HomeState(
   val count: Int,
   val eventSink: (HomeEvent) -> Unit,
 ) : CircuitUiState
 
-internal sealed interface HomeEvent {
+sealed interface HomeEvent {
   data object Next : HomeEvent
 }
-
 
 interface HomeNavigator {
   fun goToNext(navigator: Navigator, count: Int)
 }
 
-internal class HomePresenterFactory @Inject constructor(
-  private val homeNavigator: HomeNavigator,
-) : Presenter.Factory {
-  override fun create(
-    screen: Screen,
-    navigator: Navigator,
-    context: CircuitContext,
-  ): Presenter<*>? {
-    return when (screen) {
-      is HomeScreen -> HomePresenter(navigator, homeNavigator)
-      else -> null
-    }
-  }
-}
-
-internal class HomePresenter(
-  private val navigator: Navigator,
+class HomePresenter @AssistedInject constructor(
+  @Assisted private val navigator: Navigator,
   private val homeNavigator: HomeNavigator,
 ) : Presenter<HomeState> {
+  @CircuitInject(HomeScreen::class, SingletonComponent::class)
+  @AssistedFactory
+  fun interface Factory {
+    fun create(navigator: Navigator): HomePresenter
+  }
+
   @Composable
   override fun present(): HomeState {
     var count by rememberSaveable { mutableIntStateOf(0) }
@@ -60,17 +51,6 @@ internal class HomePresenter(
           homeNavigator.goToNext(navigator, count)
         }
       }
-    }
-  }
-}
-
-internal class HomeUiFactory @Inject constructor() : Ui.Factory {
-  override fun create(screen: Screen, context: CircuitContext): Ui<*>? {
-    return when (screen) {
-      is HomeScreen -> ui<HomeState> { state, modifier ->
-        HomeContent(state, modifier)
-      }
-      else -> null
     }
   }
 }
