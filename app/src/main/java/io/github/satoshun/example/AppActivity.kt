@@ -37,7 +37,7 @@ class AppActivity : ComponentActivity() {
     setContent {
       AppTheme {
         CircuitCompositionLocals(circuit) {
-          val backStack = rememberSaveableBackStack(root = HomeScreen)
+          val backStack = rememberSaveableBackStack(HomeScreen)
           val navigator = rememberCircuitNavigator(backStack)
           Surface(Modifier.fillMaxSize()) {
             NavigableCircuitContent(

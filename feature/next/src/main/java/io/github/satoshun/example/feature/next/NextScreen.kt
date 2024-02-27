@@ -1,12 +1,10 @@
 package io.github.satoshun.example.feature.next
 
-import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import com.slack.circuit.runtime.CircuitContext
 import com.slack.circuit.runtime.CircuitUiState
 import com.slack.circuit.runtime.Navigator
 import com.slack.circuit.runtime.presenter.Presenter
-import com.slack.circuit.runtime.presenter.presenterOf
 import com.slack.circuit.runtime.screen.Screen
 import com.slack.circuit.runtime.ui.Ui
 import com.slack.circuit.runtime.ui.ui
@@ -25,16 +23,17 @@ internal data class NextState(
 
 internal sealed interface NextEvent
 
-@SuppressLint("ComposableNaming")
-@Composable
-internal fun NextPresenter(
-  initialCount: Int,
-  navigator: Navigator,
-): NextState {
-  return NextState(
-    count = initialCount,
-    user = null,
-  )
+internal class NextPresenter(
+  private val initialCount: Int,
+  private val navigator: Navigator,
+) : Presenter<NextState> {
+  @Composable
+  override fun present(): NextState {
+    return NextState(
+      count = initialCount,
+      user = null,
+    )
+  }
 }
 
 internal class NextPresenterFactory @Inject constructor(
@@ -45,13 +44,10 @@ internal class NextPresenterFactory @Inject constructor(
     context: CircuitContext,
   ): Presenter<*>? {
     return when (screen) {
-      is NextScreen -> presenterOf {
-        NextPresenter(
-          initialCount = screen.count,
-          navigator = navigator,
-        )
-      }
-
+      is NextScreen -> NextPresenter(
+        initialCount = screen.count,
+        navigator = navigator,
+      )
       else -> null
     }
   }
@@ -63,7 +59,6 @@ internal class NextUiFactory @Inject constructor() : Ui.Factory {
       is NextScreen -> ui<NextState> { state, modifier ->
         NextContent(state, modifier)
       }
-
       else -> null
     }
   }
