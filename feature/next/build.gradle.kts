@@ -2,14 +2,12 @@ plugins {
   id("example.android.library")
   id("example.android.library.compose")
   id("example.android.dagger")
+  id("example.android.circuit")
 
   alias(libs.plugins.kotlin.serialization)
 }
 
 dependencies {
-  ksp(libs.circuit.codegen)
-  implementation(libs.circuit.codegenAnnotations)
-
   implementation(projects.share)
 
   implementation(libs.bundles.android.ui)
@@ -18,10 +16,6 @@ dependencies {
   implementation(libs.kotlinx.serialization)
 
   testImplementation(libs.bundles.test)
-}
-
-ksp {
-  arg("circuit.codegen.mode", "hilt")
 }
 
 android {

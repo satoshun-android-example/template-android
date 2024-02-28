@@ -40,5 +40,10 @@ gradlePlugin {
       id = "example.android.dagger"
       implementationClass = "AndroidDaggerConventionPlugin"
     }
+
+    register("androidCircuit") {
+      id = "example.android.circuit"
+      implementationClass = "AndroidCircuitConventionPlugin"
+    }
   }
 }
