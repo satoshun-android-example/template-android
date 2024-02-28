@@ -7,7 +7,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.slack.circuit.codegen.annotations.CircuitInject
+import dagger.hilt.components.SingletonComponent
 
+@CircuitInject(NextScreen::class, SingletonComponent::class)
 @Composable
 internal fun NextContent(
   state: NextState,

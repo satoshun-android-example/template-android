@@ -7,6 +7,9 @@ plugins {
 }
 
 dependencies {
+  ksp(libs.circuit.codegen)
+  implementation(libs.circuit.codegenAnnotations)
+
   implementation(projects.share)
 
   implementation(libs.bundles.android.ui)
@@ -15,6 +18,10 @@ dependencies {
   implementation(libs.kotlinx.serialization)
 
   testImplementation(libs.bundles.test)
+}
+
+ksp {
+  arg("circuit.codegen.mode", "hilt")
 }
 
 android {

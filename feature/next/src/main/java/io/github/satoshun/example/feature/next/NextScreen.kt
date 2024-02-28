@@ -1,65 +1,47 @@
 package io.github.satoshun.example.feature.next
 
 import androidx.compose.runtime.Composable
-import com.slack.circuit.runtime.CircuitContext
+import com.slack.circuit.codegen.annotations.CircuitInject
 import com.slack.circuit.runtime.CircuitUiState
 import com.slack.circuit.runtime.Navigator
 import com.slack.circuit.runtime.presenter.Presenter
 import com.slack.circuit.runtime.screen.Screen
-import com.slack.circuit.runtime.ui.Ui
-import com.slack.circuit.runtime.ui.ui
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
+import dagger.hilt.components.SingletonComponent
 import kotlinx.parcelize.Parcelize
-import javax.inject.Inject
 
 @Parcelize
 data class NextScreen(
   val count: Int,
 ) : Screen
 
-internal data class NextState(
+data class NextState(
   val count: Int,
   val user: NextUser?,
 ) : CircuitUiState
 
-internal sealed interface NextEvent
+sealed interface NextEvent
 
-internal class NextPresenter(
-  private val initialCount: Int,
-  private val navigator: Navigator,
+class NextPresenter @AssistedInject constructor(
+  @Assisted private val navigator: Navigator,
+  @Assisted private val screen: NextScreen,
 ) : Presenter<NextState> {
+  @CircuitInject(NextScreen::class, SingletonComponent::class)
+  @AssistedFactory
+  fun interface Factory {
+    fun create(
+      screen: NextScreen,
+      navigator: Navigator,
+    ): NextPresenter
+  }
+
   @Composable
   override fun present(): NextState {
     return NextState(
-      count = initialCount,
+      count = screen.count,
       user = null,
     )
-  }
-}
-
-internal class NextPresenterFactory @Inject constructor(
-) : Presenter.Factory {
-  override fun create(
-    screen: Screen,
-    navigator: Navigator,
-    context: CircuitContext,
-  ): Presenter<*>? {
-    return when (screen) {
-      is NextScreen -> NextPresenter(
-        initialCount = screen.count,
-        navigator = navigator,
-      )
-      else -> null
-    }
-  }
-}
-
-internal class NextUiFactory @Inject constructor() : Ui.Factory {
-  override fun create(screen: Screen, context: CircuitContext): Ui<*>? {
-    return when (screen) {
-      is NextScreen -> ui<NextState> { state, modifier ->
-        NextContent(state, modifier)
-      }
-      else -> null
-    }
   }
 }

@@ -8,13 +8,12 @@ plugins {
 
 dependencies {
   ksp(libs.circuit.codegen)
+  implementation(libs.circuit.codegenAnnotations)
 
   implementation(projects.share)
 
   implementation(libs.bundles.android.ui)
   implementation(libs.bundles.kotlin.android)
-
-  implementation(libs.circuit.codegenAnnotations)
 
   implementation(libs.kotlinx.serialization)
 
