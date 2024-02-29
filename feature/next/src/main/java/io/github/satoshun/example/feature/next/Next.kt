@@ -22,8 +22,7 @@ internal fun NextContent(
         .fillMaxSize()
         .padding(paddingValues)
     ) {
-      Text(text = "Next count ${state.count}")
-      Text(text = "Next user ${state.user}")
+      Text(text = "Image ${state.image}")
     }
   }
 }

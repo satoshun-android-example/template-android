@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.slack.circuit.codegen.annotations.CircuitInject
 import dagger.hilt.components.SingletonComponent
+import io.github.satoshun.example.share.data.Image
 
 @CircuitInject(HomeScreen::class, SingletonComponent::class)
 @Composable
@@ -38,7 +39,7 @@ internal fun Home(
         images = state.images,
         contentPadding = paddingValues,
         onImageClick = {
-          state.eventSink(HomeEvent.GoToNext)
+          state.eventSink(HomeEvent.GoToImageDetail(it))
         },
       )
     }

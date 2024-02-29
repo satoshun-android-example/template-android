@@ -13,6 +13,8 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.components.SingletonComponent
+import io.github.satoshun.example.share.data.HomeRepository
+import io.github.satoshun.example.share.data.Image
 
 class HomePresenter @AssistedInject internal constructor(
   @Assisted private val navigator: Navigator,
@@ -37,8 +39,8 @@ class HomePresenter @AssistedInject internal constructor(
       images = images,
     ) { event ->
       when (event) {
-        is HomeEvent.GoToNext -> {
-          homeNavigator.goToNext(navigator, count)
+        is HomeEvent.GoToImageDetail -> {
+          homeNavigator.goToNext(navigator, event.image)
         }
       }
     }

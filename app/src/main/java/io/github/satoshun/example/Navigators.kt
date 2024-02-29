@@ -10,15 +10,16 @@ import dagger.hilt.components.SingletonComponent
 import dagger.multibindings.Multibinds
 import io.github.satoshun.example.feature.home.HomeNavigator
 import io.github.satoshun.example.feature.next.NextScreen
+import io.github.satoshun.example.share.data.Image
 import io.github.satoshun.example.share.di.DaggerSet
 import javax.inject.Inject
 
 class HomeNavigatorImpl @Inject constructor() : HomeNavigator {
   override fun goToNext(
     navigator: Navigator,
-    count: Int,
+    image: Image,
   ) {
-    navigator.goTo(NextScreen(count))
+    navigator.goTo(NextScreen(image))
   }
 }
 

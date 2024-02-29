@@ -1,6 +1,7 @@
 plugins {
   id("example.android.library")
   id("example.android.library.compose")
+  id("example.android.dagger")
 
   alias(libs.plugins.kotlin.serialization)
 }

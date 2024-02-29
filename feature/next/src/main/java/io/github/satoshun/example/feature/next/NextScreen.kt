@@ -1,6 +1,7 @@
 package io.github.satoshun.example.feature.next
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import com.slack.circuit.codegen.annotations.CircuitInject
 import com.slack.circuit.runtime.CircuitUiState
 import com.slack.circuit.runtime.Navigator
@@ -10,15 +11,17 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.components.SingletonComponent
+import io.github.satoshun.example.share.data.Image
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class NextScreen(
-  val count: Int,
+  val image: Image,
 ) : Screen
 
+@Stable
 data class NextState(
-  val count: Int,
+  val image: Image,
   val user: NextUser?,
 ) : CircuitUiState
 
@@ -40,7 +43,7 @@ class NextPresenter @AssistedInject constructor(
   @Composable
   override fun present(): NextState {
     return NextState(
-      count = screen.count,
+      image = screen.image,
       user = null,
     )
   }
