@@ -12,6 +12,6 @@ internal class HomeRepository @Inject constructor() {
   }
 }
 
-internal data class Image(
+data class Image(
   val url: String,
 )
