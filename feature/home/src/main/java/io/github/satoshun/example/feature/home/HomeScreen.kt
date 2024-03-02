@@ -12,8 +12,8 @@ data object HomeScreen : Screen
 
 @Stable
 data class HomeState(
-  val count: Int,
   val images: List<Image>,
+  val isLoading: Boolean,
   val eventSink: (HomeEvent) -> Unit,
 ) : CircuitUiState
 

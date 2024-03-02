@@ -2,10 +2,7 @@ package io.github.satoshun.example.feature.home
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.produceState
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import com.slack.circuit.codegen.annotations.CircuitInject
 import com.slack.circuit.runtime.Navigator
 import com.slack.circuit.runtime.presenter.Presenter
@@ -29,14 +26,13 @@ class HomePresenter @AssistedInject internal constructor(
 
   @Composable
   override fun present(): HomeState {
-    var count by rememberSaveable { mutableIntStateOf(0) }
-    val images by produceState(initialValue = emptyList<Image>()) {
+    val images by produceState<List<Image>?>(initialValue = null) {
       value = homeRepository.getImages()
     }
 
     return HomeState(
-      count = count,
-      images = images,
+      images = images.orEmpty(),
+      isLoading = images == null,
     ) { event ->
       when (event) {
         is HomeEvent.GoToImageDetail -> {

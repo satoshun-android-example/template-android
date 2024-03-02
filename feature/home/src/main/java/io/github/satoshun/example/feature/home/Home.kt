@@ -1,6 +1,9 @@
 package io.github.satoshun.example.feature.home
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,10 +11,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import coil.compose.AsyncImage
@@ -29,20 +34,28 @@ internal fun Home(
     modifier = modifier,
     topBar = {
       TopAppBar(title = {
-        Text(text = "Sample ${state.count}")
+        Text(text = "Images: ${state.images.size}")
       })
     },
   ) { paddingValues ->
-    if (state.images.isEmpty()) {
-      // TODO skeleton view
-    } else {
-      Images(
-        images = state.images,
-        contentPadding = paddingValues,
-        onImageClick = {
-          state.eventSink(HomeEvent.GoToImageDetail(it))
-        },
-      )
+    val transition = updateTransition(state.isLoading, label = "isLoading")
+    transition.AnimatedContent { isLoading ->
+      if (isLoading) {
+        Box(
+          modifier = Modifier.fillMaxSize(),
+          contentAlignment = Alignment.Center,
+        ) {
+          CircularProgressIndicator()
+        }
+      } else {
+        Images(
+          images = state.images,
+          contentPadding = paddingValues,
+          onImageClick = {
+            state.eventSink(HomeEvent.GoToImageDetail(it))
+          },
+        )
+      }
     }
   }
 }
