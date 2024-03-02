@@ -49,20 +49,19 @@ internal fun Project.configureKotlinAndroid(
         val warningsAsErrors: String? by project
         allWarningsAsErrors = warningsAsErrors.toBoolean()
 
-        freeCompilerArgs = freeCompilerArgs + listOf(
+        freeCompilerArgs += listOf(
           "-opt-in=kotlin.RequiresOptIn",
+
           // Enable experimental coroutines APIs, including Flow
           "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
           "-opt-in=kotlinx.coroutines.FlowPreview",
           "-opt-in=kotlin.Experimental",
+
           // Enable experimental kotlinx serialization APIs
           "-opt-in=kotlinx.serialization.ExperimentalSerializationApi",
 
           // https://mobile.twitter.com/ZacSweers/status/1520399593577582593
           "-Xsam-conversions=class",
-
-          "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
-          "-opt-in=androidx.compose.foundation.layout.ExperimentalLayoutApi",
         )
       }
     }

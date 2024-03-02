@@ -2,8 +2,9 @@ package io.github.satoshun.example.feature.home
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -13,7 +14,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.slack.circuit.codegen.annotations.CircuitInject
 import dagger.hilt.components.SingletonComponent
@@ -34,6 +34,7 @@ internal fun Home(
     },
   ) { paddingValues ->
     if (state.images.isEmpty()) {
+      // TODO skeleton view
     } else {
       Images(
         images = state.images,
@@ -53,14 +54,15 @@ private fun Images(
   onImageClick: (Image) -> Unit,
 ) {
   LazyVerticalGrid(
-    columns = GridCells.Fixed(3),
+    columns = GridCells.Fixed(2),
     modifier = Modifier.fillMaxSize(),
     contentPadding = contentPadding,
   ) {
     items(images, key = { it.url }) {
       AsyncImage(
         modifier = Modifier
-          .height(120.dp)
+          .fillMaxWidth()
+          .aspectRatio(1f)
           .clickable { onImageClick(it) },
         model = it.url,
         contentScale = ContentScale.Crop,

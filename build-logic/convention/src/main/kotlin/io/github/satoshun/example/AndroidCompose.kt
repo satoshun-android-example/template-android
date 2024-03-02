@@ -45,7 +45,17 @@ internal fun Project.configureAndroidCompose(
 
   tasks.withType<KotlinCompile>().configureEach {
     kotlinOptions {
-      freeCompilerArgs += buildComposeMetricsParameters() + configureComposeStabilityPath()
+      freeCompilerArgs += buildComposeMetricsParameters() +
+        configureComposeStabilityPath() +
+        listOf(
+          // disable opt-in checks
+          "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
+          "-opt-in=androidx.compose.foundation.layout.ExperimentalLayoutApi",
+
+          // https://medium.com/androiddevelopers/jetpack-compose-strong-skipping-mode-explained-cbdb2aa4b900
+          "-P",
+          "plugin:androidx.compose.compiler.plugins.kotlin:experimentalStrongSkipping=true",
+        )
     }
   }
 }
