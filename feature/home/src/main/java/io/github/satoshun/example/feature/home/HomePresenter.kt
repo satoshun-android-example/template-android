@@ -30,9 +30,11 @@ class HomePresenter @AssistedInject internal constructor(
       value = homeRepository.getImages()
     }
 
-    return HomeState(
-      images = images.orEmpty(),
-      isLoading = images == null,
+    if (images == null) {
+      return HomeState.Loading
+    }
+    return HomeState.Success(
+      images = images!!,
     ) { event ->
       when (event) {
         is HomeEvent.GoToImageDetail -> {

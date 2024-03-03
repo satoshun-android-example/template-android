@@ -11,11 +11,14 @@ import kotlinx.parcelize.Parcelize
 data object HomeScreen : Screen
 
 @Stable
-data class HomeState(
-  val images: List<Image>,
-  val isLoading: Boolean,
-  val eventSink: (HomeEvent) -> Unit,
-) : CircuitUiState
+sealed interface HomeState : CircuitUiState {
+  data object Loading : HomeState
+
+  data class Success(
+    val images: List<Image>,
+    val eventSink: (HomeEvent) -> Unit,
+  ) : HomeState
+}
 
 @Stable
 sealed interface HomeEvent {

@@ -34,27 +34,30 @@ internal fun Home(
     modifier = modifier,
     topBar = {
       TopAppBar(title = {
-        Text(text = "Images: ${state.images.size}")
+        Text(text = "Images")
       })
     },
   ) { paddingValues ->
-    val transition = updateTransition(state.isLoading, label = "isLoading")
-    transition.AnimatedContent { isLoading ->
-      if (isLoading) {
-        Box(
-          modifier = Modifier.fillMaxSize(),
-          contentAlignment = Alignment.Center,
-        ) {
-          CircularProgressIndicator()
+    val transition = updateTransition(state, label = "isLoading")
+    transition.AnimatedContent { state ->
+      when (state) {
+        HomeState.Loading -> {
+          Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center,
+          ) {
+            CircularProgressIndicator()
+          }
         }
-      } else {
-        Images(
-          images = state.images,
-          contentPadding = paddingValues,
-          onImageClick = {
-            state.eventSink(HomeEvent.GoToImageDetail(it))
-          },
-        )
+        is HomeState.Success -> {
+          Images(
+            images = state.images,
+            contentPadding = paddingValues,
+            onImageClick = {
+              state.eventSink(HomeEvent.GoToImageDetail(it))
+            },
+          )
+        }
       }
     }
   }
