@@ -85,63 +85,8 @@ internal fun Home(
         Main(state, paddingValues)
       }
       is HomeState.SearchState -> {
-        // TODO
+        Search(state, paddingValues)
       }
-    }
-  }
-}
-
-@Composable
-private fun Main(
-  mainState: HomeState.MainState,
-  paddingValues: PaddingValues,
-) {
-  val transition = updateTransition(mainState, label = "isLoading")
-  transition.AnimatedContent { state ->
-    when (state) {
-      is HomeState.MainState.Loading -> {
-        Box(
-          modifier = Modifier.fillMaxSize(),
-          contentAlignment = Alignment.Center,
-        ) {
-          CircularProgressIndicator()
-        }
-      }
-      is HomeState.MainState.Success -> {
-        Images(
-          images = state.images,
-          contentPadding = paddingValues,
-          onImageClick = {
-            state.eventSink(HomeEvent.GoToImageDetail(it))
-          },
-        )
-      }
-    }
-  }
-}
-
-
-@Composable
-private fun Images(
-  images: List<Image>,
-  contentPadding: PaddingValues,
-  onImageClick: (Image) -> Unit,
-) {
-  LazyVerticalGrid(
-    columns = GridCells.Fixed(2),
-    modifier = Modifier.fillMaxSize(),
-    contentPadding = contentPadding,
-  ) {
-    items(images, key = { it.url }) {
-      AsyncImage(
-        modifier = Modifier
-          .fillMaxWidth()
-          .aspectRatio(1f)
-          .clickable { onImageClick(it) },
-        model = it.url,
-        contentScale = ContentScale.Crop,
-        contentDescription = null,
-      )
     }
   }
 }
