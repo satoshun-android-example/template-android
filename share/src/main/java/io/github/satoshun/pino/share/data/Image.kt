@@ -17,4 +17,11 @@ class HomeRepository @Inject constructor() {
       Image("https://picsum.photos/id/$it/200/300")
     }
   }
+
+  suspend fun searchImages(query: String): List<Image> {
+    delay(3000)
+    return (1..100).map {
+      Image("https://picsum.photos/id/$it/200/300")
+    }
+  }
 }

@@ -12,32 +12,40 @@ data object HomeScreen : Screen
 
 @Stable
 sealed class HomeState(
+  val currentTab: HomeTab,
   val eventSink: (HomeEvent) -> Unit,
 ) : CircuitUiState {
 
   sealed class MainState(
+    currentTab: HomeTab,
     eventSink: (HomeEvent) -> Unit,
-  ) : HomeState(eventSink) {
+  ) : HomeState(currentTab, eventSink) {
     class Loading(
+      currentTab: HomeTab,
       eventSink: (HomeEvent) -> Unit,
-    ) : MainState(eventSink)
+    ) : MainState(currentTab, eventSink)
 
     class Success(
       val images: List<Image>,
+      currentTab: HomeTab,
       eventSink: (HomeEvent) -> Unit,
-    ) : MainState(eventSink)
+    ) : MainState(currentTab, eventSink)
   }
 
   sealed class SearchState(
+    currentTab: HomeTab,
     eventSink: (HomeEvent) -> Unit,
-  ) : HomeState(eventSink) {
+  ) : HomeState(currentTab, eventSink) {
     class Loading(
+      currentTab: HomeTab,
       eventSink: (HomeEvent) -> Unit,
-    ) : SearchState(eventSink)
+    ) : SearchState(currentTab, eventSink)
 
     class Success(
+      val searchResults: List<Image>?,
+      currentTab: HomeTab,
       eventSink: (HomeEvent) -> Unit,
-    ) : SearchState(eventSink)
+    ) : SearchState(currentTab, eventSink)
   }
 }
 
@@ -54,6 +62,10 @@ sealed interface HomeEvent {
 
   data class ChangeTab(
     val tab: HomeTab,
+  ) : HomeEvent
+
+  data class Search(
+    val query: String,
   ) : HomeEvent
 }
 

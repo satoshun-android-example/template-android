@@ -1,6 +1,7 @@
 package io.github.satoshun.pino.feature.home
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -29,10 +30,18 @@ class HomePresenter @AssistedInject internal constructor(
 
   @Composable
   override fun present(): HomeState {
+    var currentTab by rememberSaveable { mutableStateOf(HomeTab.Home) }
+    var searchQuery by rememberSaveable { mutableStateOf("") }
+    var searchResult by rememberSaveable { mutableStateOf<List<Image>?>(null) }
+
     val images by produceStateSaveable<List<Image>?>(null) {
       value = homeRepository.getImages()
     }
-    var currentTab by rememberSaveable { mutableStateOf(HomeTab.Home) }
+    if (searchQuery.isNotEmpty()) {
+      LaunchedEffect(searchQuery) {
+        searchResult = homeRepository.searchImages(searchQuery)
+      }
+    }
 
     val eventSink: (HomeEvent) -> Unit = { event ->
       when (event) {
@@ -42,35 +51,45 @@ class HomePresenter @AssistedInject internal constructor(
         is HomeEvent.ChangeTab -> {
           currentTab = event.tab
         }
+        is HomeEvent.Search -> {
+          searchQuery = event.query
+        }
       }
     }
     return when (currentTab) {
-      HomeTab.Home -> produceMainState(images, eventSink)
-      HomeTab.Search -> produceSearchState(eventSink)
+      HomeTab.Home -> produceMainState(currentTab, images, eventSink)
+      HomeTab.Search -> produceSearchState(searchResult, currentTab, eventSink)
     }
   }
 
   @Composable
   private fun produceMainState(
+    currentTab: HomeTab,
     images: List<Image>?,
     eventSink: (HomeEvent) -> Unit,
   ): HomeState.MainState =
     if (images == null) {
       HomeState.MainState.Loading(
+        currentTab = currentTab,
         eventSink = eventSink,
       )
     } else {
       HomeState.MainState.Success(
         images = images,
+        currentTab = currentTab,
         eventSink = eventSink,
       )
     }
 
   @Composable
   private fun produceSearchState(
+    images: List<Image>?,
+    currentTab: HomeTab,
     eventSink: (HomeEvent) -> Unit,
   ): HomeState.SearchState =
     HomeState.SearchState.Success(
+      searchResults = images,
+      currentTab = currentTab,
       eventSink = eventSink,
     )
 }

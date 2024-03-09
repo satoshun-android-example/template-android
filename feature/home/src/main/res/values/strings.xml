@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="home_title">Pino</string>
+  <string name="home_main">ホーム</string>
+  <string name="home_search">検索</string>
+</resources>
