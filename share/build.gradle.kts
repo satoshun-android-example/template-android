@@ -22,5 +22,5 @@ dependencies {
 }
 
 android {
-  namespace = "io.github.satoshun.example.share"
+  namespace = "io.github.satoshun.pino.share"
 }

@@ -5,10 +5,10 @@ plugins {
 }
 
 android {
-  namespace = "io.github.satoshun.example"
+  namespace = "io.github.satoshun.pino"
 
   defaultConfig {
-    applicationId = "io.github.satoshun.example"
+    applicationId = "io.github.satoshun.pino"
     versionCode = 1
     versionName = "1.0"
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

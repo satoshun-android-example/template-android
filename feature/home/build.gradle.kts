@@ -19,5 +19,5 @@ dependencies {
 }
 
 android {
-  namespace = "io.github.satoshun.example.feature.home"
+  namespace = "io.github.satoshun.pino.feature.home"
 }
