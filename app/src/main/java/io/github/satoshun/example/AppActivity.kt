@@ -4,7 +4,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import com.slack.circuit.backstack.rememberSaveableBackStack
 import com.slack.circuit.foundation.Circuit
 import com.slack.circuit.foundation.CircuitCompositionLocals
@@ -43,15 +46,17 @@ class AppActivity : ComponentActivity() {
           val backStack = rememberSaveableBackStack(stack)
           val navigator = rememberCircuitNavigator(backStack)
 
-          NavigableCircuitContent(
-            navigator = navigator,
-            backStack = backStack,
-            decoration = GestureNavigationDecoration(
-              fallback = circuit.defaultNavDecoration,
-              // Pop the back stack once the user has gone 'back'
-              onBackInvoked = navigator::pop,
-            ),
-          )
+          Surface(Modifier.fillMaxSize()) {
+            NavigableCircuitContent(
+              navigator = navigator,
+              backStack = backStack,
+              decoration = GestureNavigationDecoration(
+                fallback = circuit.defaultNavDecoration,
+                // Pop the back stack once the user has gone 'back'
+                onBackInvoked = navigator::pop,
+              ),
+            )
+          }
         }
       }
     }

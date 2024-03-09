@@ -11,19 +11,49 @@ import kotlinx.parcelize.Parcelize
 data object HomeScreen : Screen
 
 @Stable
-sealed interface HomeState : CircuitUiState {
-  data object Loading : HomeState
+sealed class HomeState(
+  val eventSink: (HomeEvent) -> Unit,
+) : CircuitUiState {
 
-  data class Success(
-    val images: List<Image>,
-    val eventSink: (HomeEvent) -> Unit,
-  ) : HomeState
+  sealed class MainState(
+    eventSink: (HomeEvent) -> Unit,
+  ) : HomeState(eventSink) {
+    class Loading(
+      eventSink: (HomeEvent) -> Unit,
+    ) : MainState(eventSink)
+
+    class Success(
+      val images: List<Image>,
+      eventSink: (HomeEvent) -> Unit,
+    ) : MainState(eventSink)
+  }
+
+  sealed class SearchState(
+    eventSink: (HomeEvent) -> Unit,
+  ) : HomeState(eventSink) {
+    class Loading(
+      eventSink: (HomeEvent) -> Unit,
+    ) : SearchState(eventSink)
+
+    class Success(
+      eventSink: (HomeEvent) -> Unit,
+    ) : SearchState(eventSink)
+  }
+}
+
+enum class HomeTab(val index: Int) {
+  Home(0),
+  Search(1),
 }
 
 @Stable
 sealed interface HomeEvent {
   data class GoToImageDetail(
     val image: Image
+  ) : HomeEvent
+
+  data class ChangeTab(
+    val tab: HomeTab,
   ) : HomeEvent
 }
 

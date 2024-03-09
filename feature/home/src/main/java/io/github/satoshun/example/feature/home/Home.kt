@@ -11,7 +11,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -37,31 +43,83 @@ internal fun Home(
         Text(text = "Images")
       })
     },
+    bottomBar = {
+      NavigationBar(
+        modifier = Modifier,
+      ) {
+        NavigationBarItem(
+          selected = true,
+          onClick = {
+            state.eventSink(HomeEvent.ChangeTab(HomeTab.Home))
+          },
+          icon = {
+            Icon(
+              imageVector = Icons.Default.Home,
+              contentDescription = null,
+            )
+          },
+          label = {
+            Text(text = "ホーム")
+          },
+        )
+        NavigationBarItem(
+          selected = false,
+          onClick = {
+            state.eventSink(HomeEvent.ChangeTab(HomeTab.Search))
+          },
+          icon = {
+            Icon(
+              imageVector = Icons.Default.Search,
+              contentDescription = null,
+            )
+          },
+          label = {
+            Text(text = "検索")
+          },
+        )
+      }
+    },
   ) { paddingValues ->
-    val transition = updateTransition(state, label = "isLoading")
-    transition.AnimatedContent { state ->
-      when (state) {
-        HomeState.Loading -> {
-          Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center,
-          ) {
-            CircularProgressIndicator()
-          }
-        }
-        is HomeState.Success -> {
-          Images(
-            images = state.images,
-            contentPadding = paddingValues,
-            onImageClick = {
-              state.eventSink(HomeEvent.GoToImageDetail(it))
-            },
-          )
-        }
+    when (state) {
+      is HomeState.MainState -> {
+        Main(state, paddingValues)
+      }
+      is HomeState.SearchState -> {
+        // TODO
       }
     }
   }
 }
+
+@Composable
+private fun Main(
+  mainState: HomeState.MainState,
+  paddingValues: PaddingValues,
+) {
+  val transition = updateTransition(mainState, label = "isLoading")
+  transition.AnimatedContent { state ->
+    when (state) {
+      is HomeState.MainState.Loading -> {
+        Box(
+          modifier = Modifier.fillMaxSize(),
+          contentAlignment = Alignment.Center,
+        ) {
+          CircularProgressIndicator()
+        }
+      }
+      is HomeState.MainState.Success -> {
+        Images(
+          images = state.images,
+          contentPadding = paddingValues,
+          onImageClick = {
+            state.eventSink(HomeEvent.GoToImageDetail(it))
+          },
+        )
+      }
+    }
+  }
+}
+
 
 @Composable
 private fun Images(
