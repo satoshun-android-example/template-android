@@ -1,7 +1,7 @@
 plugins {
-  id("example.android.application")
-  id("example.android.application.compose")
-  id("example.android.dagger")
+  id("pino.android.application")
+  id("pino.android.application.compose")
+  id("pino.android.dagger")
 }
 
 android {

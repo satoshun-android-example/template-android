@@ -27,7 +27,7 @@ dependencyResolutionManagement {
   }
 }
 
-rootProject.name = "template-android"
+rootProject.name = "pino"
 
 include ':share'
 include ':feature:next'

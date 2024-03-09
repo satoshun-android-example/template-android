@@ -2,7 +2,7 @@ plugins {
   `kotlin-dsl`
 }
 
-group = "io.github.satoshun.example.buildlogic"
+group = "io.github.satoshun.pino.buildlogic"
 
 java {
   toolchain {
@@ -19,30 +19,30 @@ dependencies {
 gradlePlugin {
   plugins {
     register("androidApplication") {
-      id = "example.android.application"
+      id = "pino.android.application"
       implementationClass = "AndroidApplicationConventionPlugin"
     }
     register("androidApplicationCompose") {
-      id = "example.android.application.compose"
+      id = "pino.android.application.compose"
       implementationClass = "AndroidApplicationComposeConventionPlugin"
     }
 
     register("androidLibrary") {
-      id = "example.android.library"
+      id = "pino.android.library"
       implementationClass = "AndroidLibraryConventionPlugin"
     }
     register("androidLibraryCompose") {
-      id = "example.android.library.compose"
+      id = "pino.android.library.compose"
       implementationClass = "AndroidLibraryComposeConventionPlugin"
     }
 
     register("androidDagger") {
-      id = "example.android.dagger"
+      id = "pino.android.dagger"
       implementationClass = "AndroidDaggerConventionPlugin"
     }
 
     register("androidCircuit") {
-      id = "example.android.circuit"
+      id = "pino.android.circuit"
       implementationClass = "AndroidCircuitConventionPlugin"
     }
   }

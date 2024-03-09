@@ -1,4 +1,4 @@
-package io.github.satoshun.example
+package io.github.satoshun.pino
 
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalog

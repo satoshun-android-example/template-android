@@ -15,7 +15,7 @@
  */
 
 import com.android.build.api.dsl.LibraryExtension
-import io.github.satoshun.example.configureAndroidCompose
+import io.github.satoshun.pino.configureAndroidCompose
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.getByType

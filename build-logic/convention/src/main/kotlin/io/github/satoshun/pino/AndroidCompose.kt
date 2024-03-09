@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.satoshun.example
+package io.github.satoshun.pino
 
 import com.android.build.api.dsl.CommonExtension
 import org.gradle.api.Project
