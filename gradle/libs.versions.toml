@@ -16,7 +16,7 @@ testParameterInjector = "1.15"
 
 ksp = "1.9.22-1.0.18"
 circuit = "0.19.1"
-composeTest = "1.6.2"
+composeTest = "1.6.3"
 
 [plugins]
 android-app = { id = "com.android.application", version.ref = "agp" }
