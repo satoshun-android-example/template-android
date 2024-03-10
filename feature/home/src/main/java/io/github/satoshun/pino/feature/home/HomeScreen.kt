@@ -3,7 +3,6 @@ package io.github.satoshun.pino.feature.home
 import androidx.compose.runtime.Stable
 import com.slack.circuit.overlay.OverlayHost
 import com.slack.circuit.runtime.CircuitUiState
-import com.slack.circuit.runtime.Navigator
 import com.slack.circuit.runtime.screen.Screen
 import io.github.satoshun.pino.share.data.Image
 import kotlinx.parcelize.Parcelize
@@ -29,6 +28,7 @@ sealed interface HomeTabState {
     @Stable
     data class Success(
       val images: List<Image>,
+      val isRefreshing: Boolean,
     ) : MainState
   }
 
@@ -60,6 +60,8 @@ sealed interface HomeEvent {
   data class GoToImageDetail(
     val image: Image
   ) : HomeEvent
+
+  data object Refresh : HomeEvent
 
   data class ChangeTab(
     val tab: HomeTab,

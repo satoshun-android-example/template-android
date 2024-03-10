@@ -3,9 +3,11 @@ package io.github.satoshun.pino.feature.home
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import com.slack.circuit.codegen.annotations.CircuitInject
 import com.slack.circuit.overlay.LocalOverlayHost
 import com.slack.circuit.runtime.Navigator
@@ -17,7 +19,6 @@ import dagger.assisted.AssistedInject
 import dagger.hilt.components.SingletonComponent
 import io.github.satoshun.pino.share.data.HomeRepository
 import io.github.satoshun.pino.share.data.Image
-import io.github.satoshun.pino.share.ui.produceStateSaveable
 import kotlinx.coroutines.launch
 
 class HomePresenter @AssistedInject internal constructor(
@@ -36,10 +37,19 @@ class HomePresenter @AssistedInject internal constructor(
     var currentTab by rememberSaveable { mutableStateOf(HomeTab.Home) }
     var searchQuery by rememberSaveable { mutableStateOf("") }
     var searchResult by rememberSaveable { mutableStateOf<List<Image>?>(null) }
+    var imagesRefreshSeed by rememberSaveable { mutableIntStateOf(0) }
 
-    val images by produceStateSaveable<List<Image>?>(null) {
-      value = homeRepository.getImages()
+    var isRefreshing by rememberSaveable { mutableStateOf(false) }
+    var images by rememberSaveable { mutableStateOf<List<Image>?>(null) }
+    LaunchedEffect(Unit) {
+      snapshotFlow { imagesRefreshSeed }
+        .collect {
+          isRefreshing = true
+          images = homeRepository.getImages(it)
+          isRefreshing = false
+        }
     }
+
     if (searchQuery.isNotEmpty()) {
       LaunchedEffect(searchQuery) {
         searchResult = homeRepository.searchImages(searchQuery)
@@ -62,10 +72,13 @@ class HomePresenter @AssistedInject internal constructor(
         is HomeEvent.Search -> {
           searchQuery = event.query
         }
+        HomeEvent.Refresh -> {
+          imagesRefreshSeed += 1
+        }
       }
     }
     val tabState = when (currentTab) {
-      HomeTab.Home -> produceMainState(images)
+      HomeTab.Home -> produceMainState(images, isRefreshing)
       HomeTab.Search -> produceSearchState(searchResult, searchQuery.isNotEmpty())
     }
 
@@ -79,12 +92,14 @@ class HomePresenter @AssistedInject internal constructor(
   @Composable
   private fun produceMainState(
     images: List<Image>?,
+    isRefreshing: Boolean,
   ): HomeTabState.MainState =
     if (images == null) {
       HomeTabState.MainState.Loading
     } else {
       HomeTabState.MainState.Success(
         images = images,
+        isRefreshing = isRefreshing,
       )
     }
 
