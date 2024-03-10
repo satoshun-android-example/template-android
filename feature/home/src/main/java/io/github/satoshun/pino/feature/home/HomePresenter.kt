@@ -56,40 +56,35 @@ class HomePresenter @AssistedInject internal constructor(
         }
       }
     }
-    return when (currentTab) {
-      HomeTab.Home -> produceMainState(currentTab, images, eventSink)
-      HomeTab.Search -> produceSearchState(searchResult, currentTab, eventSink)
+    val tabState = when (currentTab) {
+      HomeTab.Home -> produceMainState(images)
+      HomeTab.Search -> produceSearchState(searchResult)
     }
+
+    return HomeState(
+      tabState = tabState,
+      currentTab = currentTab,
+      eventSink = eventSink,
+    )
   }
 
   @Composable
   private fun produceMainState(
-    currentTab: HomeTab,
     images: List<Image>?,
-    eventSink: (HomeEvent) -> Unit,
-  ): HomeState.MainState =
+  ): HomeTabState.MainState =
     if (images == null) {
-      HomeState.MainState.Loading(
-        currentTab = currentTab,
-        eventSink = eventSink,
-      )
+      HomeTabState.MainState.Loading
     } else {
-      HomeState.MainState.Success(
+      HomeTabState.MainState.Success(
         images = images,
-        currentTab = currentTab,
-        eventSink = eventSink,
       )
     }
 
   @Composable
   private fun produceSearchState(
     images: List<Image>?,
-    currentTab: HomeTab,
-    eventSink: (HomeEvent) -> Unit,
-  ): HomeState.SearchState =
-    HomeState.SearchState.Success(
+  ): HomeTabState.SearchState =
+    HomeTabState.SearchState.Success(
       searchResults = images,
-      currentTab = currentTab,
-      eventSink = eventSink,
     )
 }

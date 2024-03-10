@@ -1,7 +1,5 @@
 package io.github.satoshun.pino.feature.home
 
-import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -31,38 +29,38 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 internal fun Search(
-  searchState: HomeState.SearchState,
+  parentState: HomeState,
+  state: HomeTabState.SearchState,
   paddingValues: PaddingValues,
 ) {
-  val transition = updateTransition(searchState, label = "isLoading")
-  transition.AnimatedContent { state ->
-    when (state) {
-      is HomeState.SearchState.Loading -> {
-        Box(
-          modifier = Modifier
-            .padding(paddingValues)
-            .fillMaxSize(),
-          contentAlignment = Alignment.Center,
-        ) {
-          CircularProgressIndicator()
-        }
+  when (state) {
+    is HomeTabState.SearchState.Loading -> {
+      Box(
+        modifier = Modifier
+          .padding(paddingValues)
+          .fillMaxSize(),
+        contentAlignment = Alignment.Center,
+      ) {
+        CircularProgressIndicator()
       }
-      is HomeState.SearchState.Success -> {
-        PinoSearchBar(
-          state = state,
-          paddingValues = paddingValues,
-          onSearch = { query ->
-            searchState.eventSink(HomeEvent.Search(query))
-          },
-        )
-      }
+    }
+    is HomeTabState.SearchState.Success -> {
+      PinoSearchBar(
+        parentState = parentState,
+        state = state,
+        paddingValues = paddingValues,
+        onSearch = { query ->
+          parentState.eventSink(HomeEvent.Search(query))
+        },
+      )
     }
   }
 }
 
 @Composable
 private fun PinoSearchBar(
-  state: HomeState.SearchState.Success,
+  parentState: HomeState,
+  state: HomeTabState.SearchState.Success,
   paddingValues: PaddingValues,
   onSearch: (String) -> Unit,
 ) {
@@ -107,6 +105,7 @@ private fun PinoSearchBar(
             .clickable {
               text = resultText
               active = false
+              onSearch(text)
             }
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 4.dp),
@@ -116,14 +115,12 @@ private fun PinoSearchBar(
       }
     }
 
-    if (state.searchResults != null) {
-      Images(
-        images = state.searchResults,
-        contentPadding = PaddingValues(top = 136.dp, bottom = 16.dp),
-        onImageClick = {
-          state.eventSink(HomeEvent.GoToImageDetail(it))
-        },
-      )
-    }
+    Images(
+      images = state.searchResults.orEmpty(),
+      contentPadding = PaddingValues(top = 136.dp, bottom = 16.dp),
+      onImageClick = {
+        parentState.eventSink(HomeEvent.GoToImageDetail(it))
+      },
+    )
   }
 }

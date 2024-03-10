@@ -13,13 +13,14 @@ import androidx.compose.ui.Modifier
 
 @Composable
 internal fun Main(
-  mainState: HomeState.MainState,
+  parentState: HomeState,
+  mainState: HomeTabState.MainState,
   paddingValues: PaddingValues,
 ) {
   val transition = updateTransition(mainState, label = "isLoading")
   transition.AnimatedContent { state ->
     when (state) {
-      is HomeState.MainState.Loading -> {
+      is HomeTabState.MainState.Loading -> {
         Box(
           modifier = Modifier
             .padding(paddingValues)
@@ -29,12 +30,12 @@ internal fun Main(
           CircularProgressIndicator()
         }
       }
-      is HomeState.MainState.Success -> {
+      is HomeTabState.MainState.Success -> {
         Images(
           images = state.images,
           contentPadding = paddingValues,
           onImageClick = {
-            state.eventSink(HomeEvent.GoToImageDetail(it))
+            parentState.eventSink(HomeEvent.GoToImageDetail(it))
           },
         )
       }

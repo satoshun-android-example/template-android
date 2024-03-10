@@ -43,12 +43,12 @@ internal fun Home(
     },
     contentWindowInsets = WindowInsets(0.dp),
   ) { paddingValues ->
-    when (state) {
-      is HomeState.MainState -> {
-        Main(state, paddingValues)
+    when (state.tabState) {
+      is HomeTabState.MainState -> {
+        Main(state, state.tabState, paddingValues)
       }
-      is HomeState.SearchState -> {
-        Search(state, paddingValues)
+      is HomeTabState.SearchState -> {
+        Search(state, state.tabState, paddingValues)
       }
     }
   }

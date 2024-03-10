@@ -11,45 +11,41 @@ import kotlinx.parcelize.Parcelize
 data object HomeScreen : Screen
 
 @Stable
-sealed class HomeState(
+class HomeState(
+  val tabState: HomeTabState,
   val currentTab: HomeTab,
   val eventSink: (HomeEvent) -> Unit,
-) : CircuitUiState {
+) : CircuitUiState
 
-  sealed class MainState(
-    currentTab: HomeTab,
-    eventSink: (HomeEvent) -> Unit,
-  ) : HomeState(currentTab, eventSink) {
-    class Loading(
-      currentTab: HomeTab,
-      eventSink: (HomeEvent) -> Unit,
-    ) : MainState(currentTab, eventSink)
+@Stable
+sealed interface HomeTabState {
 
-    class Success(
+  @Stable
+  sealed interface MainState : HomeTabState {
+    @Stable
+    data object Loading : MainState
+
+    @Stable
+    data class Success(
       val images: List<Image>,
-      currentTab: HomeTab,
-      eventSink: (HomeEvent) -> Unit,
-    ) : MainState(currentTab, eventSink)
+    ) : MainState
   }
 
-  sealed class SearchState(
-    currentTab: HomeTab,
-    eventSink: (HomeEvent) -> Unit,
-  ) : HomeState(currentTab, eventSink) {
-    class Loading(
-      currentTab: HomeTab,
-      eventSink: (HomeEvent) -> Unit,
-    ) : SearchState(currentTab, eventSink)
+  @Stable
+  sealed interface SearchState : HomeTabState {
+    @Stable
+    data object Loading : SearchState
 
-    class Success(
+    @Stable
+    data class Success(
       val searchResults: List<Image>?,
-      currentTab: HomeTab,
-      eventSink: (HomeEvent) -> Unit,
-    ) : SearchState(currentTab, eventSink)
+    ) : SearchState
   }
 }
 
-enum class HomeTab(val index: Int) {
+enum class HomeTab(
+  val index: Int,
+) {
   Home(0),
   Search(1),
 }
@@ -69,6 +65,7 @@ sealed interface HomeEvent {
   ) : HomeEvent
 }
 
+@Stable
 interface HomeNavigator {
   fun goToNext(navigator: Navigator, image: Image)
 }
