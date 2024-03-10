@@ -20,7 +20,7 @@ class HomeRepository @Inject constructor() {
 
   suspend fun searchImages(query: String): List<Image> {
     delay(3000)
-    return (query.length..100).map {
+    return (100 + query.length..200).map {
       Image("https://picsum.photos/id/$it/200/300")
     }
   }

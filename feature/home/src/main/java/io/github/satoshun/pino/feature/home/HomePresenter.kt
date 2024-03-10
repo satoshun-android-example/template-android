@@ -40,6 +40,7 @@ class HomePresenter @AssistedInject internal constructor(
     if (searchQuery.isNotEmpty()) {
       LaunchedEffect(searchQuery) {
         searchResult = homeRepository.searchImages(searchQuery)
+        searchQuery = ""
       }
     }
 
@@ -58,7 +59,7 @@ class HomePresenter @AssistedInject internal constructor(
     }
     val tabState = when (currentTab) {
       HomeTab.Home -> produceMainState(images)
-      HomeTab.Search -> produceSearchState(searchResult)
+      HomeTab.Search -> produceSearchState(searchResult, searchQuery.isNotEmpty())
     }
 
     return HomeState(
@@ -83,8 +84,14 @@ class HomePresenter @AssistedInject internal constructor(
   @Composable
   private fun produceSearchState(
     images: List<Image>?,
+    isSearching: Boolean,
   ): HomeTabState.SearchState =
-    HomeTabState.SearchState.Success(
-      searchResults = images,
-    )
+    when {
+      isSearching -> HomeTabState.SearchState.Loading(
+        searchResults = images,
+      )
+      else -> HomeTabState.SearchState.Success(
+        searchResults = images,
+      )
+    }
 }

@@ -33,34 +33,20 @@ internal fun Search(
   state: HomeTabState.SearchState,
   paddingValues: PaddingValues,
 ) {
-  when (state) {
-    is HomeTabState.SearchState.Loading -> {
-      Box(
-        modifier = Modifier
-          .padding(paddingValues)
-          .fillMaxSize(),
-        contentAlignment = Alignment.Center,
-      ) {
-        CircularProgressIndicator()
-      }
-    }
-    is HomeTabState.SearchState.Success -> {
-      PinoSearchBar(
-        parentState = parentState,
-        state = state,
-        paddingValues = paddingValues,
-        onSearch = { query ->
-          parentState.eventSink(HomeEvent.Search(query))
-        },
-      )
-    }
-  }
+  PinoSearchBar(
+    parentState = parentState,
+    state = state,
+    paddingValues = paddingValues,
+    onSearch = { query ->
+      parentState.eventSink(HomeEvent.Search(query))
+    },
+  )
 }
 
 @Composable
 private fun PinoSearchBar(
   parentState: HomeState,
-  state: HomeTabState.SearchState.Success,
+  state: HomeTabState.SearchState,
   paddingValues: PaddingValues,
   onSearch: (String) -> Unit,
 ) {
@@ -122,5 +108,16 @@ private fun PinoSearchBar(
         parentState.eventSink(HomeEvent.GoToImageDetail(it))
       },
     )
+
+    if (state is HomeTabState.SearchState.Loading) {
+      Box(
+        modifier = Modifier
+          .padding(paddingValues)
+          .fillMaxSize(),
+        contentAlignment = Alignment.Center,
+      ) {
+        CircularProgressIndicator()
+      }
+    }
   }
 }

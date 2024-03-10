@@ -33,12 +33,16 @@ sealed interface HomeTabState {
 
   @Stable
   sealed interface SearchState : HomeTabState {
+    val searchResults: List<Image>?
+
     @Stable
-    data object Loading : SearchState
+    data class Loading(
+      override val searchResults: List<Image>?,
+    ) : SearchState
 
     @Stable
     data class Success(
-      val searchResults: List<Image>?,
+      override val searchResults: List<Image>?,
     ) : SearchState
   }
 }
