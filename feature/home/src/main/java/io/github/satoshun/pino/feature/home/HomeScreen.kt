@@ -1,6 +1,7 @@
 package io.github.satoshun.pino.feature.home
 
 import androidx.compose.runtime.Stable
+import com.slack.circuit.overlay.OverlayHost
 import com.slack.circuit.runtime.CircuitUiState
 import com.slack.circuit.runtime.Navigator
 import com.slack.circuit.runtime.screen.Screen
@@ -71,5 +72,5 @@ sealed interface HomeEvent {
 
 @Stable
 interface HomeNavigator {
-  fun goToNext(navigator: Navigator, image: Image)
+  suspend fun goToNext(host: OverlayHost, image: Image)
 }

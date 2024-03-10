@@ -7,7 +7,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import com.slack.circuit.codegen.annotations.CircuitInject
+import com.slack.circuit.overlay.LocalOverlayHost
 import com.slack.circuit.runtime.Navigator
+import com.slack.circuit.runtime.internal.rememberStableCoroutineScope
 import com.slack.circuit.runtime.presenter.Presenter
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -16,6 +18,7 @@ import dagger.hilt.components.SingletonComponent
 import io.github.satoshun.pino.share.data.HomeRepository
 import io.github.satoshun.pino.share.data.Image
 import io.github.satoshun.pino.share.ui.produceStateSaveable
+import kotlinx.coroutines.launch
 
 class HomePresenter @AssistedInject internal constructor(
   @Assisted private val navigator: Navigator,
@@ -44,10 +47,14 @@ class HomePresenter @AssistedInject internal constructor(
       }
     }
 
+    val overlayHost = LocalOverlayHost.current
+    val scope = rememberStableCoroutineScope()
     val eventSink: (HomeEvent) -> Unit = { event ->
       when (event) {
         is HomeEvent.GoToImageDetail -> {
-          homeNavigator.goToNext(navigator, event.image)
+          scope.launch {
+            homeNavigator.goToNext(overlayHost, event.image)
+          }
         }
         is HomeEvent.ChangeTab -> {
           currentTab = event.tab

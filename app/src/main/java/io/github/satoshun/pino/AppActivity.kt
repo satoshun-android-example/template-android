@@ -13,6 +13,7 @@ import com.slack.circuit.foundation.Circuit
 import com.slack.circuit.foundation.CircuitCompositionLocals
 import com.slack.circuit.foundation.NavigableCircuitContent
 import com.slack.circuit.foundation.rememberCircuitNavigator
+import com.slack.circuit.overlay.ContentWithOverlays
 import com.slack.circuit.runtime.presenter.Presenter
 import com.slack.circuit.runtime.ui.Ui
 import com.slack.circuitx.gesturenavigation.GestureNavigationDecoration
@@ -40,22 +41,24 @@ class AppActivity : ComponentActivity() {
     setContent {
       PinoTheme {
         CircuitCompositionLocals(circuit) {
-          val stack = remember {
-            persistentListOf(HomeScreen)
-          }
-          val backStack = rememberSaveableBackStack(stack)
-          val navigator = rememberCircuitNavigator(backStack)
+          ContentWithOverlays {
+            val stack = remember {
+              persistentListOf(HomeScreen)
+            }
+            val backStack = rememberSaveableBackStack(stack)
+            val navigator = rememberCircuitNavigator(backStack)
 
-          Surface(Modifier.fillMaxSize()) {
-            NavigableCircuitContent(
-              navigator = navigator,
-              backStack = backStack,
-              decoration = GestureNavigationDecoration(
-                fallback = circuit.defaultNavDecoration,
-                // Pop the back stack once the user has gone 'back'
-                onBackInvoked = navigator::pop,
-              ),
-            )
+            Surface(Modifier.fillMaxSize()) {
+              NavigableCircuitContent(
+                navigator = navigator,
+                backStack = backStack,
+                decoration = GestureNavigationDecoration(
+                  fallback = circuit.defaultNavDecoration,
+                  // Pop the back stack once the user has gone 'back'
+                  onBackInvoked = navigator::pop,
+                ),
+              )
+            }
           }
         }
       }

@@ -92,6 +92,7 @@ circuit-runtime = { module = "com.slack.circuit:circuit-runtime", version.ref = 
 circuit-codegen = { module = "com.slack.circuit:circuit-codegen", version.ref = "circuit" }
 circuit-codegenAnnotations = { module = "com.slack.circuit:circuit-codegen-annotations", version.ref = "circuit" }
 circuitx-gestureNav = { module = "com.slack.circuit:circuitx-gesture-navigation", version.ref = "circuit" }
+circuitx-overlays = { module = "com.slack.circuit:circuitx-overlays", version.ref = "circuit" }
 
 leakcanary = "com.squareup.leakcanary:leakcanary-android:2.13"
 
@@ -138,6 +139,7 @@ android-ui = [
     "coil-compose",
     "circuit-core",
     "circuitx-gestureNav",
+    "circuitx-overlays",
 ]
 
 test = [
