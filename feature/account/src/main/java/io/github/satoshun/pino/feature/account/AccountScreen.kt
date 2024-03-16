@@ -1,5 +1,6 @@
 package io.github.satoshun.pino.feature.account
 
+import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import com.slack.circuit.codegen.annotations.CircuitInject
@@ -21,7 +22,9 @@ class AccountState(
   val eventSink: (AccountEvent) -> Unit,
 ) : CircuitUiState
 
-sealed interface AccountEvent
+sealed interface AccountEvent {
+  data object Back : AccountEvent
+}
 
 class AccountPresenter @AssistedInject constructor(
   @Assisted private val navigator: Navigator,
@@ -38,6 +41,29 @@ class AccountPresenter @AssistedInject constructor(
 
   @Composable
   override fun present(): AccountState {
-    return AccountState(eventSink = {})
+    return AccountState(eventSink = {
+      when (it) {
+        AccountEvent.Back -> {
+          navigator.pop()
+        }
+      }
+    })
   }
+}
+
+enum class AccountType(
+  @StringRes val title: Int,
+) {
+  Language(
+    title = R.string.account_language,
+  ),
+  Notification(
+    title = R.string.account_notification,
+  ),
+  Theme(
+    title = R.string.account_theme,
+  ),
+  Network(
+    title = R.string.account_network,
+  ),
 }

@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="account_title">設定</string>
+  <string name="account_section_title">Pinoの設定</string>
+
+  <string name="account_language">言語</string>
+  <string name="account_notification">通知</string>
+  <string name="account_theme">テーマ</string>
+  <string name="account_network">ネットワーク設定</string>
 </resources>
