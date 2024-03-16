@@ -1,6 +1,7 @@
 package io.github.satoshun.pino.feature.home
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,6 +12,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import io.github.satoshun.pino.share.data.Image
 
@@ -19,11 +21,14 @@ internal fun Images(
   images: List<Image>,
   contentPadding: PaddingValues,
   onImageClick: (Image) -> Unit,
+  modifier: Modifier = Modifier,
 ) {
   LazyVerticalGrid(
+    modifier = modifier.fillMaxSize(),
     columns = GridCells.Fixed(2),
-    modifier = Modifier.fillMaxSize(),
     contentPadding = contentPadding,
+    verticalArrangement = Arrangement.spacedBy(4.dp),
+    horizontalArrangement = Arrangement.spacedBy(4.dp),
   ) {
     items(images, key = { it.url }) {
       AsyncImage(

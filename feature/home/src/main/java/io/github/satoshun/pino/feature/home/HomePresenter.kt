@@ -75,6 +75,9 @@ class HomePresenter @AssistedInject internal constructor(
         HomeEvent.Refresh -> {
           imagesRefreshSeed += 1
         }
+        HomeEvent.TopBar.AccountClick -> {
+          homeNavigator.goToAccount(navigator)
+        }
       }
     }
     val tabState = when (currentTab) {

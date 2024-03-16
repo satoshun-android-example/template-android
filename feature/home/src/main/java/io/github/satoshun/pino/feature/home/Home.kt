@@ -2,9 +2,11 @@ package io.github.satoshun.pino.feature.home
 
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
@@ -26,8 +28,8 @@ internal fun Home(
   Scaffold(
     modifier = modifier,
     topBar = {
-      TopAppBar(title = {
-        Text(text = stringResource(R.string.home_title))
+      PinoTopBar(onAccountClick = {
+        state.eventSink(HomeEvent.TopBar.AccountClick)
       })
     },
     bottomBar = {
@@ -52,6 +54,25 @@ internal fun Home(
       }
     }
   }
+}
+
+@Composable
+private fun PinoTopBar(
+  onAccountClick: () -> Unit,
+) {
+  TopAppBar(
+    title = {
+      Text(text = stringResource(R.string.home_title))
+    },
+    actions = {
+      IconButton(onClick = onAccountClick) {
+        Icon(
+          imageVector = Icons.Default.AccountCircle,
+          contentDescription = null,
+        )
+      }
+    },
+  )
 }
 
 @Composable

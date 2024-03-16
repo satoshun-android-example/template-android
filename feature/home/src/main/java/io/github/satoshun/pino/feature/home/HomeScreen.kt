@@ -3,6 +3,7 @@ package io.github.satoshun.pino.feature.home
 import androidx.compose.runtime.Stable
 import com.slack.circuit.overlay.OverlayHost
 import com.slack.circuit.runtime.CircuitUiState
+import com.slack.circuit.runtime.Navigator
 import com.slack.circuit.runtime.screen.Screen
 import io.github.satoshun.pino.share.data.Image
 import kotlinx.parcelize.Parcelize
@@ -70,9 +71,14 @@ sealed interface HomeEvent {
   data class Search(
     val query: String,
   ) : HomeEvent
+
+  sealed interface TopBar : HomeEvent {
+    data object AccountClick : TopBar
+  }
 }
 
 @Stable
 interface HomeNavigator {
   suspend fun goToNext(host: OverlayHost, image: Image)
+  fun goToAccount(navigator: Navigator)
 }

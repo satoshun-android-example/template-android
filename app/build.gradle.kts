@@ -39,6 +39,7 @@ dependencies {
   implementation(projects.share)
   implementation(projects.feature.home)
   implementation(projects.feature.next)
+  implementation(projects.feature.account)
 
   implementation(libs.bundles.android.ui)
   implementation(libs.bundles.kotlin.android)

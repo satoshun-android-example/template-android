@@ -32,6 +32,7 @@ rootProject.name = "pino"
 include ':share'
 include ':feature:next'
 include ':feature:home'
+include ':feature:account'
 include ':preview-screenshots'
 include ':app'
 
