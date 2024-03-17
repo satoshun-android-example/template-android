@@ -26,7 +26,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.slack.circuit.codegen.annotations.CircuitInject
 import dagger.hilt.components.SingletonComponent
-import io.github.satoshun.pino.share.ui.SectionTitle
+import io.github.satoshun.pino.designsystem.SectionTitle
 
 @CircuitInject(AccountScreen::class, SingletonComponent::class)
 @Composable

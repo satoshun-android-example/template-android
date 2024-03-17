@@ -12,9 +12,9 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.components.SingletonComponent
+import io.github.satoshun.pino.designsystem.produceStateSaveable
 import io.github.satoshun.pino.feature.help.data.HelpItem
 import io.github.satoshun.pino.feature.help.data.HelpRepository
-import io.github.satoshun.pino.share.ui.produceStateSaveable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

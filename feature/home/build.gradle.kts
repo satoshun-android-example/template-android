@@ -9,6 +9,7 @@ plugins {
 
 dependencies {
   implementation(projects.share)
+  implementation(projects.designsystem)
 
   implementation(libs.bundles.android.ui)
   implementation(libs.bundles.kotlin.android)

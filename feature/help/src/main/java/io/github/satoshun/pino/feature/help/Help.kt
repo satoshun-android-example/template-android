@@ -24,8 +24,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.slack.circuit.codegen.annotations.CircuitInject
 import dagger.hilt.components.SingletonComponent
+import io.github.satoshun.pino.designsystem.SectionTitle
 import io.github.satoshun.pino.feature.help.data.HelpItem
-import io.github.satoshun.pino.share.ui.SectionTitle
 
 @CircuitInject(HelpScreen::class, SingletonComponent::class)
 @Composable

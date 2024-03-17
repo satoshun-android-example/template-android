@@ -37,6 +37,8 @@ android {
 
 dependencies {
   implementation(projects.share)
+  implementation(projects.designsystem)
+
   implementation(projects.feature.home)
   implementation(projects.feature.next)
   implementation(projects.feature.account)

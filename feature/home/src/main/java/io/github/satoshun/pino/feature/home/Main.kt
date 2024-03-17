@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import io.github.satoshun.pino.share.ui.rememberPullToRefreshState
+import io.github.satoshun.pino.designsystem.rememberPullToRefreshState
 
 @Composable
 internal fun Main(
