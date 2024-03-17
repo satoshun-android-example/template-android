@@ -18,9 +18,9 @@ import com.slack.circuit.runtime.presenter.Presenter
 import com.slack.circuit.runtime.ui.Ui
 import com.slack.circuitx.gesturenavigation.GestureNavigationDecoration
 import dagger.hilt.android.AndroidEntryPoint
+import io.github.satoshun.pino.designsystem.theme.PinoTheme
 import io.github.satoshun.pino.feature.home.HomeScreen
 import io.github.satoshun.pino.share.di.DaggerSet
-import io.github.satoshun.pino.theme.PinoTheme
 import kotlinx.collections.immutable.persistentListOf
 import javax.inject.Inject
 

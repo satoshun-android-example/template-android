@@ -1,4 +1,4 @@
-package io.github.satoshun.pino.theme
+package io.github.satoshun.pino.designsystem.theme
 
 import androidx.compose.ui.graphics.Color
 
