@@ -12,10 +12,10 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -26,6 +26,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.slack.circuit.codegen.annotations.CircuitInject
 import dagger.hilt.components.SingletonComponent
+import io.github.satoshun.pino.share.ui.SectionTitle
 
 @CircuitInject(AccountScreen::class, SingletonComponent::class)
 @Composable
@@ -39,6 +40,9 @@ internal fun Account(
       AccountTopBar(
         onBack = {
           state.eventSink(AccountEvent.Back)
+        },
+        onHelp = {
+          state.eventSink(AccountEvent.GoToHelp)
         },
       )
     },
@@ -56,7 +60,7 @@ internal fun Account(
 
 private fun LazyListScope.basic() {
   item {
-    Title(stringResource(R.string.account_basic_title))
+    SectionTitle(stringResource(R.string.account_basic_title))
   }
 
   item { Spacer(Modifier.height(12.dp)) }
@@ -75,7 +79,7 @@ private fun LazyListScope.basic() {
 
 private fun LazyListScope.detail() {
   item {
-    Title(stringResource(R.string.account_detail_title))
+    SectionTitle(stringResource(R.string.account_detail_title))
   }
 
   item { Spacer(Modifier.height(12.dp)) }
@@ -90,18 +94,6 @@ private fun LazyListScope.detail() {
       },
     )
   }
-}
-
-@Composable
-private fun Title(
-  title: String,
-) {
-  Text(
-    modifier = Modifier.padding(horizontal = 16.dp),
-    text = title,
-    style = MaterialTheme.typography.titleSmall,
-    color = MaterialTheme.colorScheme.primary,
-  )
 }
 
 @Composable
@@ -140,6 +132,7 @@ private fun Entry(
 @Composable
 private fun AccountTopBar(
   onBack: () -> Unit,
+  onHelp: () -> Unit,
 ) {
   TopAppBar(
     title = {
@@ -149,6 +142,15 @@ private fun AccountTopBar(
       IconButton(onClick = onBack) {
         Icon(
           imageVector = Icons.AutoMirrored.Default.ArrowBack,
+          contentDescription = null,
+        )
+      }
+    },
+    actions = {
+      IconButton(onClick = onHelp) {
+        Icon(
+          // TODO Help icon
+          imageVector = Icons.Default.Info,
           contentDescription = null,
         )
       }

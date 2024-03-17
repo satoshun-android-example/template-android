@@ -40,6 +40,7 @@ dependencies {
   implementation(projects.feature.home)
   implementation(projects.feature.next)
   implementation(projects.feature.account)
+  implementation(projects.feature.help)
 
   implementation(libs.bundles.android.ui)
   implementation(libs.bundles.kotlin.android)

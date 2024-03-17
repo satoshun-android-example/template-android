@@ -24,9 +24,11 @@ class AccountState(
 
 sealed interface AccountEvent {
   data object Back : AccountEvent
+  data object GoToHelp : AccountEvent
 }
 
 class AccountPresenter @AssistedInject constructor(
+  private val accountNavigator: AccountNavigator,
   @Assisted private val navigator: Navigator,
   @Assisted private val screen: AccountScreen,
 ) : Presenter<AccountState> {
@@ -45,6 +47,9 @@ class AccountPresenter @AssistedInject constructor(
       when (it) {
         AccountEvent.Back -> {
           navigator.pop()
+        }
+        AccountEvent.GoToHelp -> {
+          accountNavigator.gotoHelp(navigator)
         }
       }
     })

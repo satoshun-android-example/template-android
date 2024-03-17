@@ -33,6 +33,7 @@ include ':share'
 include ':feature:next'
 include ':feature:home'
 include ':feature:account'
+include ':feature:help'
 include ':preview-screenshots'
 include ':app'
 
