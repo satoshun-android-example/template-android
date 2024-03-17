@@ -6,7 +6,13 @@ import javax.inject.Inject
 internal class HelpRepository @Inject constructor() {
   suspend fun getPopularHelp(): List<HelpItem> {
     delay(300)
-    return emptyList()
+    return listOf(
+      HelpItem(1, "パスワードを設定する"),
+      HelpItem(2, "アカウントを作成する"),
+      HelpItem(5, "画像の検索する"),
+      HelpItem(3, "アカウントを削除する"),
+      HelpItem(4, "アカウントを復元する"),
+    )
   }
 }
 

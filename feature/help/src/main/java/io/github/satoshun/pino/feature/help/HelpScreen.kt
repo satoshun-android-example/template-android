@@ -47,6 +47,7 @@ class HelpPresenter @AssistedInject internal constructor(
   @Composable
   override fun present(): HelpState {
     val popularHelp: List<HelpItem> by produceStateSaveable(initialValue = emptyList()) {
+      value = repository.getPopularHelp()
     }
 
     return HelpState(
