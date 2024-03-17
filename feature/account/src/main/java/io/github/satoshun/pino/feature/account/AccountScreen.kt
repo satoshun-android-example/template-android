@@ -51,19 +51,19 @@ class AccountPresenter @AssistedInject constructor(
   }
 }
 
-enum class AccountType(
+enum class AccountBasicType(
   @StringRes val title: Int,
 ) {
-  Language(
-    title = R.string.account_language,
-  ),
-  Notification(
-    title = R.string.account_notification,
-  ),
-  Theme(
-    title = R.string.account_theme,
-  ),
-  Network(
-    title = R.string.account_network,
-  ),
+  Language(title = R.string.account_language),
+  Notification(title = R.string.account_notification),
+  Theme(title = R.string.account_theme),
+  Network(title = R.string.account_network),
+}
+
+enum class AccountDetailType(
+  @StringRes val title: Int,
+) {
+  Download(title = R.string.account_download),
+  Site(title = R.string.account_site),
+  About(title = R.string.account_about),
 }

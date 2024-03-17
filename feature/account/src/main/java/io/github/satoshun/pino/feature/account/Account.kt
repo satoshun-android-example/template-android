@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -46,45 +47,92 @@ internal fun Account(
       modifier = Modifier.fillMaxSize(),
       contentPadding = paddingValues,
     ) {
-      item {
-        Text(
-          modifier = Modifier.padding(horizontal = 16.dp),
-          text = stringResource(R.string.account_section_title),
-          style = MaterialTheme.typography.titleSmall,
-          color = MaterialTheme.colorScheme.primary,
-        )
-      }
+      basic()
+      item { Spacer(Modifier.height(18.dp)) }
+      detail()
+    }
+  }
+}
 
-      item {
-        Spacer(Modifier.height(12.dp))
-      }
+private fun LazyListScope.basic() {
+  item {
+    Title(stringResource(R.string.account_basic_title))
+  }
 
-      itemsIndexed(AccountType.entries, key = { _, entry -> entry }) { index, entry ->
-        Box(
-          Modifier.clickable {
-            // TODO
-          },
-        ) {
-          Box(
-            modifier = Modifier.padding(vertical = 16.dp),
-          ) {
-            Text(
-              modifier = Modifier
-                .padding(horizontal = 16.dp)
-                .align(Alignment.CenterStart),
-              text = stringResource(entry.title),
-            )
-          }
+  item { Spacer(Modifier.height(12.dp)) }
 
-          if (index != AccountType.entries.lastIndex) {
-            HorizontalDivider(
-              Modifier
-                .fillMaxWidth()
-                .align(Alignment.BottomStart),
-            )
-          }
-        }
-      }
+  itemsIndexed(AccountBasicType.entries, key = { _, entry -> entry }) { index, entry ->
+    Entry(
+      text = stringResource(entry.title),
+      index = index,
+      lastIndex = AccountBasicType.entries.lastIndex,
+      onClick = {
+        // TODO
+      },
+    )
+  }
+}
+
+private fun LazyListScope.detail() {
+  item {
+    Title(stringResource(R.string.account_detail_title))
+  }
+
+  item { Spacer(Modifier.height(12.dp)) }
+
+  itemsIndexed(AccountDetailType.entries, key = { _, entry -> entry }) { index, entry ->
+    Entry(
+      text = stringResource(entry.title),
+      index = index,
+      lastIndex = AccountDetailType.entries.lastIndex,
+      onClick = {
+        // TODO
+      },
+    )
+  }
+}
+
+@Composable
+private fun Title(
+  title: String,
+) {
+  Text(
+    modifier = Modifier.padding(horizontal = 16.dp),
+    text = title,
+    style = MaterialTheme.typography.titleSmall,
+    color = MaterialTheme.colorScheme.primary,
+  )
+}
+
+@Composable
+private fun Entry(
+  text: String,
+  index: Int,
+  lastIndex: Int,
+  onClick: () -> Unit,
+) {
+  Box(
+    Modifier
+      .fillMaxWidth()
+      .clickable { onClick() },
+  ) {
+    Box(
+      modifier = Modifier.padding(vertical = 16.dp),
+    ) {
+      Text(
+        modifier = Modifier
+          .padding(horizontal = 16.dp)
+          .align(Alignment.CenterStart),
+        text = text,
+      )
+    }
+
+    if (index != lastIndex) {
+      HorizontalDivider(
+        Modifier
+          .fillMaxWidth()
+          .align(Alignment.BottomStart),
+      )
     }
   }
 }
