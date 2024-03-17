@@ -22,6 +22,19 @@ fun <T> produceStateSaveable(
   return result
 }
 
+@Composable
+fun <T> produceStateSaveable(
+  initialValue: T,
+  key1: Any?,
+  producer: suspend ProduceStateScope<T>.() -> Unit,
+): State<T> {
+  val result = rememberSaveable { mutableStateOf(initialValue) }
+  LaunchedEffect(key1) {
+    ProduceStateScopeImpl(result, coroutineContext).producer()
+  }
+  return result
+}
+
 private class ProduceStateScopeImpl<T>(
   state: MutableState<T>,
   override val coroutineContext: CoroutineContext

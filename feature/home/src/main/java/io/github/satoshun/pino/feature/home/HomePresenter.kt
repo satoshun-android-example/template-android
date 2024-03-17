@@ -5,6 +5,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
@@ -17,6 +18,7 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.components.SingletonComponent
+import io.github.satoshun.pino.designsystem.produceStateSaveable
 import io.github.satoshun.pino.share.data.HomeRepository
 import io.github.satoshun.pino.share.data.Image
 import kotlinx.coroutines.launch
@@ -40,14 +42,13 @@ class HomePresenter @AssistedInject internal constructor(
     var imagesRefreshSeed by rememberSaveable { mutableIntStateOf(0) }
 
     var isRefreshing by rememberSaveable { mutableStateOf(false) }
-    var images by rememberSaveable { mutableStateOf<List<Image>?>(null) }
-    LaunchedEffect(Unit) {
-      snapshotFlow { imagesRefreshSeed }
-        .collect {
-          isRefreshing = true
-          images = homeRepository.getImages(it)
-          isRefreshing = false
-        }
+    val images by produceStateSaveable<List<Image>?>(
+      initialValue = null,
+      key1 = imagesRefreshSeed,
+    ) {
+      isRefreshing = true
+      value = homeRepository.getImages(imagesRefreshSeed)
+      isRefreshing = false
     }
 
     if (searchQuery.isNotEmpty()) {

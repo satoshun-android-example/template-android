@@ -19,6 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.slack.circuit.codegen.annotations.CircuitInject
 import dagger.hilt.components.SingletonComponent
+import io.github.satoshun.pino.feature.home.favorite.Favorite
 
 @CircuitInject(HomeScreen::class, SingletonComponent::class)
 @Composable
