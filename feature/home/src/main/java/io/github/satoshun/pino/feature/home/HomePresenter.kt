@@ -5,10 +5,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.produceState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.snapshotFlow
 import com.slack.circuit.codegen.annotations.CircuitInject
 import com.slack.circuit.overlay.LocalOverlayHost
 import com.slack.circuit.runtime.Navigator
@@ -85,6 +83,7 @@ class HomePresenter @AssistedInject internal constructor(
       HomeTab.Home -> produceMainState(images, isRefreshing)
       HomeTab.Search -> produceSearchState(searchResult, searchQuery.isNotEmpty())
       HomeTab.Favorite -> produceFavoriteState()
+      HomeTab.Notification -> HomeTabState.NotificationState
     }
 
     return HomeState(

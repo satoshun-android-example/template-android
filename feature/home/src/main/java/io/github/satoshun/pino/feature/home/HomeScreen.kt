@@ -56,6 +56,9 @@ sealed interface HomeTabState {
     @Stable
     class Success() : FavoriteState
   }
+
+  @Stable
+  data object NotificationState : HomeTabState
 }
 
 enum class HomeTab(
@@ -64,6 +67,7 @@ enum class HomeTab(
   Home(0),
   Search(1),
   Favorite(2),
+  Notification(3),
 }
 
 @Stable

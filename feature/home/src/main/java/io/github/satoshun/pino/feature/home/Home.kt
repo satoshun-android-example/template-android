@@ -1,10 +1,14 @@
 package io.github.satoshun.pino.feature.home
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -18,8 +22,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.slack.circuit.codegen.annotations.CircuitInject
+import com.slack.circuit.foundation.CircuitContent
 import dagger.hilt.components.SingletonComponent
 import io.github.satoshun.pino.feature.home.favorite.Favorite
+import io.github.satoshun.pino.feature.home.notification.NotificationScreen
 
 @CircuitInject(HomeScreen::class, SingletonComponent::class)
 @Composable
@@ -46,6 +52,9 @@ internal fun Home(
         onFavoriteClick = {
           state.eventSink(HomeEvent.ChangeTab(HomeTab.Favorite))
         },
+        onNotificationClick = {
+          state.eventSink(HomeEvent.ChangeTab(HomeTab.Notification))
+        },
       )
     },
     contentWindowInsets = WindowInsets(0.dp),
@@ -58,7 +67,22 @@ internal fun Home(
         Search(state, state.tabState, paddingValues)
       }
       is HomeTabState.FavoriteState -> {
-        Favorite(state, state.tabState, paddingValues)
+        Box(
+          modifier = Modifier
+            .fillMaxSize()
+            .padding(paddingValues),
+        ) {
+          Favorite(state, state.tabState)
+        }
+      }
+      HomeTabState.NotificationState -> {
+        Box(
+          modifier = Modifier
+            .fillMaxSize()
+            .padding(paddingValues),
+        ) {
+          CircuitContent(NotificationScreen)
+        }
       }
     }
   }
@@ -89,6 +113,7 @@ private fun PinoNavigationBar(
   onHomeClick: () -> Unit,
   onSearchClick: () -> Unit,
   onFavoriteClick: () -> Unit,
+  onNotificationClick: () -> Unit,
 ) {
   NavigationBar {
     NavigationBarItem(
@@ -128,6 +153,19 @@ private fun PinoNavigationBar(
       },
       label = {
         Text(text = stringResource(R.string.home_favorite))
+      },
+    )
+    NavigationBarItem(
+      selected = currentTab == HomeTab.Notification,
+      onClick = onNotificationClick,
+      icon = {
+        Icon(
+          imageVector = Icons.Default.Notifications,
+          contentDescription = null,
+        )
+      },
+      label = {
+        Text(text = stringResource(R.string.home_notification))
       },
     )
   }
