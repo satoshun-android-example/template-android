@@ -47,6 +47,15 @@ sealed interface HomeTabState {
       override val searchResults: List<Image>?,
     ) : SearchState
   }
+
+  @Stable
+  sealed interface FavoriteState : HomeTabState {
+    @Stable
+    class Loading() : FavoriteState
+
+    @Stable
+    class Success() : FavoriteState
+  }
 }
 
 enum class HomeTab(
@@ -54,6 +63,7 @@ enum class HomeTab(
 ) {
   Home(0),
   Search(1),
+  Favorite(2),
 }
 
 @Stable

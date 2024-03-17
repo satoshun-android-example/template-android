@@ -3,6 +3,7 @@ package io.github.satoshun.pino.feature.home
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
@@ -41,6 +42,9 @@ internal fun Home(
         onSearchClick = {
           state.eventSink(HomeEvent.ChangeTab(HomeTab.Search))
         },
+        onFavoriteClick = {
+          state.eventSink(HomeEvent.ChangeTab(HomeTab.Favorite))
+        },
       )
     },
     contentWindowInsets = WindowInsets(0.dp),
@@ -51,6 +55,9 @@ internal fun Home(
       }
       is HomeTabState.SearchState -> {
         Search(state, state.tabState, paddingValues)
+      }
+      is HomeTabState.FavoriteState -> {
+        Favorite(state, state.tabState, paddingValues)
       }
     }
   }
@@ -80,6 +87,7 @@ private fun PinoNavigationBar(
   currentTab: HomeTab,
   onHomeClick: () -> Unit,
   onSearchClick: () -> Unit,
+  onFavoriteClick: () -> Unit,
 ) {
   NavigationBar {
     NavigationBarItem(
@@ -106,6 +114,19 @@ private fun PinoNavigationBar(
       },
       label = {
         Text(text = stringResource(R.string.home_search))
+      },
+    )
+    NavigationBarItem(
+      selected = currentTab == HomeTab.Favorite,
+      onClick = onFavoriteClick,
+      icon = {
+        Icon(
+          imageVector = Icons.Default.Favorite,
+          contentDescription = null,
+        )
+      },
+      label = {
+        Text(text = stringResource(R.string.home_favorite))
       },
     )
   }

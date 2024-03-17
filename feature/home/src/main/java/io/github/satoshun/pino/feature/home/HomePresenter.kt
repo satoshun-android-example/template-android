@@ -83,6 +83,7 @@ class HomePresenter @AssistedInject internal constructor(
     val tabState = when (currentTab) {
       HomeTab.Home -> produceMainState(images, isRefreshing)
       HomeTab.Search -> produceSearchState(searchResult, searchQuery.isNotEmpty())
+      HomeTab.Favorite -> produceFavoriteState()
     }
 
     return HomeState(
@@ -118,5 +119,11 @@ class HomePresenter @AssistedInject internal constructor(
       else -> HomeTabState.SearchState.Success(
         searchResults = images,
       )
+    }
+
+  @Composable
+  private fun produceFavoriteState(): HomeTabState.FavoriteState =
+    when {
+      else -> HomeTabState.FavoriteState.Success()
     }
 }
