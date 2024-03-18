@@ -3,13 +3,16 @@ package io.github.satoshun.pino.feature.home.notification
 import androidx.compose.runtime.Stable
 import com.slack.circuit.runtime.CircuitUiState
 import com.slack.circuit.runtime.screen.Screen
+import io.github.satoshun.pino.feature.home.notification.data.Notification
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data object NotificationScreen : Screen
+class NotificationScreen : Screen
 
 @Stable
-class NotificationState() : CircuitUiState
+class NotificationState(
+  val notifications: List<Notification>,
+) : CircuitUiState
 
 @Stable
 sealed interface NotificationEvent {

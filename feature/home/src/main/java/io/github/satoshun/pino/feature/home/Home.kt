@@ -81,7 +81,7 @@ internal fun Home(
             .fillMaxSize()
             .padding(paddingValues),
         ) {
-          CircuitContent(NotificationScreen)
+          CircuitContent(NotificationScreen())
         }
       }
     }

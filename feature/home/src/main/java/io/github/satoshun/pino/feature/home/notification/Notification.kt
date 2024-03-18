@@ -1,5 +1,7 @@
 package io.github.satoshun.pino.feature.home.notification
 
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -12,5 +14,9 @@ internal fun Notification(
   state: NotificationState,
   modifier: Modifier = Modifier,
 ) {
-  Text("Notification")
+  LazyColumn(modifier) {
+    items(state.notifications, key = { it.id }) { notification ->
+      Text(notification.title)
+    }
+  }
 }
