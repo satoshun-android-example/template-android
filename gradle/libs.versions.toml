@@ -15,7 +15,7 @@ showkase = "1.0.2"
 testParameterInjector = "1.15"
 
 ksp = "1.9.22-1.0.18"
-circuit = "0.19.1"
+circuit = "0.20.0"
 composeTest = "1.6.3"
 
 [plugins]
