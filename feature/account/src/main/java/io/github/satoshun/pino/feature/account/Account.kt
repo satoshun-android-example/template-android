@@ -1,32 +1,26 @@
 package io.github.satoshun.pino.feature.account
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Build
+import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Info
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import com.slack.circuit.codegen.annotations.CircuitInject
+import com.slack.circuit.foundation.CircuitContent
 import dagger.hilt.components.SingletonComponent
-import io.github.satoshun.pino.designsystem.SectionTitle
+import io.github.satoshun.pino.feature.account.basic.AccountBasicScreen
 
 @CircuitInject(AccountScreen::class, SingletonComponent::class)
 @Composable
@@ -46,86 +40,24 @@ internal fun Account(
         },
       )
     },
+    bottomBar = {
+      AccountBottomBar(
+        currentTab = state.currentTab,
+        onBasicClick = {
+          state.eventSink(AccountEvent.ToBasic)
+        },
+        onNetworkClick = {
+          state.eventSink(AccountEvent.ToNetwork)
+        },
+      )
+    },
   ) { paddingValues ->
-    LazyColumn(
-      modifier = Modifier.fillMaxSize(),
-      contentPadding = paddingValues,
-    ) {
-      basic()
-      item { Spacer(Modifier.height(18.dp)) }
-      detail()
-    }
-  }
-}
-
-private fun LazyListScope.basic() {
-  item {
-    SectionTitle(stringResource(R.string.account_basic_title))
-  }
-
-  item { Spacer(Modifier.height(12.dp)) }
-
-  itemsIndexed(AccountBasicType.entries, key = { _, entry -> entry }) { index, entry ->
-    Entry(
-      text = stringResource(entry.title),
-      index = index,
-      lastIndex = AccountBasicType.entries.lastIndex,
-      onClick = {
-        // TODO
-      },
+    CircuitContent(
+      modifier = Modifier
+        .fillMaxSize()
+        .padding(paddingValues),
+      screen = AccountBasicScreen(),
     )
-  }
-}
-
-private fun LazyListScope.detail() {
-  item {
-    SectionTitle(stringResource(R.string.account_detail_title))
-  }
-
-  item { Spacer(Modifier.height(12.dp)) }
-
-  itemsIndexed(AccountDetailType.entries, key = { _, entry -> entry }) { index, entry ->
-    Entry(
-      text = stringResource(entry.title),
-      index = index,
-      lastIndex = AccountDetailType.entries.lastIndex,
-      onClick = {
-        // TODO
-      },
-    )
-  }
-}
-
-@Composable
-private fun Entry(
-  text: String,
-  index: Int,
-  lastIndex: Int,
-  onClick: () -> Unit,
-) {
-  Box(
-    Modifier
-      .fillMaxWidth()
-      .clickable { onClick() },
-  ) {
-    Box(
-      modifier = Modifier.padding(vertical = 16.dp),
-    ) {
-      Text(
-        modifier = Modifier
-          .padding(horizontal = 16.dp)
-          .align(Alignment.CenterStart),
-        text = text,
-      )
-    }
-
-    if (index != lastIndex) {
-      HorizontalDivider(
-        Modifier
-          .fillMaxWidth()
-          .align(Alignment.BottomStart),
-      )
-    }
   }
 }
 
@@ -156,4 +88,40 @@ private fun AccountTopBar(
       }
     },
   )
+}
+
+@Composable
+private fun AccountBottomBar(
+  currentTab: AccountTab,
+  onBasicClick: () -> Unit,
+  onNetworkClick: () -> Unit,
+) {
+  NavigationBar {
+    NavigationBarItem(
+      selected = currentTab == AccountTab.Basic,
+      onClick = onBasicClick,
+      icon = {
+        Icon(
+          imageVector = Icons.Default.Build,
+          contentDescription = null,
+        )
+      },
+      label = {
+        Text(text = stringResource(R.string.account_basic_title))
+      },
+    )
+    NavigationBarItem(
+      selected = currentTab == AccountTab.Network,
+      onClick = onNetworkClick,
+      icon = {
+        Icon(
+          imageVector = Icons.Default.Done,
+          contentDescription = null,
+        )
+      },
+      label = {
+        Text(text = stringResource(R.string.account_network_title))
+      },
+    )
+  }
 }

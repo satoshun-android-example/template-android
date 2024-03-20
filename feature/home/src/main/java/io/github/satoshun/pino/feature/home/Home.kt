@@ -36,12 +36,12 @@ internal fun Home(
   Scaffold(
     modifier = modifier,
     topBar = {
-      PinoTopBar(onAccountClick = {
+      HomeTopBar(onAccountClick = {
         state.eventSink(HomeEvent.TopBar.AccountClick)
       })
     },
     bottomBar = {
-      PinoNavigationBar(
+      HomeBottomBar(
         currentTab = state.currentTab,
         onHomeClick = {
           state.eventSink(HomeEvent.ChangeTab(HomeTab.Home))
@@ -89,7 +89,7 @@ internal fun Home(
 }
 
 @Composable
-private fun PinoTopBar(
+private fun HomeTopBar(
   onAccountClick: () -> Unit,
 ) {
   TopAppBar(
@@ -108,7 +108,7 @@ private fun PinoTopBar(
 }
 
 @Composable
-private fun PinoNavigationBar(
+private fun HomeBottomBar(
   currentTab: HomeTab,
   onHomeClick: () -> Unit,
   onSearchClick: () -> Unit,

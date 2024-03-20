@@ -1,8 +1,11 @@
 package io.github.satoshun.pino.feature.account
 
-import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import com.slack.circuit.codegen.annotations.CircuitInject
 import com.slack.circuit.runtime.CircuitUiState
 import com.slack.circuit.runtime.Navigator
@@ -19,11 +22,14 @@ class AccountScreen : Screen
 
 @Stable
 class AccountState(
+  val currentTab: AccountTab,
   val eventSink: (AccountEvent) -> Unit,
 ) : CircuitUiState
 
 sealed interface AccountEvent {
   data object Back : AccountEvent
+  data object ToBasic : AccountEvent
+  data object ToNetwork : AccountEvent
   data object GoToHelp : AccountEvent
 }
 
@@ -43,7 +49,13 @@ class AccountPresenter @AssistedInject constructor(
 
   @Composable
   override fun present(): AccountState {
-    return AccountState(eventSink = {
+    var currentTab by rememberSaveable {
+      mutableStateOf(AccountTab.Basic)
+    }
+
+    return AccountState(
+      currentTab = currentTab,
+    ) {
       when (it) {
         AccountEvent.Back -> {
           navigator.pop()
@@ -51,24 +63,18 @@ class AccountPresenter @AssistedInject constructor(
         AccountEvent.GoToHelp -> {
           accountNavigator.gotoHelp(navigator)
         }
+        AccountEvent.ToBasic -> {
+          currentTab = AccountTab.Basic
+        }
+        AccountEvent.ToNetwork -> {
+          currentTab = AccountTab.Network
+        }
       }
-    })
+    }
   }
 }
 
-enum class AccountBasicType(
-  @StringRes val title: Int,
-) {
-  Language(title = R.string.account_language),
-  Notification(title = R.string.account_notification),
-  Theme(title = R.string.account_theme),
-  Network(title = R.string.account_network),
-}
-
-enum class AccountDetailType(
-  @StringRes val title: Int,
-) {
-  Download(title = R.string.account_download),
-  Site(title = R.string.account_site),
-  About(title = R.string.account_about),
+enum class AccountTab {
+  Basic,
+  Network,
 }
