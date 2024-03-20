@@ -12,13 +12,16 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.slack.circuit.codegen.annotations.CircuitInject
-import com.slack.circuit.foundation.CircuitContent
+import com.slack.circuit.foundation.CircuitCompositionLocals
+import com.slack.circuit.foundation.NavigableCircuitContent
+import com.slack.circuitx.gesturenavigation.GestureNavigationDecoration
 import dagger.hilt.components.SingletonComponent
 
 @CircuitInject(AccountScreen::class, SingletonComponent::class)
@@ -51,12 +54,23 @@ internal fun Account(
       )
     },
   ) { paddingValues ->
-    CircuitContent(
-      modifier = Modifier
-        .fillMaxSize()
-        .padding(paddingValues),
-      screen = AccountNavScreen(state.currentTab),
-    )
+    CircuitCompositionLocals(circuit = state.circuit) {
+      Surface(
+        Modifier
+          .fillMaxSize()
+          .padding(paddingValues),
+      ) {
+        NavigableCircuitContent(
+          navigator = state.navigator,
+          backStack = state.backStack,
+          decoration = GestureNavigationDecoration(
+            fallback = state.circuit.defaultNavDecoration,
+            // Pop the back stack once the user has gone 'back'
+            onBackInvoked = state.navigator::pop,
+          ),
+        )
+      }
+    }
   }
 }
 

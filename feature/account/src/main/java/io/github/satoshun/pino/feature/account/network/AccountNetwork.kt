@@ -1,5 +1,7 @@
 package io.github.satoshun.pino.feature.account.network
 
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -12,5 +14,9 @@ internal fun AccountNetwork(
   state: AccountNetworkState,
   modifier: Modifier = Modifier,
 ) {
-  Text(text = "AccountNetwork")
+  LazyColumn(modifier = modifier) {
+    items(state.items) {
+      Text(text = it)
+    }
+  }
 }

@@ -1,7 +1,12 @@
 package io.github.satoshun.pino.feature.account.network
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.Stable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import com.slack.circuit.codegen.annotations.CircuitInject
 import com.slack.circuit.runtime.CircuitUiState
 import com.slack.circuit.runtime.Navigator
@@ -11,13 +16,16 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.delay
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 class AccountNetworkScreen : Screen
 
 @Stable
-class AccountNetworkState : CircuitUiState
+data class AccountNetworkState(
+  val items: List<String>,
+) : CircuitUiState
 
 sealed interface AccountNetworkEvent
 
@@ -34,6 +42,15 @@ class AccountNetworkPresenter @AssistedInject constructor(
 
   @Composable
   override fun present(): AccountNetworkState {
-    return AccountNetworkState()
+    var items by rememberSaveable {
+      mutableStateOf(emptyList<String>())
+    }
+    LaunchedEffect(Unit) {
+      delay(4000)
+      items = listOf("1", "2", "3")
+    }
+    return AccountNetworkState(
+      items = items,
+    )
   }
 }
