@@ -1,4 +1,4 @@
-package io.github.satoshun.pino.feature.next
+package io.github.satoshun.pino.feature.detail
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,10 +13,10 @@ import coil.compose.AsyncImage
 import com.slack.circuit.codegen.annotations.CircuitInject
 import dagger.hilt.components.SingletonComponent
 
-@CircuitInject(NextScreen::class, SingletonComponent::class)
+@CircuitInject(DetailScreen::class, SingletonComponent::class)
 @Composable
-internal fun NextContent(
-  state: NextState,
+internal fun Detail(
+  state: DetailState,
   modifier: Modifier = Modifier,
 ) {
   Scaffold(modifier) { paddingValues ->

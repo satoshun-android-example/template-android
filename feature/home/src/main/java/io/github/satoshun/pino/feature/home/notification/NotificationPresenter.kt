@@ -34,6 +34,7 @@ class NotificationPresenter @AssistedInject internal constructor(
     }
     return NotificationState(
       notifications = notifications,
-    )
+    ) { event ->
+    }
   }
 }

@@ -12,8 +12,8 @@ class NotificationScreen : Screen
 @Stable
 class NotificationState(
   val notifications: List<Notification>,
+  val eventSink: (NotificationEvent) -> Unit,
 ) : CircuitUiState
 
 @Stable
-sealed interface NotificationEvent {
-}
+sealed interface NotificationEvent

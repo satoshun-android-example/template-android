@@ -12,9 +12,9 @@ import dagger.hilt.components.SingletonComponent
 import dagger.multibindings.Multibinds
 import io.github.satoshun.pino.feature.account.AccountNavigator
 import io.github.satoshun.pino.feature.account.AccountScreen
+import io.github.satoshun.pino.feature.detail.DetailScreen
 import io.github.satoshun.pino.feature.help.HelpScreen
 import io.github.satoshun.pino.feature.home.HomeNavigator
-import io.github.satoshun.pino.feature.next.NextScreen
 import io.github.satoshun.pino.share.data.Image
 import io.github.satoshun.pino.share.di.DaggerSet
 import javax.inject.Inject
@@ -24,7 +24,7 @@ class HomeNavigatorImpl @Inject constructor() : HomeNavigator {
     host: OverlayHost,
     image: Image,
   ) {
-    host.showFullScreenOverlay(NextScreen(image))
+    host.showFullScreenOverlay(DetailScreen(image))
   }
 
   override fun goToAccount(navigator: Navigator) {

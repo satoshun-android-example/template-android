@@ -20,5 +20,5 @@ dependencies {
 }
 
 android {
-  namespace = "io.github.satoshun.pino.feature.next"
+  namespace = "io.github.satoshun.pino.feature.detail"
 }

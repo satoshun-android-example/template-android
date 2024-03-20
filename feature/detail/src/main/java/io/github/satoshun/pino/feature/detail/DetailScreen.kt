@@ -1,4 +1,4 @@
-package io.github.satoshun.pino.feature.next
+package io.github.satoshun.pino.feature.detail
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
@@ -15,36 +15,38 @@ import io.github.satoshun.pino.share.data.Image
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class NextScreen(
+data class DetailScreen(
   val image: Image,
 ) : Screen
 
 @Stable
-data class NextState(
+data class DetailState(
   val image: Image,
-  val user: NextUser?,
+  val user: DetailUser?,
+  val eventSink: (DetailEvent) -> Unit,
 ) : CircuitUiState
 
-sealed interface NextEvent
+sealed interface DetailEvent
 
-class NextPresenter @AssistedInject constructor(
+class DetailPresenter @AssistedInject constructor(
   @Assisted private val navigator: Navigator,
-  @Assisted private val screen: NextScreen,
-) : Presenter<NextState> {
-  @CircuitInject(NextScreen::class, SingletonComponent::class)
+  @Assisted private val screen: DetailScreen,
+) : Presenter<DetailState> {
+  @CircuitInject(DetailScreen::class, SingletonComponent::class)
   @AssistedFactory
   fun interface Factory {
     fun create(
-      screen: NextScreen,
+      screen: DetailScreen,
       navigator: Navigator,
-    ): NextPresenter
+    ): DetailPresenter
   }
 
   @Composable
-  override fun present(): NextState {
-    return NextState(
+  override fun present(): DetailState {
+    return DetailState(
       image = screen.image,
       user = null,
-    )
+    ) { event ->
+    }
   }
 }
