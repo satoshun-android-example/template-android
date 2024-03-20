@@ -3,13 +3,19 @@
 package io.github.satoshun.pino.feature.detail
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRow
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import com.slack.circuit.codegen.annotations.CircuitInject
 import com.slack.circuit.foundation.CircuitContent
 import dagger.hilt.components.SingletonComponent
@@ -24,17 +30,48 @@ internal fun Detail(
 ) {
   val pagerState = rememberPagerState { 2 }
   Scaffold(modifier) { paddingValues ->
-    HorizontalPager(
+    Column(
       modifier = Modifier
         .fillMaxSize()
         .padding(paddingValues),
-      state = pagerState,
-      beyondBoundsPageCount = 1,
     ) {
-      when (it) {
-        0 -> CircuitContent(screen = DetailImageScreen(state.image))
-        1 -> CircuitContent(screen = DetailImageInfoScreen(state.image))
+      DetailTabRow(
+        selectedTabIndex = pagerState.currentPage,
+      )
+
+      HorizontalPager(
+        modifier = Modifier.fillMaxSize(),
+        state = pagerState,
+        beyondBoundsPageCount = 1,
+      ) {
+        when (it) {
+          0 -> CircuitContent(screen = DetailImageScreen(state.image))
+          1 -> CircuitContent(screen = DetailImageInfoScreen(state.image))
+        }
       }
     }
+  }
+}
+
+@Composable
+private fun DetailTabRow(
+  selectedTabIndex: Int,
+) {
+  TabRow(
+    modifier = Modifier.fillMaxWidth(),
+    selectedTabIndex = selectedTabIndex,
+  ) {
+    Tab(
+      selected = selectedTabIndex == 0,
+      onClick = {
+      },
+      text = { Text(text = stringResource(R.string.detail_tab_image)) },
+    )
+    Tab(
+      selected = selectedTabIndex == 1,
+      onClick = {
+      },
+      text = { Text(text = stringResource(R.string.detail_tab_info)) },
+    )
   }
 }
