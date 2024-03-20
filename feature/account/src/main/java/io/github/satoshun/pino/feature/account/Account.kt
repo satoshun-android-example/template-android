@@ -20,7 +20,6 @@ import androidx.compose.ui.res.stringResource
 import com.slack.circuit.codegen.annotations.CircuitInject
 import com.slack.circuit.foundation.CircuitContent
 import dagger.hilt.components.SingletonComponent
-import io.github.satoshun.pino.feature.account.basic.AccountBasicScreen
 
 @CircuitInject(AccountScreen::class, SingletonComponent::class)
 @Composable
@@ -56,7 +55,7 @@ internal fun Account(
       modifier = Modifier
         .fillMaxSize()
         .padding(paddingValues),
-      screen = AccountBasicScreen(),
+      screen = AccountNavScreen(state.currentTab),
     )
   }
 }
