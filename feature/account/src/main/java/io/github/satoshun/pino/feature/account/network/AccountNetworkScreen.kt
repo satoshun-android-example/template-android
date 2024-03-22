@@ -5,9 +5,9 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import com.slack.circuit.codegen.annotations.CircuitInject
+import com.slack.circuit.retained.rememberRetained
 import com.slack.circuit.runtime.CircuitUiState
 import com.slack.circuit.runtime.Navigator
 import com.slack.circuit.runtime.presenter.Presenter
@@ -42,7 +42,7 @@ class AccountNetworkPresenter @AssistedInject constructor(
 
   @Composable
   override fun present(): AccountNetworkState {
-    var items by rememberSaveable {
+    var items by rememberRetained {
       mutableStateOf(emptyList<String>())
     }
     LaunchedEffect(Unit) {
