@@ -25,9 +25,13 @@ import kotlinx.parcelize.Parcelize
 class AccountNetworkScreen : Screen
 
 @Stable
-data class AccountNetworkState(
-  val items: List<AccountNetworkType>,
-) : CircuitUiState
+sealed interface AccountNetworkState : CircuitUiState {
+  data object Loading : AccountNetworkState
+
+  data class Success(
+    val items: List<AccountNetworkType>,
+  ) : AccountNetworkState
+}
 
 sealed interface AccountNetworkEvent
 
@@ -51,9 +55,13 @@ class AccountNetworkPresenter @AssistedInject constructor(
       delay(4000)
       items = AccountNetworkType.entries.shuffled()
     }
-    return AccountNetworkState(
-      items = items,
-    )
+
+    return when {
+      items.isEmpty() -> AccountNetworkState.Loading
+      else -> AccountNetworkState.Success(
+        items = items,
+      )
+    }
   }
 }
 

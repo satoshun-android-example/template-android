@@ -17,9 +17,10 @@ internal fun Entry(
   index: Int,
   lastIndex: Int,
   onClick: () -> Unit,
+  modifier: Modifier = Modifier,
 ) {
   Box(
-    Modifier
+    modifier
       .fillMaxWidth()
       .clickable { onClick() },
   ) {
