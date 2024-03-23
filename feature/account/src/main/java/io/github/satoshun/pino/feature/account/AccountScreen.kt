@@ -83,18 +83,15 @@ class AccountPresenter @AssistedInject constructor(
     val backStack = rememberSaveableBackStack(stack)
     val childNavigator = rememberCircuitNavigator(backStack)
 
-    val basicScreen = remember { AccountBasicScreen() }
-    val networkScreen = remember { AccountNetworkScreen() }
-
     LaunchedEffect(currentTab) {
       when(currentTab) {
         AccountTab.Basic -> childNavigator.resetRoot(
-          newRoot = basicScreen,
+          newRoot = AccountBasicScreen(),
           saveState = true,
           restoreState = true,
         )
         AccountTab.Network -> childNavigator.resetRoot(
-          newRoot = networkScreen,
+          newRoot = AccountNetworkScreen(),
           saveState = true,
           restoreState = true,
         )

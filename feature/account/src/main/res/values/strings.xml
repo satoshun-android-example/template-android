@@ -13,4 +13,9 @@
   <string name="account_download">ダウンロード</string>
   <string name="account_site">サイトの設定</string>
   <string name="account_about">Pinoについて</string>
+
+  <string name="account_network_wifi">Wifiを使う</string>
+  <string name="account_network_bluetooth">Bluetoothを使う</string>
+  <string name="account_network_ethernet">有線LANを使う</string>
+  <string name="account_network_mobile">モバイルネットワークを使う</string>
 </resources>

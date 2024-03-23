@@ -1,5 +1,6 @@
 package io.github.satoshun.pino.feature.account.network
 
+import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.Stable
@@ -16,6 +17,7 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.components.SingletonComponent
+import io.github.satoshun.pino.feature.account.R
 import kotlinx.coroutines.delay
 import kotlinx.parcelize.Parcelize
 
@@ -24,7 +26,7 @@ class AccountNetworkScreen : Screen
 
 @Stable
 data class AccountNetworkState(
-  val items: List<String>,
+  val items: List<AccountNetworkType>,
 ) : CircuitUiState
 
 sealed interface AccountNetworkEvent
@@ -43,14 +45,24 @@ class AccountNetworkPresenter @AssistedInject constructor(
   @Composable
   override fun present(): AccountNetworkState {
     var items by rememberRetained {
-      mutableStateOf(emptyList<String>())
+      mutableStateOf(emptyList<AccountNetworkType>())
     }
     LaunchedEffect(Unit) {
       delay(4000)
-      items = listOf("1", "2", "3")
+      items = AccountNetworkType.entries.shuffled()
     }
     return AccountNetworkState(
       items = items,
     )
   }
+}
+
+
+enum class AccountNetworkType(
+  @StringRes val title: Int,
+) {
+  Wifi(title = R.string.account_network_wifi),
+  Bluetooth(title = R.string.account_network_bluetooth),
+  Ethernet(title = R.string.account_network_ethernet),
+  Mobile(title = R.string.account_network_mobile),
 }
