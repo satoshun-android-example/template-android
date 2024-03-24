@@ -62,7 +62,7 @@ class HomePresenter @AssistedInject internal constructor(
       when (event) {
         is HomeEvent.GoToImageDetail -> {
           scope.launch {
-            homeNavigator.goToNext(overlayHost, event.image)
+            homeNavigator.goToDetail(overlayHost, event.image)
           }
         }
         is HomeEvent.ChangeTab -> {

@@ -2,4 +2,6 @@
 <resources>
   <string name="detail_tab_image">画像</string>
   <string name="detail_tab_info">詳細</string>
+
+  <string name="detail_tab_image_path">画像パス</string>
 </resources>

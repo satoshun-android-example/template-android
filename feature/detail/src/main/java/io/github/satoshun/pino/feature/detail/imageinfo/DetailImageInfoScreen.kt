@@ -1,17 +1,22 @@
 package io.github.satoshun.pino.feature.detail.imageinfo
 
+import android.content.Intent
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
+import androidx.core.net.toUri
 import com.slack.circuit.codegen.annotations.CircuitInject
+import com.slack.circuit.runtime.CircuitUiEvent
 import com.slack.circuit.runtime.CircuitUiState
 import com.slack.circuit.runtime.Navigator
 import com.slack.circuit.runtime.presenter.Presenter
 import com.slack.circuit.runtime.screen.Screen
+import com.slack.circuitx.android.IntentScreen
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.components.SingletonComponent
 import io.github.satoshun.pino.share.data.Image
+import io.github.satoshun.pino.share.ui.rememberEventSink
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -25,7 +30,9 @@ data class DetailImageInfoState(
   val eventSink: (DetailImageInfoEvent) -> Unit,
 ) : CircuitUiState
 
-sealed interface DetailImageInfoEvent
+sealed interface DetailImageInfoEvent : CircuitUiEvent {
+  data class OnImagePathClicked(val image: Image) : DetailImageInfoEvent
+}
 
 class DetailImageInfoPresenter @AssistedInject constructor(
   @Assisted private val navigator: Navigator,
@@ -42,9 +49,19 @@ class DetailImageInfoPresenter @AssistedInject constructor(
 
   @Composable
   override fun present(): DetailImageInfoState {
+    val eventSink: (DetailImageInfoEvent) -> Unit = rememberEventSink { event ->
+      when (event) {
+        is DetailImageInfoEvent.OnImagePathClicked -> {
+          val intent = Intent(Intent.ACTION_VIEW)
+          intent.setData(event.image.url.toUri())
+          navigator.goTo(IntentScreen(intent))
+        }
+      }
+    }
+
     return DetailImageInfoState(
       image = screen.image,
-    ) { event ->
-    }
+      eventSink = eventSink,
+    )
   }
 }

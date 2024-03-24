@@ -2,7 +2,14 @@ package io.github.satoshun.pino.feature.detail
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import com.slack.circuit.codegen.annotations.CircuitInject
+import com.slack.circuit.foundation.NavEvent
+import com.slack.circuit.foundation.onNavEvent
+import com.slack.circuit.runtime.CircuitUiEvent
 import com.slack.circuit.runtime.CircuitUiState
 import com.slack.circuit.runtime.Navigator
 import com.slack.circuit.runtime.presenter.Presenter
@@ -12,6 +19,7 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.components.SingletonComponent
 import io.github.satoshun.pino.share.data.Image
+import io.github.satoshun.pino.share.ui.rememberEventSink
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -22,11 +30,16 @@ data class DetailScreen(
 @Stable
 data class DetailState(
   val image: Image,
-  val user: DetailUser?,
+  val currentTab: Int,
   val eventSink: (DetailEvent) -> Unit,
 ) : CircuitUiState
 
-sealed interface DetailEvent
+@Stable
+sealed interface DetailEvent : CircuitUiEvent {
+  class OnTabSelect(val index: Int) : DetailEvent
+  data object OnBack : DetailEvent
+  class OnNavEvent(val event: NavEvent) : DetailEvent
+}
 
 class DetailPresenter @AssistedInject constructor(
   @Assisted private val navigator: Navigator,
@@ -43,10 +56,26 @@ class DetailPresenter @AssistedInject constructor(
 
   @Composable
   override fun present(): DetailState {
+    var currentTab by remember { mutableIntStateOf(0) }
+
+    val eventSink: (DetailEvent) -> Unit = rememberEventSink { event ->
+      when (event) {
+        is DetailEvent.OnTabSelect -> {
+          currentTab = event.index
+        }
+        DetailEvent.OnBack -> {
+          navigator.pop()
+        }
+        is DetailEvent.OnNavEvent -> {
+          navigator.onNavEvent(event.event)
+        }
+      }
+    }
+
     return DetailState(
       image = screen.image,
-      user = null,
-    ) { event ->
-    }
+      currentTab = currentTab,
+      eventSink = eventSink,
+    )
   }
 }

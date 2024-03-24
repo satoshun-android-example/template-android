@@ -93,6 +93,6 @@ sealed interface HomeEvent {
 
 @Stable
 interface HomeNavigator {
-  suspend fun goToNext(host: OverlayHost, image: Image)
+  suspend fun goToDetail(host: OverlayHost, image: Image)
   fun goToAccount(navigator: Navigator)
 }

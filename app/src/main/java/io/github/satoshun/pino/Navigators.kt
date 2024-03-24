@@ -20,7 +20,7 @@ import io.github.satoshun.pino.share.di.DaggerSet
 import javax.inject.Inject
 
 class HomeNavigatorImpl @Inject constructor() : HomeNavigator {
-  override suspend fun goToNext(
+  override suspend fun goToDetail(
     host: OverlayHost,
     image: Image,
   ) {

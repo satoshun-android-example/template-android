@@ -16,6 +16,7 @@ import com.slack.circuit.foundation.rememberCircuitNavigator
 import com.slack.circuit.overlay.ContentWithOverlays
 import com.slack.circuit.runtime.presenter.Presenter
 import com.slack.circuit.runtime.ui.Ui
+import com.slack.circuitx.android.rememberAndroidScreenAwareNavigator
 import com.slack.circuitx.gesturenavigation.GestureNavigationDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.satoshun.pino.designsystem.theme.PinoTheme
@@ -47,10 +48,12 @@ class AppActivity : ComponentActivity() {
             }
             val backStack = rememberSaveableBackStack(stack)
             val navigator = rememberCircuitNavigator(backStack)
+            val intentAwareNavigator =
+              rememberAndroidScreenAwareNavigator(navigator, this@AppActivity)
 
             Surface(Modifier.fillMaxSize()) {
               NavigableCircuitContent(
-                navigator = navigator,
+                navigator = intentAwareNavigator,
                 backStack = backStack,
                 decoration = GestureNavigationDecoration(
                   fallback = circuit.defaultNavDecoration,
