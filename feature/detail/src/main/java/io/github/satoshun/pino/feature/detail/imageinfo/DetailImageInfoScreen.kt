@@ -3,6 +3,7 @@ package io.github.satoshun.pino.feature.detail.imageinfo
 import android.content.Intent
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
+import androidx.compose.ui.platform.LocalContext
 import androidx.core.net.toUri
 import com.slack.circuit.codegen.annotations.CircuitInject
 import com.slack.circuit.runtime.CircuitUiEvent
@@ -49,12 +50,20 @@ class DetailImageInfoPresenter @AssistedInject constructor(
 
   @Composable
   override fun present(): DetailImageInfoState {
+    val context = LocalContext.current
+
     val eventSink: (DetailImageInfoEvent) -> Unit = rememberEventSink { event ->
       when (event) {
         is DetailImageInfoEvent.OnImagePathClicked -> {
+
+          // TODO(satoshun) not working cuz detail image info screen is full overlay
+//          val intent = Intent(Intent.ACTION_VIEW)
+//          intent.setData(event.image.url.toUri())
+//          navigator.goTo(IntentScreen(intent))
+
           val intent = Intent(Intent.ACTION_VIEW)
           intent.setData(event.image.url.toUri())
-          navigator.goTo(IntentScreen(intent))
+          context.startActivity(intent)
         }
       }
     }
