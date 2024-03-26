@@ -17,6 +17,11 @@ testParameterInjector = "1.15"
 ksp = "1.9.23-1.0.19"
 circuit = "0.20.0"
 composeTest = "1.6.4"
+junit = "1.1.5"
+uiautomator = "2.3.0"
+benchmarkMacroJunit4 = "1.2.3"
+baselineprofile = "1.2.3"
+profileinstaller = "1.3.1"
 
 [plugins]
 android-app = { id = "com.android.application", version.ref = "agp" }
@@ -26,6 +31,8 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
 paparazzi = { id = "app.cash.paparazzi", version.ref = "paparazzi" }
+android-test = { id = "com.android.test", version.ref = "agp" }
+baselineprofile = { id = "androidx.baselineprofile", version.ref = "baselineprofile" }
 
 [libraries]
 compose-bom = "androidx.compose:compose-bom:2024.03.00"
@@ -109,6 +116,10 @@ testParameterInjector = { group = "com.google.testparameterinjector", name = "te
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
+ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit" }
+uiautomator = { group = "androidx.test.uiautomator", name = "uiautomator", version.ref = "uiautomator" }
+benchmark-macro-junit4 = { group = "androidx.benchmark", name = "benchmark-macro-junit4", version.ref = "benchmarkMacroJunit4" }
+profileinstaller = { group = "androidx.profileinstaller", name = "profileinstaller", version.ref = "profileinstaller" }
 
 [bundles]
 kotlin-android = ["kotlin-stdlib", "kotlin-coroutine-core", "kotlin-coroutine-ui"]

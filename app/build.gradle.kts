@@ -2,6 +2,8 @@ plugins {
   id("pino.android.application")
   id("pino.android.application.compose")
   id("pino.android.dagger")
+  alias(libs.plugins.android.app)
+  alias(libs.plugins.baselineprofile)
 }
 
 android {
@@ -48,6 +50,8 @@ dependencies {
   implementation(libs.bundles.kotlin.android)
 
   implementation(libs.kotlinx.serialization)
+  implementation(libs.profileinstaller)
+  "baselineProfile"(project(":baselineprofile"))
 
   debugImplementation(libs.bundles.android.debug.test)
   debugImplementation(libs.leakcanary)

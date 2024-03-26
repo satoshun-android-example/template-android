@@ -16,6 +16,8 @@ plugins {
   alias(libs.plugins.ksp) apply false
   alias(libs.plugins.dagger.hilt) apply false
   alias(libs.plugins.paparazzi) apply false
+  alias(libs.plugins.android.test) apply false
+  alias(libs.plugins.baselineprofile) apply false
 }
 
 allprojects {

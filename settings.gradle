@@ -40,4 +40,6 @@ include ':feature:help'
 include ':preview-screenshots'
 include ':app'
 
+include ':baselineprofile'
+
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
