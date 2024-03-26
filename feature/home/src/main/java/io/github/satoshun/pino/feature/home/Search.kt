@@ -107,6 +107,9 @@ private fun PinoSearchBar(
       onImageClick = {
         parentState.eventSink(HomeEvent.GoToImageDetail(it))
       },
+      onImageLongClick = {
+        // do nothing
+      },
     )
 
     if (state is HomeTabState.SearchState.Loading) {

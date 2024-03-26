@@ -76,6 +76,10 @@ sealed interface HomeEvent {
     val image: Image
   ) : HomeEvent
 
+  data class GoToImageModalBottom(
+    val image: Image
+  ) : HomeEvent
+
   data object Refresh : HomeEvent
 
   data class ChangeTab(

@@ -1,7 +1,8 @@
 package io.github.satoshun.pino.feature.home
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.aspectRatio
@@ -21,11 +22,13 @@ import coil.compose.AsyncImage
 import io.github.satoshun.pino.designsystem.theme.PinoTheme
 import io.github.satoshun.pino.share.data.Image
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun Images(
   images: List<Image>,
   contentPadding: PaddingValues,
   onImageClick: (Image) -> Unit,
+  onImageLongClick: (Image) -> Unit,
   modifier: Modifier = Modifier,
 ) {
   LazyVerticalGrid(
@@ -41,7 +44,10 @@ internal fun Images(
           .fillMaxWidth()
           .aspectRatio(1f)
           .background(MaterialTheme.colorScheme.surfaceVariant)
-          .clickable { onImageClick(it) },
+          .combinedClickable(
+            onLongClick = { onImageLongClick(it) },
+            onClick = { onImageClick(it) },
+          ),
         model = it.url,
         contentScale = ContentScale.Crop,
         contentDescription = null,
@@ -64,6 +70,7 @@ private fun ImagesPreview() {
         ),
         contentPadding = PaddingValues(0.dp),
         onImageClick = {},
+        onImageLongClick = {},
       )
     }
   }

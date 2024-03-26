@@ -47,6 +47,9 @@ internal fun Main(
           onImageClick = {
             parentState.eventSink(HomeEvent.GoToImageDetail(it))
           },
+          onImageLongClick = {
+            parentState.eventSink(HomeEvent.GoToImageModalBottom(it))
+          },
         )
 
         PullToRefreshContainer(
