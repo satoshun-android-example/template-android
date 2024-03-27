@@ -74,7 +74,7 @@ android-lifecycle-livedata = "androidx.lifecycle:lifecycle-livedata-ktx:2.7.0"
 android-lifecycle-viewmodel-core = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0"
 android-lifecycle-viewmodel-compose = "androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0"
 
-android-test-truth = "com.google.truth:truth:1.4.2"
+truth = "com.google.truth:truth:1.4.2"
 android-test-runner = "androidx.test:runner:1.5.2"
 android-test-espresso = "androidx.test.espresso:espresso-core:3.5.1"
 
@@ -96,6 +96,7 @@ ktor-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version
 
 circuit-core = { module = "com.slack.circuit:circuit-foundation", version.ref = "circuit" }
 circuit-runtime = { module = "com.slack.circuit:circuit-runtime", version.ref = "circuit" }
+circuit-test = { module = "com.slack.circuit:circuit-test", version.ref = "circuit" }
 circuit-codegen = { module = "com.slack.circuit:circuit-codegen", version.ref = "circuit" }
 circuit-codegenAnnotations = { module = "com.slack.circuit:circuit-codegen-annotations", version.ref = "circuit" }
 circuitx-gestureNav = { module = "com.slack.circuit:circuitx-gesture-navigation", version.ref = "circuit" }
@@ -161,6 +162,8 @@ test = [
     "compose-testing-junit4",
     "robolectric",
     "junit",
+    "circuit-test",
+    "truth",
 ]
 
 android-test = [
@@ -168,6 +171,7 @@ android-test = [
     "android-test-espresso",
     "compose-testing-core",
     "compose-testing-junit4",
+    "truth",
 ]
 
 android-debug-test = [

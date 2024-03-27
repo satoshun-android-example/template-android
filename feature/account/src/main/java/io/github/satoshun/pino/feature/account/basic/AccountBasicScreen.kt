@@ -4,6 +4,7 @@ import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import com.slack.circuit.codegen.annotations.CircuitInject
+import com.slack.circuit.runtime.CircuitUiEvent
 import com.slack.circuit.runtime.CircuitUiState
 import com.slack.circuit.runtime.Navigator
 import com.slack.circuit.runtime.presenter.Presenter
@@ -14,6 +15,7 @@ import dagger.assisted.AssistedInject
 import dagger.hilt.components.SingletonComponent
 import io.github.satoshun.pino.feature.account.AccountNavigator
 import io.github.satoshun.pino.feature.account.R
+import io.github.satoshun.pino.share.ui.rememberEventSink
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -24,7 +26,7 @@ class AccountBasicState(
   val eventSink: (AccountBasicEvent) -> Unit,
 ) : CircuitUiState
 
-sealed interface AccountBasicEvent {
+sealed interface AccountBasicEvent : CircuitUiEvent {
   data object Back : AccountBasicEvent
   data object GoToHelp : AccountBasicEvent
 }
@@ -45,7 +47,7 @@ class AccountBasicPresenter @AssistedInject constructor(
 
   @Composable
   override fun present(): AccountBasicState {
-    return AccountBasicState(eventSink = {
+    val eventSink: (AccountBasicEvent) -> Unit = rememberEventSink {
       when (it) {
         AccountBasicEvent.Back -> {
           navigator.pop()
@@ -54,7 +56,9 @@ class AccountBasicPresenter @AssistedInject constructor(
           accountNavigator.gotoHelp(navigator)
         }
       }
-    })
+    }
+
+    return AccountBasicState(eventSink = eventSink)
   }
 }
 
