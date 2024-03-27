@@ -108,7 +108,7 @@ private fun PinoSearchBar(
         parentState.eventSink(HomeEvent.GoToImageDetail(it))
       },
       onImageLongClick = {
-        // do nothing
+        parentState.eventSink(HomeEvent.GoToImageDialog(it))
       },
     )
 

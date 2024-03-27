@@ -1,6 +1,5 @@
 package io.github.satoshun.pino.feature.home
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -13,6 +12,7 @@ import com.slack.circuit.overlay.LocalOverlayHost
 import com.slack.circuit.runtime.Navigator
 import com.slack.circuit.runtime.internal.rememberStableCoroutineScope
 import com.slack.circuit.runtime.presenter.Presenter
+import com.slack.circuitx.overlays.BasicDialogOverlay
 import com.slack.circuitx.overlays.BottomSheetOverlay
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -77,6 +77,23 @@ class HomePresenter @AssistedInject internal constructor(
                 navigator.finish(true)
               }
             })
+            if (result) {
+              homeNavigator.goToDetail(overlayHost, event.image)
+            }
+          }
+        }
+        is HomeEvent.GoToImageDialog -> {
+          scope.launch {
+            val result = overlayHost.show(
+              BasicDialogOverlay(
+                model = event.image,
+                onDismissRequest = { false },
+              ) { image, navigator ->
+                ImageModalBottom(image) {
+                  navigator.finish(true)
+                }
+              }
+            )
             if (result) {
               homeNavigator.goToDetail(overlayHost, event.image)
             }

@@ -80,6 +80,10 @@ sealed interface HomeEvent {
     val image: Image
   ) : HomeEvent
 
+  data class GoToImageDialog(
+    val image: Image
+  ) : HomeEvent
+
   data object Refresh : HomeEvent
 
   data class ChangeTab(
