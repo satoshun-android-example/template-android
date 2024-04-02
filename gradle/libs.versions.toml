@@ -106,7 +106,7 @@ circuitx-android = { module = "com.slack.circuit:circuitx-android", version.ref 
 leakcanary = "com.squareup.leakcanary:leakcanary-android:2.13"
 
 junit = "junit:junit:4.13.2"
-robolectric = "org.robolectric:robolectric:4.12"
+robolectric = "org.robolectric:robolectric:4.12.1"
 
 showkase-runtime = { group = "com.airbnb.android", name = "showkase", version.ref = "showkase" }
 showkase-processor = { group = "com.airbnb.android", name = "showkase-processor", version.ref = "showkase" }
