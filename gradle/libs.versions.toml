@@ -35,7 +35,7 @@ android-test = { id = "com.android.test", version.ref = "agp" }
 baselineprofile = { id = "androidx.baselineprofile", version.ref = "baselineprofile" }
 
 [libraries]
-compose-bom = "androidx.compose:compose-bom:2024.03.00"
+compose-bom = "androidx.compose:compose-bom:2024.04.00"
 compose-ui = { module = "androidx.compose.ui:ui" }
 compose-tooling = { module = "androidx.compose.ui:ui-tooling" }
 compose-runtime-core = { module = "androidx.compose.runtime:runtime" }
