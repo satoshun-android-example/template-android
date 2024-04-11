@@ -34,6 +34,13 @@ paparazzi = { id = "app.cash.paparazzi", version.ref = "paparazzi" }
 android-test = { id = "com.android.test", version.ref = "agp" }
 baselineprofile = { id = "androidx.baselineprofile", version.ref = "baselineprofile" }
 
+# Plugins defined by this project
+pino-android-application = { id = "pino.android.application", version = "unspecified" }
+pino-android-application-compose = { id = "pino.android.application.compose", version = "unspecified" }
+pino-android-library = { id = "pino.android.library", version = "unspecified" }
+pino-android-library-compose = { id = "pino.android.library.compose", version = "unspecified" }
+pino-android-dagger = { id = "pino.android.dagger", version = "unspecified" }
+
 [libraries]
 compose-bom = "androidx.compose:compose-bom:2024.04.00"
 compose-ui = { module = "androidx.compose.ui:ui" }

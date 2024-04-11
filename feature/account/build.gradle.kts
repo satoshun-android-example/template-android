@@ -1,7 +1,7 @@
 plugins {
-  id("pino.android.library")
-  id("pino.android.library.compose")
-  id("pino.android.dagger")
+  alias(libs.plugins.pino.android.library)
+  alias(libs.plugins.pino.android.library.compose)
+  alias(libs.plugins.pino.android.dagger)
   id("pino.android.circuit")
 
   alias(libs.plugins.kotlin.serialization)
