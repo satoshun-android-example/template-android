@@ -1,7 +1,7 @@
 plugins {
-  id("pino.android.application")
-  id("pino.android.application.compose")
-  id("pino.android.dagger")
+  alias(libs.plugins.pino.android.application)
+  alias(libs.plugins.pino.android.application.compose)
+  alias(libs.plugins.pino.android.dagger)
   alias(libs.plugins.android.app)
   alias(libs.plugins.baselineprofile)
 }
