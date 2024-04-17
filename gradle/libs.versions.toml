@@ -4,7 +4,7 @@ kotlincoroutines = "1.8.0"
 
 dagger = "2.51.1"
 
-composeCompiler = "1.5.11"
+composeCompiler = "1.5.12"
 
 accompanist = "0.34.0"
 agp = "8.3.2"
