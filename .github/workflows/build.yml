@@ -33,12 +33,12 @@ jobs:
           gradle/libs.versions.toml
         arguments: assembleDebug
 
-    - name: Upload build outputs
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: build-outputs
-        path: app/build/outputs
+    # - name: Upload build outputs
+    #   if: always()
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: build-outputs
+    #     path: app/build/outputs
 
   # screenshots:
   #   runs-on: ubuntu-latest
