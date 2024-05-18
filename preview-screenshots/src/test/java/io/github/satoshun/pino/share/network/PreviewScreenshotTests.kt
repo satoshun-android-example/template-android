@@ -28,7 +28,8 @@ class PreviewScreenshotTests {
 
   object PreviewProvider : TestParameterValuesProvider {
     override fun provideValues(): List<ComponentPreview> =
-      Showkase.getMetadata().componentList.map(::ComponentPreview)
+      TODO()
+//      Showkase.getMetadata().componentList.map(::ComponentPreview)
   }
 
   @get:Rule
