@@ -7,10 +7,10 @@ dagger = "2.51.1"
 composeCompiler = "1.5.14"
 
 accompanist = "0.34.0"
-agp = "8.4.0"
+agp = "8.4.1"
 ktor = "2.3.11"
 
-paparazzi = "1.3.3"
+paparazzi = "1.3.4"
 showkase = "1.0.2"
 testParameterInjector = "1.16"
 lifecycle = "2.8.0"
