@@ -1,10 +1,8 @@
 [versions]
-kotlin = "1.9.24"
+kotlin = "2.0.0"
 kotlincoroutines = "1.8.1"
 
 dagger = "2.51.1"
-
-composeCompiler = "1.5.14"
 
 accompanist = "0.34.0"
 agp = "8.4.1"
@@ -17,7 +15,7 @@ lifecycle = "2.8.0"
 activity = "1.9.0"
 fragment = "1.7.1"
 
-ksp = "1.9.24-1.0.20"
+ksp = "2.0.0-1.0.21"
 circuit = "0.20.0"
 composeTest = "1.6.7"
 junit = "1.1.5"
@@ -36,6 +34,7 @@ dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
 paparazzi = { id = "app.cash.paparazzi", version.ref = "paparazzi" }
 android-test = { id = "com.android.test", version.ref = "agp" }
 baselineprofile = { id = "androidx.baselineprofile", version.ref = "baselineprofile" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 
 # Plugins defined by this project
 pino-android-application = { id = "pino.android.application", version = "unspecified" }
@@ -57,8 +56,6 @@ compose-material = { module = "androidx.compose.material3:material3" }
 compose-testing-core = { module = "androidx.compose.ui:ui-test", version.ref = "composeTest" }
 compose-testing-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "composeTest" }
 compose-testing-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "composeTest" }
-
-compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "composeCompiler" }
 
 compose-accompanist-swiperefresh = { module = "com.google.accompanist:accompanist-swiperefresh", version.ref = "accompanist" }
 compose-accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
@@ -128,6 +125,7 @@ testParameterInjector = { group = "com.google.testparameterinjector", name = "te
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
+composeCompiler-gradlePlugin = { module = "org.jetbrains.kotlin:compose-compiler-gradle-plugin", version.ref = "kotlin" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit" }
 uiautomator = { group = "androidx.test.uiautomator", name = "uiautomator", version.ref = "uiautomator" }
 benchmark-macro-junit4 = { group = "androidx.benchmark", name = "benchmark-macro-junit4", version.ref = "benchmarkMacroJunit4" }
@@ -137,7 +135,6 @@ profileinstaller = { group = "androidx.profileinstaller", name = "profileinstall
 kotlin-android = ["kotlin-stdlib", "kotlin-coroutine-core", "kotlin-coroutine-ui"]
 android-ui = [
     "compose-ui",
-    "compose-compiler",
     "compose-tooling",
     "compose-runtime-core",
     "compose-runtime-livedata",
@@ -188,4 +185,11 @@ android-test = [
 android-debug-test = [
     "fragment-testing",
     "compose-testing-manifest",
+]
+
+conventions = [
+    "android-gradlePlugin",
+    "kotlin-gradlePlugin",
+    "ksp-gradlePlugin",
+    "composeCompiler-gradlePlugin",
 ]
