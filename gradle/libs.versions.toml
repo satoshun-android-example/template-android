@@ -16,7 +16,7 @@ activity = "1.9.0"
 fragment = "1.7.1"
 
 ksp = "2.0.0-1.0.21"
-circuit = "0.22.1"
+circuit = "0.22.2"
 composeTest = "1.6.7"
 junit = "1.1.5"
 uiautomator = "2.3.0"
