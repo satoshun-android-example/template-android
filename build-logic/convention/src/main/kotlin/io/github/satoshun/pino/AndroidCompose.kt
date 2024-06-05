@@ -16,6 +16,7 @@
 package io.github.satoshun.pino
 
 import com.android.build.api.dsl.CommonExtension
+import com.google.devtools.ksp.gradle.KspExtension
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
@@ -38,7 +39,14 @@ internal fun Project.configureAndroidCompose(
       val bom = libs.findLibrary("compose-bom").get()
       add("implementation", platform(bom))
       add("androidTestImplementation", platform(bom))
+
+      add("implementation", libs.findLibrary("showkase-runtime").get())
+      add("ksp", libs.findLibrary("showkase-processor").get())
     }
+  }
+
+  extensions.configure<KspExtension> {
+    arg("skipPrivatePreviews", "true")
   }
 
   tasks.withType<KotlinCompile>().configureEach {

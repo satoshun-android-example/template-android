@@ -13,6 +13,8 @@ android {
 }
 
 dependencies {
+  implementation(projects.feature.help)
+
   implementation(libs.bundles.android.ui)
 
   implementation(libs.ktor.android)

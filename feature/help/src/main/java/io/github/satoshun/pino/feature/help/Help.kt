@@ -110,9 +110,10 @@ private fun Entry(
   }
 }
 
+
 @Preview
 @Composable
-private fun EntryPreview() {
+fun EntryPreview() {
   PinoTheme {
     Surface {
       Entry(
