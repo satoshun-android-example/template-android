@@ -40,7 +40,7 @@ include ':feature:help'
 include ':app'
 
 // visual regression testing
-include ':vrt:preview-screenshots'
+include ':vrt:paparazzi'
 
 include ':baselineprofile'
 

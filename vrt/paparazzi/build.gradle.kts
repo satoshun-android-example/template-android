@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-  namespace = "io.github.satoshun.pino.share"
+  namespace = "io.github.satoshun.pino.vrt.paparazzi"
 }
 
 dependencies {

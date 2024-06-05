@@ -1,4 +1,4 @@
-package io.github.satoshun.pino.share.network
+package io.github.satoshun.pino.vrt.paparazzi
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
@@ -7,7 +7,6 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.unit.Density
 import app.cash.paparazzi.Paparazzi
-import com.airbnb.android.showkase.models.Showkase
 import com.airbnb.android.showkase.models.ShowkaseBrowserComponent
 import com.google.testing.junit.testparameterinjector.TestParameter
 import com.google.testing.junit.testparameterinjector.TestParameter.TestParameterValuesProvider
