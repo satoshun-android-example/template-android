@@ -27,7 +27,5 @@ dependencies {
   implementation(libs.showkase.runtime)
   ksp(libs.showkase.processor)
 
-  screenshotTestImplementation(libs.android.test.runner)
-  screenshotTestImplementation(libs.testParameterInjector)
   screenshotTestImplementation(libs.compose.tooling)
 }
