@@ -31,7 +31,7 @@ jobs:
       with:
         gradle-dependencies-cache-key: |
           gradle/libs.versions.toml
-        arguments: assembleDebug validateDebugScreenshotTest
+        arguments: assembleDebug validateDebugScreenshotTest verifyPaparazziDebug
 
     # - name: Upload build outputs
     #   if: always()
