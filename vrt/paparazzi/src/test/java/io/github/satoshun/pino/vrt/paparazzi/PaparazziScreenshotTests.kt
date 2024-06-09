@@ -24,7 +24,7 @@ class ComponentPreview(
 }
 
 @RunWith(TestParameterInjector::class)
-class PreviewScreenshotTests {
+class PaparazziScreenshotTests {
 
   object PreviewProvider : TestParameterValuesProvider() {
     override fun provideValues(context: Context?): MutableList<*> =
