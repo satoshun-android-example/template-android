@@ -30,6 +30,7 @@ android {
     )
   }
 
+  @Suppress("UnstableApiUsage")
   testOptions {
     unitTests {
       isIncludeAndroidResources = true
@@ -51,7 +52,8 @@ dependencies {
 
   implementation(libs.kotlinx.serialization)
   implementation(libs.profileinstaller)
-  "baselineProfile"(project(":baselineprofile"))
+
+  "baselineProfile"(projects.baselineprofile)
 
   debugImplementation(libs.bundles.android.debug.test)
   debugImplementation(libs.leakcanary)
@@ -59,4 +61,10 @@ dependencies {
   testImplementation(libs.bundles.test)
 
   androidTestImplementation(libs.bundles.android.test)
+}
+
+baselineProfile {
+  automaticGenerationDuringBuild = true
+  mergeIntoMain = true
+  saveInSrc = true
 }
