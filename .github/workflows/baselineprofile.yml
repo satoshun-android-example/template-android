@@ -1,0 +1,59 @@
+name: Generate Baseline Proflie
+
+on: workflow_dispatch
+
+# reference: https://github.com/chrisbanes/tivi/blob/main/.github/workflows/baseline-profile.yml
+jobs:
+  baseline-profile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
+
+    - name: Enable KVM
+      run: |
+        echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+        sudo udevadm control --reload-rules
+        sudo udevadm trigger --name-match=kvm
+
+    - name: Gradle Wrapper Validation
+      uses: gradle/wrapper-validation-action@v3
+
+    - name: Setup Java
+      uses: ./.github/actions/setup-java
+      id: java
+
+    - name: Copy CI gradle.properties
+      run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+    - name: Build app and benchmark
+      run: ./gradlew assembleNonMinifiedRelease
+
+    - name: Clear Gradle Managed Devices
+      run: ./gradlew cleanManagedDevices
+
+    - name: Run benchmark on Gradle Managed Device
+      run: |
+        ./gradlew generateBaselineProfile \
+          -Pandroid.testoptions.manageddevices.emulator.gpu="swiftshader_indirect" \
+          -Pandroid.testInstrumentationRunnerArguments.androidx.benchmark.enabledRules=BaselineProfile \
+          -Pandroid.experimental.testOptions.managedDevices.setupTimeoutMinutes=10 \
+          --no-configuration-cache
+    
+    - name: Create Pull Request
+      id: cpr
+      uses: peter-evans/create-pull-request@v6
+      with:
+        commit-message: Update Baseline Profile
+        branch: baseline-profile-generation
+        title: 'Update Baseline Profile'
+
+    - name: Upload reports
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: reports
+        path: |
+          **/build/reports/*
