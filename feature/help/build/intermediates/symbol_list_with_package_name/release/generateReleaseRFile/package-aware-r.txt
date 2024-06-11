@@ -1,0 +1,3 @@
+io.github.satoshun.pino.feature.help
+string help_section_title
+string help_title

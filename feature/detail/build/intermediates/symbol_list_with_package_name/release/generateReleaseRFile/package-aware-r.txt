@@ -1,0 +1,4 @@
+io.github.satoshun.pino.feature.detail
+string detail_tab_image
+string detail_tab_image_path
+string detail_tab_info

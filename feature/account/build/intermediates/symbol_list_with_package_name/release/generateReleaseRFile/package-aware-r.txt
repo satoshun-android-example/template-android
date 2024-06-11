@@ -1,0 +1,16 @@
+io.github.satoshun.pino.feature.account
+string account_about
+string account_basic_title
+string account_detail_title
+string account_download
+string account_language
+string account_network
+string account_network_bluetooth
+string account_network_ethernet
+string account_network_mobile
+string account_network_title
+string account_network_wifi
+string account_notification
+string account_site
+string account_theme
+string account_title

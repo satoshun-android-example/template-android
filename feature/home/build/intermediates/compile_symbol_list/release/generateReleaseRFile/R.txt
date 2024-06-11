@@ -1,0 +1,6 @@
+int string home_favorite 0x0
+int string home_goto_detail 0x0
+int string home_main 0x0
+int string home_notification 0x0
+int string home_search 0x0
+int string home_title 0x0

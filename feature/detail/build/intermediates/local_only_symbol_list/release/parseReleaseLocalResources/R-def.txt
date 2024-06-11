@@ -1,0 +1,5 @@
+R_DEF: Internal format may change without notice
+local
+string detail_tab_image
+string detail_tab_image_path
+string detail_tab_info

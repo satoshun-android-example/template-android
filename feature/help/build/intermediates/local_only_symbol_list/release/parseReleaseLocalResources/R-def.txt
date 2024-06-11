@@ -1,0 +1,4 @@
+R_DEF: Internal format may change without notice
+local
+string help_section_title
+string help_title

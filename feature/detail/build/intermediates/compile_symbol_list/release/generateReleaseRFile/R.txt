@@ -1,0 +1,3 @@
+int string detail_tab_image 0x0
+int string detail_tab_image_path 0x0
+int string detail_tab_info 0x0

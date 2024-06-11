@@ -1,0 +1,2 @@
+int string help_section_title 0x0
+int string help_title 0x0

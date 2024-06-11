@@ -1,0 +1,7 @@
+io.github.satoshun.pino.feature.home
+string home_favorite
+string home_goto_detail
+string home_main
+string home_notification
+string home_search
+string home_title
