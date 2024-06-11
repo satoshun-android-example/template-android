@@ -68,3 +68,8 @@ baselineProfile {
   mergeIntoMain = true
   saveInSrc = true
 }
+
+// Declare an explicit dependency on ':app:copyBaselineProfileIntoSrc' from ':app:mergeBenchmarkReleaseStartupProfile' using Task#dependsOn.
+tasks.named { it == "mergeBenchmarkReleaseStartupProfile"}.configureEach {
+  mustRunAfter(":app:copyBaselineProfileIntoSrc")
+}
