@@ -6,6 +6,11 @@
 /.idea/modules.xml
 /.idea/workspace.xml
 .DS_Store
-/build
 /captures
 .externalNativeBuild
+
+/build
+build/
+.build/
+.kotlin/
+
