@@ -43,6 +43,7 @@ include ':app'
 include ':vrt:paparazzi'
 include ':vrt:compose-screenshot'
 
+// generate baseline profile and benchmark
 include ':baselineprofile'
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
