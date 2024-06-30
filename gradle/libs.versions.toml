@@ -83,7 +83,7 @@ lifecycle-livedata = { module = "androidx.lifecycle:lifecycle-livedata-ktx", ver
 lifecycle-viewmodel-core = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycle" }
 
-truth = "com.google.truth:truth:1.4.2"
+truth = "com.google.truth:truth:1.4.3"
 android-test-runner = "androidx.test:runner:1.6.1"
 android-test-espresso = "androidx.test.espresso:espresso-core:3.6.1"
 
