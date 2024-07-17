@@ -2,12 +2,6 @@
   "extends": [
     "config:base"
   ],
-  "gradle": {
-    "enabled": true,
-    "fileMatch": [
-      "libs.versions.kmp.toml"
-    ]
-  },
   "packageRules": [
     {
       "groupName": "Kotlin, KSP and Compose Compiler",
