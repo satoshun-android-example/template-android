@@ -64,9 +64,10 @@ dependencies {
 }
 
 baselineProfile {
-  automaticGenerationDuringBuild = true
+//  automaticGenerationDuringBuild = true
   mergeIntoMain = true
   saveInSrc = true
+  dexLayoutOptimization = true
 }
 
 // Declare an explicit dependency on ':app:copyBaselineProfileIntoSrc' from ':app:mergeBenchmarkReleaseStartupProfile' using Task#dependsOn.

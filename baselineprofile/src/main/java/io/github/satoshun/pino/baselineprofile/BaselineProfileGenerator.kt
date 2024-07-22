@@ -42,7 +42,7 @@ class BaselineProfileGenerator {
     // The application id for the running build variant is read from the instrumentation arguments.
     rule.collect(
       packageName = "io.github.satoshun.pino",
-      includeInStartupProfile = true
+      includeInStartupProfile = true,
     ) {
       pressHome()
       startActivityAndWait()
