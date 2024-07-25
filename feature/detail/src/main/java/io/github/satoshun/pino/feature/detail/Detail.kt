@@ -66,7 +66,7 @@ internal fun Detail(
       HorizontalPager(
         modifier = Modifier.fillMaxSize(),
         state = pagerState,
-        beyondBoundsPageCount = 1,
+        beyondViewportPageCount = 1,
       ) {
         when (it) {
           0 -> CircuitContent(screen = DetailImageScreen(state.image))

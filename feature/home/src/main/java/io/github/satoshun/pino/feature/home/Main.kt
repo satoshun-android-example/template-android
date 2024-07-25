@@ -5,12 +5,10 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.pulltorefresh.PullToRefreshContainer
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.nestedscroll.nestedScroll
-import io.github.satoshun.pino.designsystem.rememberPullToRefreshState
 
 @Composable
 internal fun Main(
@@ -30,16 +28,12 @@ internal fun Main(
       }
     }
     is HomeTabState.MainState.Success -> {
-      val pullToRefreshState = rememberPullToRefreshState(
+      PullToRefreshBox(
+        modifier = Modifier.fillMaxSize(),
         isRefreshing = state.isRefreshing,
         onRefresh = {
           parentState.eventSink(HomeEvent.Refresh)
         },
-      )
-      Box(
-        modifier = Modifier
-          .fillMaxSize()
-          .nestedScroll(pullToRefreshState.nestedScrollConnection),
       ) {
         Images(
           images = state.images,
@@ -50,13 +44,6 @@ internal fun Main(
           onImageLongClick = {
             parentState.eventSink(HomeEvent.GoToImageModalBottom(it))
           },
-        )
-
-        PullToRefreshContainer(
-          modifier = Modifier
-            .padding(paddingValues)
-            .align(Alignment.TopCenter),
-          state = pullToRefreshState,
         )
       }
     }

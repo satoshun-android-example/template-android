@@ -12,7 +12,7 @@ import kotlinx.parcelize.Parcelize
 data object HomeScreen : Screen
 
 @Stable
-class HomeState(
+data class HomeState(
   val tabState: HomeTabState,
   val currentTab: HomeTab,
   val eventSink: (HomeEvent) -> Unit,
