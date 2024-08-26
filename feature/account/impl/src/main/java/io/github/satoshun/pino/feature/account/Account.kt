@@ -23,6 +23,7 @@ import com.slack.circuit.foundation.CircuitCompositionLocals
 import com.slack.circuit.foundation.NavigableCircuitContent
 import com.slack.circuitx.gesturenavigation.GestureNavigationDecoration
 import dagger.hilt.components.SingletonComponent
+import io.github.satoshun.pino.feature.account.impl.R
 
 @CircuitInject(AccountScreen::class, SingletonComponent::class)
 @Composable

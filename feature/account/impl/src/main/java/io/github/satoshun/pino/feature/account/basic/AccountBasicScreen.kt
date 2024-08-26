@@ -14,7 +14,7 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.components.SingletonComponent
 import io.github.satoshun.pino.feature.account.AccountNavigator
-import io.github.satoshun.pino.feature.account.R
+import io.github.satoshun.pino.feature.account.impl.R
 import io.github.satoshun.pino.share.ui.rememberEventSink
 import kotlinx.parcelize.Parcelize
 

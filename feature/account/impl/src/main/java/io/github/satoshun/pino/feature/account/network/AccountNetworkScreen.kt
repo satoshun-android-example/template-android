@@ -17,7 +17,7 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.components.SingletonComponent
-import io.github.satoshun.pino.feature.account.R
+import io.github.satoshun.pino.feature.account.impl.R
 import kotlinx.coroutines.delay
 import kotlinx.parcelize.Parcelize
 

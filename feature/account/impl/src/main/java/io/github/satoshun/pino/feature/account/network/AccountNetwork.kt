@@ -17,7 +17,7 @@ import com.slack.circuit.codegen.annotations.CircuitInject
 import dagger.hilt.components.SingletonComponent
 import io.github.satoshun.pino.designsystem.SectionTitle
 import io.github.satoshun.pino.feature.account.Entry
-import io.github.satoshun.pino.feature.account.R
+import io.github.satoshun.pino.feature.account.impl.R
 
 @OptIn(ExperimentalFoundationApi::class)
 @CircuitInject(AccountNetworkScreen::class, SingletonComponent::class)

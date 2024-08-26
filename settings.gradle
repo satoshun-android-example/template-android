@@ -33,6 +33,8 @@ include ":share"
 include ":designsystem"
 
 include ":feature:account:public"
+include ":feature:account:impl"
+
 include ":feature:detail"
 include ":feature:home"
 include ":feature:help"
