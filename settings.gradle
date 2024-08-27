@@ -32,8 +32,11 @@ rootProject.name = "pino"
 include ":share"
 include ":designsystem"
 
-include ":feature:account:public"
-include ":feature:account:impl"
+include(
+        ":feature:account:public",
+        ":feature:account:impl",
+        ":feature:account:demo",
+)
 
 include ":feature:detail"
 include ":feature:home"
