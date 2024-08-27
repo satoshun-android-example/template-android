@@ -1,14 +1,44 @@
 plugins {
-  alias(libs.plugins.pino.android.library)
-  alias(libs.plugins.pino.android.library.compose)
+  alias(libs.plugins.pino.android.application)
+  alias(libs.plugins.pino.android.application.compose)
   alias(libs.plugins.pino.android.dagger)
-  id("pino.android.circuit")
+  alias(libs.plugins.android.app)
+}
 
-  alias(libs.plugins.kotlin.serialization)
+android {
+  namespace = "io.github.satoshun.pino.feature.account.demo"
+
+  defaultConfig {
+    applicationId = "io.github.satoshun.pino.account"
+    versionCode = 1
+    versionName = "1.0"
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+  }
+
+  buildTypes {
+    release {
+      isMinifyEnabled = true
+      proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+    }
+  }
+
+  packaging {
+    resources.excludes += listOf(
+      "META-INF/AL2.0",
+      "META-INF/LGPL2.1"
+    )
+  }
+
+  @Suppress("UnstableApiUsage")
+  testOptions {
+    unitTests {
+      isIncludeAndroidResources = true
+    }
+  }
 }
 
 dependencies {
-  api(projects.feature.account.public)
+  api(projects.feature.account.impl)
 
   implementation(projects.share)
   implementation(projects.designsystem)
@@ -19,8 +49,4 @@ dependencies {
   implementation(libs.kotlinx.serialization)
 
   testImplementation(libs.bundles.test)
-}
-
-android {
-  namespace = "io.github.satoshun.pino.feature.account.impl"
 }
