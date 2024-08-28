@@ -13,8 +13,8 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.components.SingletonComponent
-import io.github.satoshun.pino.feature.account.AccountNavigator
 import io.github.satoshun.pino.feature.account.impl.R
+import io.github.satoshun.pino.feature.help.HelpScreen
 import io.github.satoshun.pino.share.ui.rememberEventSink
 import kotlinx.parcelize.Parcelize
 
@@ -32,7 +32,6 @@ sealed interface AccountBasicEvent : CircuitUiEvent {
 }
 
 class AccountBasicPresenter @AssistedInject constructor(
-  private val accountNavigator: AccountNavigator,
   @Assisted private val navigator: Navigator,
   @Assisted private val screen: AccountBasicScreen,
 ) : Presenter<AccountBasicState> {
@@ -53,7 +52,7 @@ class AccountBasicPresenter @AssistedInject constructor(
           navigator.pop()
         }
         AccountBasicEvent.GoToHelp -> {
-          accountNavigator.gotoHelp(navigator)
+          navigator.goTo(HelpScreen())
         }
       }
     }

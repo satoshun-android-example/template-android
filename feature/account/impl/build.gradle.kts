@@ -9,6 +9,7 @@ plugins {
 
 dependencies {
   api(projects.feature.account.public)
+  implementation(projects.feature.help.public)
 
   implementation(projects.share)
   implementation(projects.designsystem)

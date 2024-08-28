@@ -39,6 +39,7 @@ include(
 include(":feature:detail")
 include(":feature:home")
 include(
+  ":feature:help:public",
   ":feature:help:impl",
 )
 

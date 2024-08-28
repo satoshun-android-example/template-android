@@ -8,6 +8,8 @@ plugins {
 }
 
 dependencies {
+  api(projects.feature.help.public)
+
   implementation(projects.share)
   implementation(projects.designsystem)
 

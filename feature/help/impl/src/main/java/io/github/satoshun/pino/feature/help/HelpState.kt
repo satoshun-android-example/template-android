@@ -7,7 +7,6 @@ import com.slack.circuit.codegen.annotations.CircuitInject
 import com.slack.circuit.runtime.CircuitUiState
 import com.slack.circuit.runtime.Navigator
 import com.slack.circuit.runtime.presenter.Presenter
-import com.slack.circuit.runtime.screen.Screen
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -15,10 +14,6 @@ import dagger.hilt.components.SingletonComponent
 import io.github.satoshun.pino.designsystem.produceStateSaveable
 import io.github.satoshun.pino.feature.help.data.HelpItem
 import io.github.satoshun.pino.feature.help.data.HelpRepository
-import kotlinx.parcelize.Parcelize
-
-@Parcelize
-class HelpScreen : Screen
 
 @Stable
 class HelpState(

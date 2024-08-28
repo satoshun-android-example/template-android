@@ -20,5 +20,5 @@ dependencies {
 }
 
 android {
-  namespace = "io.github.satoshun.pino.feature.account.pub"
+  namespace = "io.github.satoshun.pino.feature.help.pub"
 }

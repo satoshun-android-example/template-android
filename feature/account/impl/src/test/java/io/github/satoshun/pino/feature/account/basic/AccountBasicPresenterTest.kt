@@ -4,7 +4,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.common.truth.Truth.assertThat
 import com.slack.circuit.test.FakeNavigator
 import com.slack.circuit.test.test
-import io.github.satoshun.pino.feature.account.TestAccountNavigator
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -16,7 +15,6 @@ class AccountBasicPresenterTest {
     val startScreen = AccountBasicScreen()
     val navigator = FakeNavigator(startScreen)
     val presenter = AccountBasicPresenter(
-      accountNavigator = TestAccountNavigator,
       navigator = navigator,
       screen = startScreen,
     )

@@ -24,6 +24,7 @@ import dagger.assisted.AssistedInject
 import dagger.hilt.components.SingletonComponent
 import io.github.satoshun.pino.feature.account.basic.AccountBasicScreen
 import io.github.satoshun.pino.feature.account.network.AccountNetworkScreen
+import io.github.satoshun.pino.feature.help.HelpScreen
 import io.github.satoshun.pino.share.di.DaggerSet
 import kotlinx.collections.immutable.persistentListOf
 
@@ -45,7 +46,6 @@ sealed interface AccountEvent {
 }
 
 class AccountPresenter @AssistedInject constructor(
-  private val accountNavigator: AccountNavigator,
   private val presenterFactories: DaggerSet<Presenter.Factory>,
   private val uiFactories: DaggerSet<Ui.Factory>,
   @Assisted private val navigator: Navigator,
@@ -107,7 +107,7 @@ class AccountPresenter @AssistedInject constructor(
           navigator.pop()
         }
         AccountEvent.GoToHelp -> {
-          accountNavigator.gotoHelp(navigator)
+          navigator.goTo(HelpScreen())
         }
         AccountEvent.ToBasic -> {
           currentTab = AccountTab.Basic
