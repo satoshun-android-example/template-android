@@ -7,11 +7,13 @@
     android:icon="@drawable/app_icon"
     android:label="デモ"
     android:supportsRtl="true"
+    android:theme="@style/Theme.MyApp"
     tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
     <activity
       android:name="io.github.satoshun.pino.feature.account.AccountDemoActivity"
-      android:exported="true">
+      android:exported="true"
+      android:theme="@style/Theme.MyApp.Main">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
