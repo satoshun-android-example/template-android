@@ -11,7 +11,7 @@
     tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
     <activity
-      android:name="io.github.satoshun.pino.feature.account.AccountDemoActivity"
+      android:name=".DemoEntryPointActivity"
       android:exported="true"
       android:theme="@style/Theme.MyApp.Main">
       <intent-filter>

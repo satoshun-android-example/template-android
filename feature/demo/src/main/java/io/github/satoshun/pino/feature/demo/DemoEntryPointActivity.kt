@@ -1,4 +1,4 @@
-package io.github.satoshun.pino.feature.account
+package io.github.satoshun.pino.feature.demo
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -26,7 +26,7 @@ import kotlinx.collections.immutable.persistentListOf
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class AccountDemoActivity : ComponentActivity() {
+class DemoEntryPointActivity : ComponentActivity() {
   @Inject lateinit var startScreen: Screen
   @Inject lateinit var presenterFactories: DaggerSet<Presenter.Factory>
   @Inject lateinit var uiFactories: DaggerSet<Ui.Factory>
@@ -50,7 +50,7 @@ class AccountDemoActivity : ComponentActivity() {
             val backStack = rememberSaveableBackStack(stack)
             val navigator = rememberCircuitNavigator(backStack)
             val intentAwareNavigator =
-              rememberAndroidScreenAwareNavigator(navigator, this@AccountDemoActivity)
+              rememberAndroidScreenAwareNavigator(navigator, this@DemoEntryPointActivity)
 
             Surface(Modifier.fillMaxSize()) {
               NavigableCircuitContent(

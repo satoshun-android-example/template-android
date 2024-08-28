@@ -1,4 +1,4 @@
-package io.github.satoshun.pino.feature.account
+package io.github.satoshun.pino.feature.account.demo
 
 import android.app.Application
 import com.slack.circuit.runtime.screen.Screen
@@ -7,6 +7,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.HiltAndroidApp
 import dagger.hilt.components.SingletonComponent
+import io.github.satoshun.pino.feature.account.AccountScreen
 
 @HiltAndroidApp
 class App : Application()
