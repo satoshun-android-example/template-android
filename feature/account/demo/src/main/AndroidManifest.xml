@@ -1,21 +1,7 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools">
+<manifest xmlns:tools="http://schemas.android.com/tools"
+  xmlns:android="http://schemas.android.com/apk/res/android">
 
   <application
-    android:allowBackup="true"
-    android:enableOnBackInvokedCallback="true"
-    android:icon="@drawable/app_icon"
-    android:label="デモ"
-    android:supportsRtl="true"
-    tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-
-    <activity
-      android:name="io.github.satoshun.pino.feature.account.AccountDemoActivity"
-      android:exported="true">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
-        <category android:name="android.intent.category.LAUNCHER" />
-      </intent-filter>
-    </activity>
-  </application>
+    android:name="io.github.satoshun.pino.feature.account.App"
+    tools:ignore="MissingApplicationIcon" />
 </manifest>

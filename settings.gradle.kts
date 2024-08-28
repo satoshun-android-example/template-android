@@ -27,6 +27,10 @@ include(":share")
 include(":designsystem")
 
 include(
+  "feature:demo",
+)
+
+include(
   ":feature:account:public",
   ":feature:account:impl",
   ":feature:account:demo",

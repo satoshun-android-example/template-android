@@ -28,25 +28,11 @@ android {
       "META-INF/LGPL2.1"
     )
   }
-
-  @Suppress("UnstableApiUsage")
-  testOptions {
-    unitTests {
-      isIncludeAndroidResources = true
-    }
-  }
 }
 
 dependencies {
-  api(projects.feature.account.impl)
-
-  implementation(projects.share)
-  implementation(projects.designsystem)
+  implementation(projects.feature.demo)
+  implementation(projects.feature.account.impl)
 
   implementation(libs.bundles.android.ui)
-  implementation(libs.bundles.kotlin.android)
-
-  implementation(libs.kotlinx.serialization)
-
-  testImplementation(libs.bundles.test)
 }
