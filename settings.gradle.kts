@@ -41,6 +41,7 @@ include(":feature:home")
 include(
   ":feature:help:public",
   ":feature:help:impl",
+  ":feature:help:demo",
 )
 
 include(":app")
