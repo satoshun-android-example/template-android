@@ -38,7 +38,9 @@ include(
 
 include(":feature:detail")
 include(":feature:home")
-include(":feature:help")
+include(
+  ":feature:help:impl",
+)
 
 include(":app")
 

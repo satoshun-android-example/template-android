@@ -13,7 +13,7 @@ android {
 }
 
 dependencies {
-  implementation(projects.feature.help)
+  implementation(projects.feature.help.impl)
 
   implementation(libs.bundles.android.ui)
 
