@@ -13,14 +13,12 @@ import com.slack.circuit.runtime.CircuitUiEvent
 import com.slack.circuit.runtime.CircuitUiState
 import com.slack.circuit.runtime.Navigator
 import com.slack.circuit.runtime.presenter.Presenter
-import com.slack.circuit.runtime.screen.Screen
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.components.SingletonComponent
 import io.github.satoshun.pino.share.data.Image
 import io.github.satoshun.pino.share.ui.rememberEventSink
-import kotlinx.parcelize.Parcelize
 
 @Stable
 data class DetailState(
