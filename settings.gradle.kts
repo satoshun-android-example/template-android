@@ -41,7 +41,9 @@ include(
   ":feature:detail:impl",
   ":feature:detail:demo",
 )
-include(":feature:home")
+include(
+  ":feature:home:impl",
+)
 include(
   ":feature:help:public",
   ":feature:help:impl",

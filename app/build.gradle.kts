@@ -43,7 +43,7 @@ dependencies {
   implementation(projects.designsystem)
 
   implementation(projects.feature.account.impl)
-  implementation(projects.feature.home)
+  implementation(projects.feature.home.impl)
   implementation(projects.feature.detail.impl)
   implementation(projects.feature.help.impl)
 
