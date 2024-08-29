@@ -42,6 +42,7 @@ include(
   ":feature:detail:demo",
 )
 include(
+  ":feature:home:public",
   ":feature:home:impl",
 )
 include(

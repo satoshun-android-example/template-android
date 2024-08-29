@@ -14,18 +14,20 @@ import com.slack.circuit.runtime.internal.rememberStableCoroutineScope
 import com.slack.circuit.runtime.presenter.Presenter
 import com.slack.circuitx.overlays.BasicDialogOverlay
 import com.slack.circuitx.overlays.BottomSheetOverlay
+import com.slack.circuitx.overlays.showFullScreenOverlay
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.components.SingletonComponent
 import io.github.satoshun.pino.designsystem.produceStateSaveable
+import io.github.satoshun.pino.feature.account.AccountScreen
+import io.github.satoshun.pino.feature.detail.DetailScreen
 import io.github.satoshun.pino.share.data.HomeRepository
 import io.github.satoshun.pino.share.data.Image
 import kotlinx.coroutines.launch
 
 class HomePresenter @AssistedInject internal constructor(
   @Assisted private val navigator: Navigator,
-  private val homeNavigator: HomeNavigator,
   private val homeRepository: HomeRepository,
 ) : Presenter<HomeState> {
   @CircuitInject(HomeScreen::class, SingletonComponent::class)
@@ -64,7 +66,7 @@ class HomePresenter @AssistedInject internal constructor(
       when (event) {
         is HomeEvent.GoToImageDetail -> {
           scope.launch {
-            homeNavigator.goToDetail(overlayHost, event.image)
+            overlayHost.showFullScreenOverlay(DetailScreen(event.image))
           }
         }
         is HomeEvent.GoToImageModalBottom -> {
@@ -78,7 +80,7 @@ class HomePresenter @AssistedInject internal constructor(
               }
             })
             if (result) {
-              homeNavigator.goToDetail(overlayHost, event.image)
+              overlayHost.showFullScreenOverlay(DetailScreen(event.image))
             }
           }
         }
@@ -95,7 +97,7 @@ class HomePresenter @AssistedInject internal constructor(
               }
             )
             if (result) {
-              homeNavigator.goToDetail(overlayHost, event.image)
+              overlayHost.showFullScreenOverlay(DetailScreen(event.image))
             }
           }
         }
@@ -109,7 +111,7 @@ class HomePresenter @AssistedInject internal constructor(
           imagesRefreshSeed += 1
         }
         HomeEvent.TopBar.AccountClick -> {
-          homeNavigator.goToAccount(navigator)
+          navigator.goTo(AccountScreen())
         }
       }
     }
