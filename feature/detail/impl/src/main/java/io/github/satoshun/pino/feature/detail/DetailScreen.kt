@@ -22,11 +22,6 @@ import io.github.satoshun.pino.share.data.Image
 import io.github.satoshun.pino.share.ui.rememberEventSink
 import kotlinx.parcelize.Parcelize
 
-@Parcelize
-data class DetailScreen(
-  val image: Image,
-) : Screen
-
 @Stable
 data class DetailState(
   val image: Image,

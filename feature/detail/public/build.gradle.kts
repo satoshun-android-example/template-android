@@ -8,8 +8,6 @@ plugins {
 }
 
 dependencies {
-  api(projects.feature.detail.public)
-
   implementation(projects.share)
   implementation(projects.designsystem)
 
@@ -22,5 +20,5 @@ dependencies {
 }
 
 android {
-  namespace = "io.github.satoshun.pino.feature.detail"
+  namespace = "io.github.satoshun.pino.feature.detail.pub"
 }
