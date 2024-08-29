@@ -44,6 +44,7 @@ include(
 include(
   ":feature:home:public",
   ":feature:home:impl",
+  ":feature:home:demo",
 )
 include(
   ":feature:help:public",
