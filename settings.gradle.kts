@@ -36,7 +36,9 @@ include(
   ":feature:account:demo",
 )
 
-include(":feature:detail")
+include(
+  ":feature:detail:impl",
+)
 include(":feature:home")
 include(
   ":feature:help:public",

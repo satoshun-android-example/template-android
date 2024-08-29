@@ -44,7 +44,7 @@ dependencies {
 
   implementation(projects.feature.account.impl)
   implementation(projects.feature.home)
-  implementation(projects.feature.detail)
+  implementation(projects.feature.detail.impl)
   implementation(projects.feature.help.impl)
 
   implementation(libs.bundles.android.ui)
