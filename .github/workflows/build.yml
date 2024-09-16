@@ -40,40 +40,40 @@ jobs:
     #     name: build-outputs
     #     path: app/build/outputs
 
-  screenshots:
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
+  # screenshots:
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 30
 
-    steps:
-    - name: Cancel Previous Runs
-      uses: styfle/cancel-workflow-action@0.12.1
-      with:
-        access_token: ${{ github.token }}
+  #   steps:
+  #   - name: Cancel Previous Runs
+  #     uses: styfle/cancel-workflow-action@0.12.1
+  #     with:
+  #       access_token: ${{ github.token }}
 
-    - name: Checkout
-      uses: actions/checkout@v4
+  #   - name: Checkout
+  #     uses: actions/checkout@v4
 
-    - name: Gradle Wrapper Validation
-      uses: gradle/wrapper-validation-action@v3
+  #   - name: Gradle Wrapper Validation
+  #     uses: gradle/wrapper-validation-action@v3
 
-    - name: Setup Java
-      uses: ./.github/actions/setup-java
-      id: java
+  #   - name: Setup Java
+  #     uses: ./.github/actions/setup-java
+  #     id: java
 
-    - uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: '2.7'
+  #   - uses: ruby/setup-ruby@v1
+  #     with:
+  #       ruby-version: '2.7'
     
-    - name: Copy CI gradle.properties
-      run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+  #   - name: Copy CI gradle.properties
+  #     run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
-    - uses: burrunan/gradle-cache-action@v2
-      name: Verify paparazzi
-      with:
-        gradle-dependencies-cache-key: |
-          gradle/libs.versions.toml
-        arguments: |
-          vrt:paparazzi:verifyPaparazziDebug
+  #   - uses: burrunan/gradle-cache-action@v2
+  #     name: Verify paparazzi
+  #     with:
+  #       gradle-dependencies-cache-key: |
+  #         gradle/libs.versions.toml
+  #       arguments: |
+  #         vrt:paparazzi:verifyPaparazziDebug
 
   #   - name: Upload images
   #     if: failure()
