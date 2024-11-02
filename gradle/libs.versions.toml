@@ -13,7 +13,7 @@ showkase = "1.0.3"
 testParameterInjector = "1.18"
 lifecycle = "2.8.6"
 activity = "1.9.3"
-fragment = "1.8.4"
+fragment = "1.8.5"
 
 ksp = "2.0.21-1.0.26"
 circuit = "0.25.0"
