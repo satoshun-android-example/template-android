@@ -35,7 +35,7 @@ paparazzi = { id = "app.cash.paparazzi", version.ref = "paparazzi" }
 android-test = { id = "com.android.test", version.ref = "agp" }
 baselineprofile = { id = "androidx.baselineprofile", version.ref = "baselineprofile" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-screenshot = "com.android.compose.screenshot:0.0.1-alpha08"
+screenshot = "com.android.compose.screenshot:0.0.1-alpha09"
 
 # Plugins defined by this project
 pino-android-application = { id = "pino.android.application", version = "unspecified" }
