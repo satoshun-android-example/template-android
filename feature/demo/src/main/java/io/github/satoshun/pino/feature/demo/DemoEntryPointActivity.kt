@@ -18,7 +18,7 @@ import com.slack.circuit.runtime.presenter.Presenter
 import com.slack.circuit.runtime.screen.Screen
 import com.slack.circuit.runtime.ui.Ui
 import com.slack.circuitx.android.rememberAndroidScreenAwareNavigator
-import com.slack.circuitx.gesturenavigation.GestureNavigationDecoration
+import com.slack.circuitx.gesturenavigation.GestureNavigationDecorationFactory
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.satoshun.pino.designsystem.theme.PinoTheme
 import io.github.satoshun.pino.share.di.DaggerSet
@@ -56,8 +56,7 @@ class DemoEntryPointActivity : ComponentActivity() {
               NavigableCircuitContent(
                 navigator = intentAwareNavigator,
                 backStack = backStack,
-                decoration = GestureNavigationDecoration(
-                  fallback = circuit.defaultNavDecoration,
+                decoratorFactory = GestureNavigationDecorationFactory(
                   // Pop the back stack once the user has gone 'back'
                   onBackInvoked = navigator::pop,
                 ),
