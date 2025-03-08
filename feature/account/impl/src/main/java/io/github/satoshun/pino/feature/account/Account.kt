@@ -21,7 +21,7 @@ import androidx.compose.ui.res.stringResource
 import com.slack.circuit.codegen.annotations.CircuitInject
 import com.slack.circuit.foundation.CircuitCompositionLocals
 import com.slack.circuit.foundation.NavigableCircuitContent
-import com.slack.circuitx.gesturenavigation.GestureNavigationDecoration
+import com.slack.circuitx.gesturenavigation.GestureNavigationDecorationFactory
 import dagger.hilt.components.SingletonComponent
 import io.github.satoshun.pino.feature.account.impl.R
 
@@ -64,8 +64,8 @@ internal fun Account(
         NavigableCircuitContent(
           navigator = state.navigator,
           backStack = state.backStack,
-          decoration = GestureNavigationDecoration(
-            fallback = state.circuit.defaultNavDecoration,
+          decoration = state.circuit.defaultNavDecoration,
+          decoratorFactory = GestureNavigationDecorationFactory(
             // Pop the back stack once the user has gone 'back'
             onBackInvoked = state.navigator::pop,
           ),
