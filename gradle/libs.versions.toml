@@ -72,7 +72,7 @@ dagger-hilt-gradle = { module = "com.google.dagger:hilt-android-gradle-plugin", 
 dagger-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "dagger" }
 dagger-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "dagger" }
 
-android-core-ktx = "androidx.core:core-ktx:1.15.0"
+android-core-ktx = "androidx.core:core-ktx:1.16.0"
 android-compat = "androidx.appcompat:appcompat:1.7.0"
 fragment-core = { module = "androidx.fragment:fragment-ktx", version.ref = "fragment" }
 fragment-testing = { module = "androidx.fragment:fragment-testing", version.ref = "fragment" }
