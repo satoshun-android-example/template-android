@@ -25,7 +25,7 @@ jobs:
     - name: Copy CI gradle.properties
       run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
-    - uses: burrunan/gradle-cache-action@v2
+    - uses: burrunan/gradle-cache-action@v3
       name: Build
       with:
         gradle-dependencies-cache-key: |
