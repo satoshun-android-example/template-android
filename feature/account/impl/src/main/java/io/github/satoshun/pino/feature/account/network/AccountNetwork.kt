@@ -46,7 +46,7 @@ internal fun AccountNetwork(
       is AccountNetworkState.Success -> {
         itemsIndexed(state.items, key = { _, entry -> entry }) { index, entry ->
           Entry(
-            modifier = Modifier.animateItemPlacement(),
+            modifier = Modifier.animateItem(),
             text = stringResource(entry.title),
             index = index,
             lastIndex = state.items.lastIndex,
