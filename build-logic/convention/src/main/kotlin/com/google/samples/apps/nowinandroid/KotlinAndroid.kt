@@ -21,6 +21,7 @@ import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.provideDelegate
 import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 /**
@@ -41,35 +42,37 @@ internal fun Project.configureKotlinAndroid(
       targetCompatibility = JavaVersion.VERSION_17
     }
     tasks.withType<KotlinCompile> {
-      kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
+      compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_17)
 
         // Treat all Kotlin warnings as errors (disabled by default)
         // Override by setting warningsAsErrors=true in your ~/.gradle/gradle.properties
         val warningsAsErrors: String? by project
-        allWarningsAsErrors = warningsAsErrors.toBoolean()
+        allWarningsAsErrors.set(warningsAsErrors.toBoolean())
 
-        freeCompilerArgs += listOf(
-          "-opt-in=kotlin.RequiresOptIn",
+        freeCompilerArgs.addAll(
+          listOf(
+            "-opt-in=kotlin.RequiresOptIn",
 
-          // Enable experimental coroutines APIs, including Flow
-          "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-          "-opt-in=kotlinx.coroutines.FlowPreview",
-          "-opt-in=kotlin.Experimental",
+            // Enable experimental coroutines APIs, including Flow
+            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+            "-opt-in=kotlinx.coroutines.FlowPreview",
+            "-opt-in=kotlin.Experimental",
 
-          // Enable experimental kotlinx serialization APIs
-          "-opt-in=kotlinx.serialization.ExperimentalSerializationApi",
+            // Enable experimental kotlinx serialization APIs
+            "-opt-in=kotlinx.serialization.ExperimentalSerializationApi",
 
-          // https://mobile.twitter.com/ZacSweers/status/1520399593577582593
-          "-Xsam-conversions=class",
+            // https://mobile.twitter.com/ZacSweers/status/1520399593577582593
+            "-Xsam-conversions=class",
+          )
         )
       }
     }
   }
 
   tasks.withType<KotlinCompile>().configureEach {
-    kotlinOptions {
-      jvmTarget = "17"
+    compilerOptions {
+      jvmTarget.set(JvmTarget.JVM_17)
     }
   }
 }
