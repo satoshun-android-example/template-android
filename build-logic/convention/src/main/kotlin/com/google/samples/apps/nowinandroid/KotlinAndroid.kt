@@ -62,6 +62,9 @@ internal fun Project.configureKotlinAndroid(
             // Enable experimental kotlinx serialization APIs
             "-opt-in=kotlinx.serialization.ExperimentalSerializationApi",
 
+            // Enable material3 expressive
+            "-opt-in=androidx.compose.material3.ExperimentalMaterial3ExpressiveApi",
+
             // https://mobile.twitter.com/ZacSweers/status/1520399593577582593
             "-Xsam-conversions=class",
           )
