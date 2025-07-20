@@ -56,6 +56,7 @@ compose-animation = { module = "androidx.compose.animation:animation" }
 compose-testing-core = { module = "androidx.compose.ui:ui-test", version.ref = "composeTest" }
 compose-testing-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "composeTest" }
 compose-testing-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "composeTest" }
+compose-material-icons-core = { module = "androidx.compose.material:material-icons-core" }
 # for material3 expressive
 compose-material = "androidx.compose.material3:material3:1.4.0-alpha18"
 
@@ -143,6 +144,7 @@ android-ui = [
     "compose-foundation-core",
     "compose-foundation-layout",
     "compose-material",
+    "compose-material-icons-core",
     "compose-animation",
     "compose-navigation",
     "android-hilt-navigation-compose",

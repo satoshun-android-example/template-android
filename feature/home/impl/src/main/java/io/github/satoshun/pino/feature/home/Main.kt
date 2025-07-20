@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.CircularWavyProgressIndicator
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
@@ -27,7 +27,7 @@ internal fun Main(
           .fillMaxSize(),
         contentAlignment = Alignment.Center,
       ) {
-        CircularProgressIndicator()
+        CircularWavyProgressIndicator()
       }
     }
     is HomeTabState.MainState.Success -> {
