@@ -87,7 +87,7 @@ lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel
 
 truth = "com.google.truth:truth:1.4.4"
 android-test-runner = "androidx.test:runner:1.6.2"
-android-test-espresso = "androidx.test.espresso:espresso-core:3.6.1"
+android-test-espresso = "androidx.test.espresso:espresso-core:3.7.0"
 
 coil-compose = "io.coil-kt:coil-compose:2.7.0"
 
