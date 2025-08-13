@@ -58,7 +58,7 @@ compose-testing-junit4 = { module = "androidx.compose.ui:ui-test-junit4", versio
 compose-testing-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "composeTest" }
 compose-material-icons-core = { module = "androidx.compose.material:material-icons-core" }
 # for material3 expressive
-compose-material = "androidx.compose.material3:material3:1.5.0-alpha01"
+compose-material = "androidx.compose.material3:material3:1.5.0-alpha02"
 
 compose-accompanist-swiperefresh = { module = "com.google.accompanist:accompanist-swiperefresh", version.ref = "accompanist" }
 compose-accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
