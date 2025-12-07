@@ -17,7 +17,7 @@ fragment = "1.8.9"
 
 ksp = "2.2.20-2.0.4"
 circuit = "0.30.0"
-composeTest = "1.9.3"
+composeTest = "1.10.0"
 junit = "1.3.0"
 uiautomator = "2.3.0"
 benchmarkMacroJunit4 = "1.4.1"
